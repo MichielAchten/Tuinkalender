@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuinkalenderConsole", "Tuinkalender\TuinkalenderConsole.csproj", "{8DA0499E-3CA8-4B17-B22E-955451DE4E29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuinkalenderBL", "TuinkalenderBL\TuinkalenderBL.csproj", "{A64C3333-1B42-4424-BAB0-CDB9F8EED3F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuinkalenderDA", "TuinkalenderDbAL\TuinkalenderDA.csproj", "{6CAC1B89-18F9-4FC3-BFBB-69F95071A77D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1DC5D30D-8911-421E-9A5E-81DC175F1A2F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8DA0499E-3CA8-4B17-B22E-955451DE4E29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA0499E-3CA8-4B17-B22E-955451DE4E29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA0499E-3CA8-4B17-B22E-955451DE4E29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA0499E-3CA8-4B17-B22E-955451DE4E29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A64C3333-1B42-4424-BAB0-CDB9F8EED3F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A64C3333-1B42-4424-BAB0-CDB9F8EED3F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A64C3333-1B42-4424-BAB0-CDB9F8EED3F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A64C3333-1B42-4424-BAB0-CDB9F8EED3F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CAC1B89-18F9-4FC3-BFBB-69F95071A77D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CAC1B89-18F9-4FC3-BFBB-69F95071A77D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CAC1B89-18F9-4FC3-BFBB-69F95071A77D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CAC1B89-18F9-4FC3-BFBB-69F95071A77D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
