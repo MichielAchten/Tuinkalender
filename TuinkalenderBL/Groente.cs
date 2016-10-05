@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TuinkalenderBL
 {
+    [Table("Groenten")]
     public class Groente: Voedingsgewas
     {
         //public Groente(string nederlandseNaam, Klus oogsten, Klus onderhoud, EnumZaaiMogelijkheden zaaimogelijkheden,
@@ -36,21 +38,24 @@ namespace TuinkalenderBL
 
         //}
 
-        public override string NederlandseNaam { get; set; }
-
-
-        //public EnumZaaiMogelijkheden Zaaimogelijkheden { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int GroenteId { get; set; }
+        [Column("Nederlandse naam")]
+        public override string NederlandseNaam { get; set; }
+        [Column("Voorzaaien")]
         public Klus Voorzaaien { get; set; }
+        [Column("Planten")]
         public Klus Planten { get; set; }
+        [Column("Zaaien volle grond")]
         public Klus ZaaienVolleGrond { get; set; }
+        [Column("Oogsten")]
         public override Klus Oogsten { get; set; }
+        [Column("Onderhoud")]
         public override List<Klus> Onderhoud { get; set; }
 
         //public bool EenmaligOogsten { get; set; }
 
-        public List<Klus> Klussen { get; set; }
+        //public List<Klus> Klussen { get; set; }
 
         public override void MaakOverzichtKlussen()
         {

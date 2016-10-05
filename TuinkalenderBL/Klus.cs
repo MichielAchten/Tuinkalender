@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace TuinkalenderBL
 {
+    [Table("Klus")]
     public class Klus
     {
         //public Klus(string omschrijving, int tijdstip)
@@ -16,12 +17,18 @@ namespace TuinkalenderBL
         //    Tijdstip = tijdstip;
         //}
 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int KlusId { get; set; }
-        //[Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Column("Omschrijving")]
         public string Omschrijving { get; set; }
+        [Column("Tijdstip")]
         public int Tijdstip { get; set; }
 
-        public Groente Groente { get; set; }
+        public virtual Groente Groente { get; set; }
+        public int GroenteId { get; set; }
+
+        //[Column("Groente")]
+        //public Groente Groente { get; set; }
 
     }
 }

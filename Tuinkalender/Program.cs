@@ -13,7 +13,7 @@ namespace TuinkalenderConsole
     {
         static void Main(string[] args)
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<KalenderContext>());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<KalenderContext>());
 
             using (var context = new KalenderContext())
             {
@@ -33,7 +33,7 @@ namespace TuinkalenderConsole
                 lijstGroenten.Add(aardappel);
 
                 //aardpeer
-                //var oogstenAardpeer = new Klus { Omschrijving = "Oogsten", Tijdstip = 11 };
+                //...
 
 
                 context.Groenten.Add(aardappel);
