@@ -15,8 +15,8 @@ namespace TuinkalenderDA
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Groente>().Map(m => m.MapInheritedProperties());
-            modelBuilder.Entity<Klus>().Map(m => m.MapInheritedProperties());
+           // modelBuilder.Entity<Groente>().Map(m => m.MapInheritedProperties());
+           // modelBuilder.Entity<Klus>().Map(m => m.MapInheritedProperties());
         }
     }
 }

@@ -24,8 +24,9 @@ namespace TuinkalenderBL
         [Column("Tijdstip")]
         public int Tijdstip { get; set; }
 
+        [Column("Groente")]
         public virtual Groente Groente { get; set; }
-        public int GroenteId { get; set; }
+//        public int GroenteId { get; set; }
 
         //[Column("Groente")]
         //public Groente Groente { get; set; }

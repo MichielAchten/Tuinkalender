@@ -28,8 +28,11 @@ namespace TuinkalenderConsole
                     NederlandseNaam = "Aardappel",
                     ZaaienVolleGrond = plantenAardappelen,
                     Oogsten = oogstenAardappelen,
-                    Onderhoud = new List<Klus> { aanaardenAardappelen }
+                    Klussen = new List<Klus> { aanaardenAardappelen, oogstenAardappelen }
+                   // Onderhoud = new List<Klus> { aanaardenAardappelen, oogstenAardappelen  }
                 };
+
+            
                 lijstGroenten.Add(aardappel);
 
                 //aardpeer

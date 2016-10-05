@@ -50,9 +50,9 @@ namespace TuinkalenderBL
         public Klus ZaaienVolleGrond { get; set; }
         [Column("Oogsten")]
         public override Klus Oogsten { get; set; }
-        [Column("Onderhoud")]
-        public override List<Klus> Onderhoud { get; set; }
-
+     //   [Column("Onderhoud")]
+     //   public override List<Klus> Onderhoud { get; set; }
+        public virtual List<Klus> Klussen { get; set; }
         //public bool EenmaligOogsten { get; set; }
 
         //public List<Klus> Klussen { get; set; }
