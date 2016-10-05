@@ -38,21 +38,37 @@ namespace TuinkalenderBL
 
         //}
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
+
         public int GroenteId { get; set; }
         [Column("Nederlandse naam")]
         public override string NederlandseNaam { get; set; }
-        [Column("Voorzaaien")]
-        public Klus Voorzaaien { get; set; }
-        [Column("Planten")]
-        public Klus Planten { get; set; }
-        [Column("Zaaien volle grond")]
-        public Klus ZaaienVolleGrond { get; set; }
-        [Column("Oogsten")]
-        public override Klus Oogsten { get; set; }
+
+        public virtual ICollection<Klus> Klussen { get; set; }
+
+
+
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //public int GroenteId { get; set; }
+        //[Column("Nederlandse naam")]
+        //public override string NederlandseNaam { get; set; }
+        //[Column("Voorzaaien")]
+        //public Klus Voorzaaien { get; set; }
+        //[Column("Planten")]
+        //public Klus Planten { get; set; }
+        //[Column("Zaaien volle grond")]
+        //public Klus ZaaienVolleGrond { get; set; }
+        //[Column("Oogsten")]
+        //public override Klus Oogsten { get; set; }
      //   [Column("Onderhoud")]
      //   public override List<Klus> Onderhoud { get; set; }
-        public virtual List<Klus> Klussen { get; set; }
+        
+        
+        
+        //public virtual List<Klus> Klussen { get; set; }
+        
+        
+        
         //public bool EenmaligOogsten { get; set; }
 
         //public List<Klus> Klussen { get; set; }

@@ -20,7 +20,7 @@ namespace TuinkalenderBL
         //}
 
         public override string NederlandseNaam { get; set; }
-        public abstract Klus Oogsten { get; set; }
+        //public abstract Klus Oogsten { get; set; }
       //  public abstract List<Klus> Onderhoud { get; set; }
 
         public abstract void MaakOverzichtKlussen();

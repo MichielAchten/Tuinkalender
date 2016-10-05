@@ -20,15 +20,13 @@ namespace TuinkalenderConsole
                 List<Groente> lijstGroenten = new List<Groente>();
                 
                 //aardappel
-                var oogstenAardappelen = new Klus { Omschrijving = "Oogsten", Tijdstip = 9 };
-                var plantenAardappelen = new Klus { Omschrijving = "Planten", Tijdstip = 4 };
-                var aanaardenAardappelen = new Klus { Omschrijving = "Aanaarden", Tijdstip = 5 };
+                var oogstenAardappelen = new Klus { Omschrijving = "Oogsten", Begintijdstip = 9, Duur = 1 };
+                var plantenAardappelen = new Klus { Omschrijving = "Planten", Begintijdstip = 4, Duur = 1 };
+                var aanaardenAardappelen = new Klus { Omschrijving = "Aanaarden", Begintijdstip = 5, Duur = 1 };
                 var aardappel = new Groente
                 {
                     NederlandseNaam = "Aardappel",
-                    ZaaienVolleGrond = plantenAardappelen,
-                    Oogsten = oogstenAardappelen,
-                    Klussen = new List<Klus> { aanaardenAardappelen, oogstenAardappelen }
+                    Klussen = new List<Klus> { aanaardenAardappelen, oogstenAardappelen, plantenAardappelen }
                    // Onderhoud = new List<Klus> { aanaardenAardappelen, oogstenAardappelen  }
                 };
 

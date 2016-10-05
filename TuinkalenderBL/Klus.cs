@@ -17,16 +17,18 @@ namespace TuinkalenderBL
         //    Tijdstip = tijdstip;
         //}
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int KlusId { get; set; }
         [Column("Omschrijving")]
         public string Omschrijving { get; set; }
-        [Column("Tijdstip")]
-        public int Tijdstip { get; set; }
+        [Column("Begintijdstip")]
+        public int Begintijdstip { get; set; }
+        [Column("Duur")]
+        public int Duur { get; set; }
 
-        [Column("Groente")]
-        public virtual Groente Groente { get; set; }
-//        public int GroenteId { get; set; }
+        //[Column("Groente")]
+        public virtual ICollection<Groente> Groente { get; set; }
+        //public int GroenteId { get; set; }
 
         //[Column("Groente")]
         //public Groente Groente { get; set; }
