@@ -19,8 +19,12 @@ namespace TuinkalenderBL
 
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int KlusId { get; set; }
-        [Column("Omschrijving")]
-        public string Omschrijving { get; set; }
+        [Column("Korte Omschrijving")]
+        public string KorteOmschrijving { get; set; }
+        [Column("Lange Omschrijving")]
+        public string LangeOmschrijving { get; set; }
+        [Column("Soort Klus")]
+        public SoortKlus SoortKlus { get; set; }
         [Column("Begintijdstip")]
         public int Begintijdstip { get; set; }
         [Column("Duur")]

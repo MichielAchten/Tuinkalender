@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumSoortKlus.cs" />
     <Compile Include="Fruit.cs" />
     <Compile Include="Groente.cs" />
     <Compile Include="Keukenkruid.cs" />
