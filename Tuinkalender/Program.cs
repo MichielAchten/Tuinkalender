@@ -291,7 +291,7 @@ namespace TuinkalenderConsole
                 var voorzaaien4_3 = new Klus
                 {
                     KorteOmschrijving = "Voorzaaien",
-                    LangeOmschrijving = "Voorzaaien in kweekbed",
+                    LangeOmschrijving = "Voorzaaien in kweekbed.",
                     SoortKlus = SoortKlus.Voorzaaien,
                     Begintijdstip = 4,
                     Duur = 3
@@ -330,7 +330,49 @@ namespace TuinkalenderConsole
 
                 LijstGroenten.Add(boerenkool);
 
+                //broccoli
+                //klussen
+                var voorzaaien5_2 = new Klus
+                {
+                    KorteOmschrijving = "Voorzaaien",
+                    LangeOmschrijving = "Voorzaaien in kweekbed.",
+                    SoortKlus = SoortKlus.Voorzaaien,
+                    Begintijdstip = 5,
+                    Duur = 2
+                };
+                var uitplanten7_1 = new Klus
+                {
+                    KorteOmschrijving = "Uitplanten",
+                    LangeOmschrijving = "Uitplanten wanneer de plantjes 4 tot 6 blaadjes hebben.",
+                    SoortKlus = SoortKlus.Uitplanten,
+                    Begintijdstip = 7,
+                    Duur = 1
+                };
+                var onderhoud6_2_I = new Klus
+                {
+                    KorteOmschrijving = "Verspenen",
+                    LangeOmschrijving = "Verspenen vier weken na het voorzaaien.",
+                    SoortKlus = SoortKlus.AnderOnderhoud,
+                    Begintijdstip = 6,
+                    Duur = 2
+                };
+                var oogsten3_3 = new Klus
+                {
+                    KorteOmschrijving = "Oogsten",
+                    LangeOmschrijving = "aanvullen",
+                    SoortKlus = SoortKlus.Oogsten,
+                    Begintijdstip = 3,
+                    Duur = 3
+                };
 
+                //groente
+                var broccoli = new Groente
+                {
+                    NederlandseNaam = "Broccoli",
+                    Klussen = new List<Klus> { voorzaaien5_2, uitplanten7_1, onderhoud6_2_I, oogsten3_3 }
+                };
+
+                LijstGroenten.Add(broccoli);
 
 
 
