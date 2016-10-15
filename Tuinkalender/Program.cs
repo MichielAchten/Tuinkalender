@@ -29,7 +29,7 @@ namespace TuinkalenderConsole
             {
                 //aardappel
                 //klussen
-                var planten4_1 = new Klus
+                var plantenAardappel = new Klus
                 {
                     KorteOmschrijving = "Planten",
                     LangeOmschrijving = "aanvullen",
@@ -37,15 +37,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 4,
                     Duur = 1
                 };
-                var oogsten9_1 = new Klus
-                {
-                    KorteOmschrijving = "Oogsten",
-                    LangeOmschrijving = "aanvullen",
-                    SoortKlus = SoortKlus.Oogsten,
-                    Begintijdstip = 9,
-                    Duur = 1
-                };
-                var onderhoud5_1_I = new Klus
+                var onderhoudAardappelAanaarden = new Klus
                 {
                     KorteOmschrijving = "Aanaarden",
                     LangeOmschrijving = "aanvullen",
@@ -53,19 +45,27 @@ namespace TuinkalenderConsole
                     Begintijdstip = 5,
                     Duur = 1
                 };
+                var oogstenAardappel = new Klus
+                {
+                    KorteOmschrijving = "Oogsten",
+                    LangeOmschrijving = "aanvullen",
+                    SoortKlus = SoortKlus.Oogsten,
+                    Begintijdstip = 9,
+                    Duur = 1
+                };
 
                 //groente
                 var aardappel = new Groente
                 {
                     NederlandseNaam = "Aardappel",
-                    Klussen = new List<Klus> { planten4_1, oogsten9_1, onderhoud5_1_I }
+                    Klussen = new List<Klus> { plantenAardappel, onderhoudAardappelAanaarden, oogstenAardappel }
                 };
                 
                 LijstGroenten.Add(aardappel);
 
                 //aardpeer
                 //klussen
-                var planten3_2 = new Klus
+                var plantenAardpeer = new Klus
                 {
                     KorteOmschrijving = "Planten",
                     LangeOmschrijving = "aanvullen",
@@ -73,7 +73,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 3,
                     Duur = 2
                 };
-                var oogsten11_4 = new Klus
+                var oogstenAardpeer = new Klus
                 {
                     KorteOmschrijving = "Oogsten",
                     LangeOmschrijving = "aanvullen",
@@ -81,7 +81,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 11,
                     Duur = 4
                 };
-                var onderhoud10_1_I = new Klus
+                var onderhoudAardpeerVoorDeVorst = new Klus
                 {
                     KorteOmschrijving = "Voor de vorst",
                     LangeOmschrijving = "Voor de vorst dode bladeren leggen rond de plant.",
@@ -94,17 +94,24 @@ namespace TuinkalenderConsole
                 var aardpeer = new Groente
                 {
                     NederlandseNaam = "Aardpeer",
-                    Klussen = new List<Klus> { planten3_2, oogsten11_4, onderhoud10_1_I }
+                    Klussen = new List<Klus> { plantenAardpeer, oogstenAardpeer, onderhoudAardpeerVoorDeVorst }
                 };
 
                 LijstGroenten.Add(aardpeer);
 
                 //artisjok
                 //klussen
-                //planten3_2
-                var oogsten7_3 = new Klus
+                var plantenArtisjok = new Klus
                 {
-                    KorteOmschrijving = "oogsten",
+                    KorteOmschrijving = "Planten",
+                    LangeOmschrijving = "aanvullen",
+                    SoortKlus = SoortKlus.ZaaienOfPlanten,
+                    Begintijdstip = 3,
+                    Duur = 2
+                };
+                var oogstenArtisjok = new Klus
+                {
+                    KorteOmschrijving = "Oogsten",
                     LangeOmschrijving = "aanvullen",
                     SoortKlus = SoortKlus.Oogsten,
                     Begintijdstip = 7,
@@ -115,14 +122,14 @@ namespace TuinkalenderConsole
                 var artisjok = new Groente
                 {
                     NederlandseNaam = "Artisjok",
-                    Klussen = new List<Klus> { planten3_2, oogsten7_3 }
+                    Klussen = new List<Klus> { plantenArtisjok, oogstenArtisjok }
                 };
 
                 LijstGroenten.Add(artisjok);
 
                 //asperge
                 //klussen
-                var planten3_1 = new Klus
+                var plantenAsperge = new Klus
                 {
                     KorteOmschrijving = "Planten",
                     LangeOmschrijving = "aanvullen",
@@ -130,7 +137,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 3,
                     Duur = 1
                 };
-                var oogsten4_3 = new Klus
+                var oogstenAsperge = new Klus
                 {
                     KorteOmschrijving = "Oogsten",
                     LangeOmschrijving = "aanvullen",
@@ -143,14 +150,14 @@ namespace TuinkalenderConsole
                 var asperge = new Groente
                 {
                     NederlandseNaam = "Asperge",
-                    Klussen = new List<Klus> { planten3_1, oogsten4_3 }
+                    Klussen = new List<Klus> { plantenAsperge, oogstenAsperge }
                 };
 
                 LijstGroenten.Add(asperge);
 
                 //aubergine
                 //klussen
-                var voorzaaien2_1 = new Klus
+                var voorzaaienAubergine = new Klus
                 {
                     KorteOmschrijving = "Voorzaaien",
                     LangeOmschrijving = "aanvullen",
@@ -158,7 +165,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 2,
                     Duur = 1
                 };
-                var uitplanten3_1 = new Klus
+                var uitplantenAubergine = new Klus
                 {
                     KorteOmschrijving = "Uitplanten",
                     LangeOmschrijving = "Uitplanten ongeveer een maand na het voorzaaien.",
@@ -166,7 +173,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 3,
                     Duur = 1
                 };
-                var oogsten7_5 = new Klus
+                var oogstenAubergine = new Klus
                 {
                     KorteOmschrijving = "Oogsten",
                     LangeOmschrijving = "aanvullen",
@@ -179,14 +186,14 @@ namespace TuinkalenderConsole
                 var aubergine = new Groente
                 {
                     NederlandseNaam = "Aubergine",
-                    Klussen = new List<Klus> { voorzaaien2_1, uitplanten3_1, oogsten7_5 }
+                    Klussen = new List<Klus> { voorzaaienAubergine, uitplantenAubergine, oogstenAubergine }
                 };
 
                 LijstGroenten.Add(aubergine);
 
                 //augurk
                 //klussen
-                var zaaien5_2 = new Klus
+                var zaaienAugurk = new Klus
                 {
                     KorteOmschrijving = "Zaaien",
                     LangeOmschrijving = "aanvullen",
@@ -194,7 +201,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 5,
                     Duur = 2
                 };
-                var oogsten7_4 = new Klus
+                var oogstenAugurk = new Klus
                 {
                     KorteOmschrijving = "Oogsten",
                     LangeOmschrijving = "aanvullen",
@@ -207,14 +214,14 @@ namespace TuinkalenderConsole
                 var augurk = new Groente
                 {
                     NederlandseNaam = "Augurk",
-                    Klussen = new List<Klus> { zaaien5_2, oogsten7_4 }
+                    Klussen = new List<Klus> { zaaienAugurk, oogstenAugurk }
                 };
 
                 LijstGroenten.Add(augurk);
 
                 //bleekselder
                 //klussen
-                var voorzaaien3_3 = new Klus
+                var voorzaaien3_3_Bleekselder = new Klus
                 {
                     KorteOmschrijving = "Voorzaaien",
                     LangeOmschrijving = "aanvullen",
@@ -222,7 +229,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 3,
                     Duur = 3
                 };
-                var uitplanten4_2 = new Klus
+                var uitplantenBleekselder = new Klus
                 {
                     KorteOmschrijving = "Uitplanten",
                     LangeOmschrijving = "aanvullen",
@@ -230,7 +237,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 4,
                     Duur = 2
                 };
-                var onderhoud5_3_I = new Klus
+                var onderhoudBleekselderVerspenen = new Klus
                 {
                     KorteOmschrijving = "Verspenen",
                     LangeOmschrijving = "Verspenen twee maanden na het voorzaaien.",
@@ -238,20 +245,28 @@ namespace TuinkalenderConsole
                     Begintijdstip = 5,
                     Duur = 3
                 };
-                //oogsten7_4
+                var oogstenBleekselder = new Klus
+                {
+                    KorteOmschrijving = "Oogsten",
+                    LangeOmschrijving = "aanvullen",
+                    SoortKlus = SoortKlus.Oogsten,
+                    Begintijdstip = 7,
+                    Duur = 5
+                };
 
                 //groente
                 var bleekselder = new Groente
                 {
                     NederlandseNaam = "Bleekselder",
-                    Klussen = new List<Klus> { voorzaaien3_3, uitplanten4_2, onderhoud5_3_I, oogsten7_4 }
+                    Klussen = new List<Klus> { voorzaaien3_3_Bleekselder, uitplantenBleekselder,
+                        onderhoudBleekselderVerspenen, oogstenBleekselder }
                 };
 
                 LijstGroenten.Add(bleekselder);
 
                 //bloemkool
                 //klussen
-                var voorzaaien3_4 = new Klus
+                var voorzaaienBloemkool = new Klus
                 {
                     KorteOmschrijving = "Voorzaaien",
                     LangeOmschrijving = "Voorzaaien in kweekbed.",
@@ -259,7 +274,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 3,
                     Duur = 4
                 };
-                var uitplanten5_4 = new Klus
+                var uitplantenBloemkool = new Klus
                 {
                     KorteOmschrijving = "Uitplanten",
                     LangeOmschrijving = "Uitplanten anderhalve maand na voorzaaien.",
@@ -267,7 +282,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 5,
                     Duur = 4
                 };
-                var onderhoud4_4_I = new Klus
+                var onderhoudBloemkoolVerspenen = new Klus
                 {
                     KorteOmschrijving = "Verspenen",
                     LangeOmschrijving = "Verspenen een maand na het voorzaaien.",
@@ -275,20 +290,28 @@ namespace TuinkalenderConsole
                     Begintijdstip = 4,
                     Duur = 4
                 };
-                //oogsten7_5
+                var oogstenBloemkool = new Klus
+                {
+                    KorteOmschrijving = "Oogsten",
+                    LangeOmschrijving = "aanvullen",
+                    SoortKlus = SoortKlus.Oogsten,
+                    Begintijdstip = 7,
+                    Duur = 5
+                };
 
                 //groente
                 var bloemkool = new Groente
                 {
                     NederlandseNaam = "Bloemkool",
-                    Klussen = new List<Klus> { voorzaaien3_4, uitplanten5_4, onderhoud4_4_I, oogsten7_5 }
+                    Klussen = new List<Klus> { voorzaaienBloemkool, uitplantenBloemkool,
+                        onderhoudBloemkoolVerspenen, oogstenBloemkool }
                 };
 
                 LijstGroenten.Add(bloemkool);
 
                 //boerenkool
                 //klussen
-                var voorzaaien4_3 = new Klus
+                var voorzaaienBoerenkool = new Klus
                 {
                     KorteOmschrijving = "Voorzaaien",
                     LangeOmschrijving = "Voorzaaien in kweekbed.",
@@ -296,7 +319,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 4,
                     Duur = 3
                 };
-                var uitplanten6_3 = new Klus
+                var uitplantenBoerenkool = new Klus
                 {
                     KorteOmschrijving = "Uitplanten",
                     LangeOmschrijving = "Uitplanten anderhalve maand na voorzaaien.",
@@ -304,7 +327,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 6,
                     Duur = 3
                 };
-                var onderhoud4_3_I = new Klus
+                var onderhoudBoerenkoolUitdunnen = new Klus
                 {
                     KorteOmschrijving = "Uitdunnen",
                     LangeOmschrijving = "Uitdunnen drie weken na voorzaaien.",
@@ -312,7 +335,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 4,
                     Duur = 3
                 };
-                var oogsten10_6 = new Klus
+                var oogstenBoerenkool = new Klus
                 {
                     KorteOmschrijving = "Oogsten",
                     LangeOmschrijving = "aanvullen",
@@ -325,14 +348,15 @@ namespace TuinkalenderConsole
                 var boerenkool = new Groente
                 {
                     NederlandseNaam = "Boerenkool",
-                    Klussen = new List<Klus> { voorzaaien4_3, uitplanten6_3, onderhoud4_3_I, oogsten10_6 }
+                    Klussen = new List<Klus> { voorzaaienBoerenkool, uitplantenBoerenkool,
+                        onderhoudBoerenkoolUitdunnen, oogstenBoerenkool }
                 };
 
                 LijstGroenten.Add(boerenkool);
 
                 //broccoli
                 //klussen
-                var voorzaaien5_2 = new Klus
+                var voorzaaienBroccoli = new Klus
                 {
                     KorteOmschrijving = "Voorzaaien",
                     LangeOmschrijving = "Voorzaaien in kweekbed.",
@@ -340,7 +364,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 5,
                     Duur = 2
                 };
-                var uitplanten7_1 = new Klus
+                var uitplantenBroccoli = new Klus
                 {
                     KorteOmschrijving = "Uitplanten",
                     LangeOmschrijving = "Uitplanten wanneer de plantjes 4 tot 6 blaadjes hebben.",
@@ -348,7 +372,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 7,
                     Duur = 1
                 };
-                var onderhoud6_2_I = new Klus
+                var onderhoudBroccoliVerspenen = new Klus
                 {
                     KorteOmschrijving = "Verspenen",
                     LangeOmschrijving = "Verspenen vier weken na het voorzaaien.",
@@ -356,7 +380,7 @@ namespace TuinkalenderConsole
                     Begintijdstip = 6,
                     Duur = 2
                 };
-                var oogsten3_3 = new Klus
+                var oogstenBroccoli = new Klus
                 {
                     KorteOmschrijving = "Oogsten",
                     LangeOmschrijving = "aanvullen",
@@ -369,10 +393,166 @@ namespace TuinkalenderConsole
                 var broccoli = new Groente
                 {
                     NederlandseNaam = "Broccoli",
-                    Klussen = new List<Klus> { voorzaaien5_2, uitplanten7_1, onderhoud6_2_I, oogsten3_3 }
+                    Klussen = new List<Klus> { voorzaaienBroccoli, uitplantenBroccoli,
+                        onderhoudBroccoliVerspenen, oogstenBroccoli }
                 };
 
                 LijstGroenten.Add(broccoli);
+
+                //courgette
+                //klussen
+                var voorzaaienCourgette = new Klus
+                {
+                    KorteOmschrijving = "Voorzaaien",
+                    LangeOmschrijving = "Voorzaaien in potjes onder glas. Meerdere zaadjes per pot.",
+                    SoortKlus = SoortKlus.Voorzaaien,
+                    Begintijdstip = 4,
+                    Duur = 2
+                };
+                var uitplantenCourgette = new Klus
+                {
+                    KorteOmschrijving = "Uitplanten",
+                    LangeOmschrijving = "Uitplanten 3 tot 4 weken na het voorzaaien.",
+                    SoortKlus = SoortKlus.Uitplanten,
+                    Begintijdstip = 5,
+                    Duur = 2
+                };
+                var onderhoudCourgetteUitdunnen = new Klus
+                {
+                    KorteOmschrijving = "Uitdunnen",
+                    LangeOmschrijving = "Uitdunnen 2 weken na het voorzaaien.",
+                    SoortKlus = SoortKlus.AnderOnderhoud,
+                    Begintijdstip = 4,
+                    Duur = 2
+                };
+                var oogstenCourgette = new Klus
+                {
+                    KorteOmschrijving = "Oogsten",
+                    LangeOmschrijving = "aanvullen",
+                    SoortKlus = SoortKlus.Oogsten,
+                    Begintijdstip = 7,
+                    Duur = 3
+                };
+
+                //groente
+                var courgette = new Groente
+                {
+                    NederlandseNaam = "Courgette",
+                    Klussen = { voorzaaienCourgette, uitplantenCourgette,
+                        onderhoudCourgetteUitdunnen, oogstenCourgette }
+                };
+
+                LijstGroenten.Add(courgette);
+
+                //doperwt
+                //klussen
+                var zaaienDoperwt = new Klus
+                {
+                    KorteOmschrijving = "Zaaien",
+                    LangeOmschrijving = "aanvullen",
+                    SoortKlus = SoortKlus.ZaaienOfPlanten,
+                    Begintijdstip = 2,
+                    Duur = 5
+                };
+                var onderhoudDoperwtOphogen = new Klus
+                {
+                    KorteOmschrijving = "Ophogen",
+                    LangeOmschrijving = "Ophogen andehalve maand na het zaaien.",
+                    SoortKlus = SoortKlus.AnderOnderhoud,
+                    Begintijdstip = 3,
+                    Duur = 5
+                };
+                var oogstenDoperwt = new Klus
+                {
+                    KorteOmschrijving = "Oogsten",
+                    LangeOmschrijving = "aanvullen",
+                    SoortKlus = SoortKlus.Oogsten,
+                    Begintijdstip = 6,
+                    Duur = 5
+                };
+
+                //groente
+                var doperwt = new Groente
+                {
+                    NederlandseNaam = "Doperwt",
+                    Klussen = { zaaienDoperwt, onderhoudDoperwtOphogen, oogstenDoperwt }
+                };
+
+                LijstGroenten.Add(doperwt);
+
+                //knoflook
+                //klussen
+                var plantenKnoflook = new Klus
+                {
+                    KorteOmschrijving = "Planten",
+                    LangeOmschrijving = "aanvullen",
+                    SoortKlus = SoortKlus.ZaaienOfPlanten,
+                    Begintijdstip = 10,
+                    Duur = 2
+                };
+                var oogstenKnoflook = new Klus
+                {
+                    KorteOmschrijving = "Oogsten",
+                    LangeOmschrijving = "aanvullen",
+                    SoortKlus = SoortKlus.Oogsten,
+                    Begintijdstip = 6,
+                    Duur = 1
+                };
+
+                //groente
+                var knoflook = new Groente
+                {
+                    NederlandseNaam = "Knoflook",
+                    Klussen = { plantenKnoflook, oogstenKnoflook }
+                };
+
+                LijstGroenten.Add(knoflook);
+
+                //knolselder
+                //klussen
+                var voorzaaienKnolselder = new Klus
+                {
+                    KorteOmschrijving = "Voorzaaien",
+                    LangeOmschrijving = "Voorzaaien in zaai- of kweekbed.",
+                    SoortKlus = SoortKlus.Voorzaaien,
+                    Begintijdstip = 3,
+                    Duur = 3
+                };
+                var uitplantenKnolselder = new Klus
+                {
+                    KorteOmschrijving = "Uitplanten",
+                    LangeOmschrijving = "aanvullen",
+                    SoortKlus = SoortKlus.Uitplanten,
+                    Begintijdstip = 5,
+                    Duur = 2
+                };
+                var onderhoudKnolselderVerspenen = new Klus
+                {
+                    KorteOmschrijving = "Verspenen",
+                    LangeOmschrijving = "Verspenen anderhalve maand na het voorzaaien.",
+                    SoortKlus = SoortKlus.AnderOnderhoud,
+                    Begintijdstip = 4,
+                    Duur = 3
+                };
+                var oogstenKnolselder = new Klus
+                {
+                    KorteOmschrijving = "Oogsten",
+                    LangeOmschrijving = "aanvullen",
+                    SoortKlus = SoortKlus.Oogsten,
+                    Begintijdstip = 8,
+                    Duur = 3
+                };
+
+                //groente
+                var knolselder = new Groente
+                {
+                    NederlandseNaam = "Knolselder",
+                    Klussen = { voorzaaienKnolselder, uitplantenKnolselder,
+                        onderhoudKnolselderVerspenen, oogstenKnolselder }
+                };
+
+                LijstGroenten.Add(knolselder);
+
 
 
 
