@@ -62,7 +62,7 @@ namespace TuinkalenderConsole
                 };
                 
                 LijstGroenten.Add(aardappel);
-
+                
                 //aardpeer
                 //klussen
                 var plantenAardpeer = new Klus
@@ -438,7 +438,7 @@ namespace TuinkalenderConsole
                 var courgette = new Groente
                 {
                     NederlandseNaam = "Courgette",
-                    Klussen = { voorzaaienCourgette, uitplantenCourgette,
+                    Klussen = new List<Klus> { voorzaaienCourgette, uitplantenCourgette,
                         onderhoudCourgetteUitdunnen, oogstenCourgette }
                 };
 
@@ -475,7 +475,7 @@ namespace TuinkalenderConsole
                 var doperwt = new Groente
                 {
                     NederlandseNaam = "Doperwt",
-                    Klussen = { zaaienDoperwt, onderhoudDoperwtOphogen, oogstenDoperwt }
+                    Klussen = new List<Klus> { zaaienDoperwt, onderhoudDoperwtOphogen, oogstenDoperwt }
                 };
 
                 LijstGroenten.Add(doperwt);
@@ -503,7 +503,7 @@ namespace TuinkalenderConsole
                 var knoflook = new Groente
                 {
                     NederlandseNaam = "Knoflook",
-                    Klussen = { plantenKnoflook, oogstenKnoflook }
+                    Klussen = new List<Klus> { plantenKnoflook, oogstenKnoflook }
                 };
 
                 LijstGroenten.Add(knoflook);
@@ -547,16 +547,12 @@ namespace TuinkalenderConsole
                 var knolselder = new Groente
                 {
                     NederlandseNaam = "Knolselder",
-                    Klussen = { voorzaaienKnolselder, uitplantenKnolselder,
+                    Klussen = new List<Klus> { voorzaaienKnolselder, uitplantenKnolselder,
                         onderhoudKnolselderVerspenen, oogstenKnolselder }
                 };
 
                 LijstGroenten.Add(knolselder);
-
-
-
-
-
+                
 
 
                 foreach (Groente groente in LijstGroenten)

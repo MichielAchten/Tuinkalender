@@ -10,6 +10,12 @@ namespace TuinkalenderDA
 {
     public class KalenderContext : DbContext
     {
+        //toegevoegd om de naam van de database aan te passen
+        public KalenderContext() : base("Tuinkalender")
+        {
+
+        }
+
         public DbSet<Groente> Groenten { get; set; }
         public DbSet<Klus> Klussen { get; set; }
 
