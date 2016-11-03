@@ -1,0 +1,16 @@
+﻿<Window x:Class="WPFTuinkalender.StartschermGroenten"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFTuinkalender"
+        mc:Ignorable="d"
+        Title="StartschermGroenten" Height="300" Width="300">
+    <DockPanel>
+        <StackPanel>
+            <Button Name="buttonNaarOverzichtGroenten" Content="Kies groenten voor in tuin" Margin="10" Click="buttonNaarOverzichtGroenten_Click"></Button>
+            <Button Name="buttonNaarOverzichtKlussenPerGroente" Content="Overzicht klussen per groente" Margin="10" Click="buttonNaarOverzichtKlussenPerGroente_Click"></Button>
+            <Button Name="buttonNaarOverzichtKlussenPerMaand" Content="Overzicht klussen per maand" Margin="10" Click="buttonNaarOverzichtKlussenPerMaand_Click"></Button>
+        </StackPanel>
+    </DockPanel>
+</Window>

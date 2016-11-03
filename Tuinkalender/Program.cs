@@ -17,7 +17,7 @@ namespace TuinkalenderConsole
         static void Main(string[] args)
         {
 
-            DatabaseAanmaken();
+            //DatabaseAanmaken();
 
         }
 

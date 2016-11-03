@@ -5,8 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFTuinkalender"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="500" Width="525" Loaded="Window_Loaded">
+    <Window.Resources>
+        <!--<CollectionViewSource x:Key="groenteViewSource" 
+                              d:Source="{d:DesignInstance {x:Type Tuinkalender:Groente}, CreateList=True}"/>-->
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <ListBox Name="listBoxGroenten" Height="300" Width="210" Margin="25 15"></ListBox>
+                <Button Name="buttonToevoegenAanTuin" Content="Toevoegen aan tuin" Margin="15"></Button>
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <ListBox Name="listBoxGroententuin" Height="300" Width="210" Margin="25 15"></ListBox>
+                <Button Name="buttonVerwijderenUitTuin" Content="Verwijderen uit tuin" Margin="15"></Button>
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
 </Window>

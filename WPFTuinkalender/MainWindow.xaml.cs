@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TuinkalenderBL;
+using TuinkalenderDA;
 
 namespace WPFTuinkalender
 {
@@ -23,6 +25,22 @@ namespace WPFTuinkalender
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //var manager = new GroenteManager();
+            //List<Groente> groenten = new List<Groente>();
+
+            //groenten = manager.GetAlleGroenten();
+            //foreach (var groente in groenten)
+            //{
+            //    listBoxGroenten.Items.Add(groente);
+            //}
+
+            CollectionViewSource groentenViewSource = ((CollectionViewSource)(this.FindResource("groentenViewSource")));
+            var manager = new GroenteManager();
+            groentenViewSource.Source = manager.GetAlleGroenten();
         }
     }
 }
