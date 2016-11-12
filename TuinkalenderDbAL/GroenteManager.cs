@@ -45,5 +45,17 @@ namespace TuinkalenderDA
             //}
             //return klussen;
         }
+
+        public void MaakNieuweMoestuin(string naam)
+        {
+            using (var context = new KalenderContext())
+            {
+                var nieuweMoestuin = new Moestuin();
+                nieuweMoestuin.Naam = naam;
+
+                context.Moestuinen.Add(nieuweMoestuin);
+                context.SaveChanges();
+            }
+        }
     }
 }

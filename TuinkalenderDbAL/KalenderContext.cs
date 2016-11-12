@@ -19,6 +19,8 @@ namespace TuinkalenderDA
         public DbSet<Groente> Groenten { get; set; }
         public DbSet<Klus> Klussen { get; set; }
 
+        public DbSet<Moestuin> Moestuinen { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
            // modelBuilder.Entity<Groente>().Map(m => m.MapInheritedProperties());

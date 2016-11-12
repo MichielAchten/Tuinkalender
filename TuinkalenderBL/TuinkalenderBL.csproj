@@ -45,10 +45,12 @@
     <Compile Include="EnumSoortKlus.cs" />
     <Compile Include="Fruit.cs" />
     <Compile Include="Groente.cs" />
+    <Compile Include="Moestuin.cs" />
     <Compile Include="Keukenkruid.cs" />
     <Compile Include="Klus.cs" />
     <Compile Include="Plant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tuin.cs" />
     <Compile Include="Voedingsgewas.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

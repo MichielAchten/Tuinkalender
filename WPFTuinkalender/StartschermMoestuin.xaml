@@ -1,0 +1,25 @@
+﻿<Window x:Class="WPFTuinkalender.StartschermMoestuin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFTuinkalender"
+        mc:Ignorable="d"
+        Title="StartschermMoestuin" Height="300" Width="300">
+    <DockPanel>
+        <StackPanel>
+            <Label Content="Maak een nieuwe moestuin:" Margin="10"></Label>
+            <StackPanel Orientation="Horizontal">
+                <Button Name="buttonMaakEenNieuweMoestuin" Content="Nieuwe moestuin" Margin="10" 
+                        Width="115" Click="buttonNaarOverzichtGroenten_Click"></Button>
+                <TextBox Name="textBoxNaam" Width="115" Height="24" Margin="15 0 0 0" Text="tik hier een naam"
+                         VerticalContentAlignment="Center"></TextBox>
+            </StackPanel>
+            <Label Content="Kies een bestaande moestuin:" Margin="10"></Label>
+            <StackPanel Orientation="Horizontal">
+                <Button Name="buttonKiesBestaandeMoestuin" Content="Kies" Margin="10" 
+                        Width="115" Click="buttonNaarOverzichtGroenten_Click"></Button>
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
+</Window>
