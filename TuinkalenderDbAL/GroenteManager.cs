@@ -57,5 +57,82 @@ namespace TuinkalenderDA
                 context.SaveChanges();
             }
         }
+
+        public List<Moestuin> GetAlleMoestuinen()
+        {
+            List<Moestuin> moestuinen = new List<Moestuin>();
+            using (var context = new KalenderContext())
+            {
+                foreach (var moestuin in context.Moestuinen)
+                {
+                    moestuinen.Add(moestuin);
+                }
+            }
+            return moestuinen;
+        }
+
+        public void VerwijderMoestuin(int id)
+        {
+            using (var context = new KalenderContext())
+            {
+                var moestuin = context.Moestuinen.Find(id);
+                if (moestuin != null)
+                {
+                    context.Moestuinen.Remove(moestuin);
+                    context.SaveChanges();
+                }
+            }
+        }
+
+        public void VoegGroenteToeAanMoestuin(int groenteId, int moestuinId)
+        {
+            using (var context = new KalenderContext())
+            {
+                var moestuin = context.Moestuinen.Find(moestuinId);
+                if (moestuin != null)
+                {
+                    var groente = context.Groenten.Find(groenteId);
+                    if (groente != null)
+                    {
+                        moestuin.Groenten.Add(groente);
+                    }
+                }
+                context.SaveChanges();
+            }
+        }
+
+        public void VerwijderGroenteUitMoestuin(int groenteId, int moestuinId)
+        {
+            using (var context = new KalenderContext())
+            {
+                var moestuin = context.Moestuinen.Find(moestuinId);
+                if (moestuin != null)
+                {
+                    var groente = context.Groenten.Find(groenteId);
+                    if (groente != null)
+                    {
+                        moestuin.Groenten.Remove(groente);
+                    }
+                }
+                context.SaveChanges();
+            }
+        }
+
+        public List<Groente> GetAlleGroentenUitMoestuin(int id)
+        {
+            var groentenUitMoestuin = new List<Groente>();
+            using (var context = new KalenderContext())
+            {
+                var moestuin = context.Moestuinen.Find(id);
+                if (moestuin != null)
+                {
+                    foreach (var groente in moestuin.Groenten)
+                    {
+                        groentenUitMoestuin.Add(groente);
+                    }
+                }
+            }
+            return groentenUitMoestuin;
+        }
     }
 }

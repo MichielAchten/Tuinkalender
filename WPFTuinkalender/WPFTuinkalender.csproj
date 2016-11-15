@@ -125,6 +125,7 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\TuinkalenderBL.Groente.datasource" />
+    <None Include="Properties\DataSources\TuinkalenderBL.Moestuin.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

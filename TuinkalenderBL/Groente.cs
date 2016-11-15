@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TuinkalenderBL
 {
-    [Table("Groenten")]
+    [Table("Groente")]
     public class Groente: Voedingsgewas
     {
         //public Groente(string nederlandseNaam, Klus oogsten, Klus onderhoud, EnumZaaiMogelijkheden zaaimogelijkheden,
@@ -45,6 +45,8 @@ namespace TuinkalenderBL
         public override string NederlandseNaam { get; set; }
 
         public virtual ICollection<Klus> Klussen { get; set; }
+
+        public virtual ICollection<Moestuin> Moestuinen { get; set; }
 
 
 

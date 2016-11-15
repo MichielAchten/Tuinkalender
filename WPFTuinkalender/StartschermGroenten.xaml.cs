@@ -20,24 +20,27 @@ namespace WPFTuinkalender
     /// </summary>
     public partial class StartschermGroenten : Window
     {
-        public static List<Groente> GekozenGroenten = new List<Groente>();
+        //public static List<Groente> GekozenGroenten = new List<Groente>();
+
+        public Moestuin GekozenMoestuin { get; set; }
         
-        public StartschermGroenten()
+        public StartschermGroenten(Moestuin gekozenMoestuin)
         {
+            GekozenMoestuin = gekozenMoestuin;
             InitializeComponent();
+            labelGekozenMoestuin.Content = GekozenMoestuin.Naam.ToString();
         }
 
         private void buttonNaarOverzichtGroenten_Click(object sender, RoutedEventArgs e)
         {
-            OverzichtGroenten nieuwOverzichtGroenten = new OverzichtGroenten();
+            OverzichtGroenten nieuwOverzichtGroenten = new OverzichtGroenten(GekozenMoestuin);
             nieuwOverzichtGroenten.Show();
             nieuwOverzichtGroenten.Focus();
         }
 
         private void buttonNaarOverzichtKlussenPerGroente_Click(object sender, RoutedEventArgs e)
         {
-            OverzichtKlussenPerGroente nieuwOverzichtKlussenPerGroente =
-                new OverzichtKlussenPerGroente();
+            OverzichtKlussenPerGroente nieuwOverzichtKlussenPerGroente = new OverzichtKlussenPerGroente(GekozenMoestuin);
             nieuwOverzichtKlussenPerGroente.Show();
             nieuwOverzichtKlussenPerGroente.Focus();
         }

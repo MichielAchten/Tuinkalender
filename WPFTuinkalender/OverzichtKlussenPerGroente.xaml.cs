@@ -24,31 +24,34 @@ namespace WPFTuinkalender
         public string[] maanden = new string[12]
             {"januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus",
                 "september", "oktober", "november", "december"};
-        public OverzichtKlussenPerGroente()
+        public Moestuin GekozenMoestuin { get; set; }
+
+        public OverzichtKlussenPerGroente(Moestuin gekozenMoestuin)
         {
+            GekozenMoestuin = gekozenMoestuin;
             InitializeComponent();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            //CollectionViewSource groenteViewSource = ((CollectionViewSource)(this.FindResource("groenteViewSource")));
-            //var manager = new GroenteManager();
-            //groenteViewSource.Source = manager.GetAlleGroenten();
+            CollectionViewSource groenteViewSource = ((CollectionViewSource)(this.FindResource("groenteViewSource")));
+            var manager = new GroenteManager();
+            groenteViewSource.Source = manager.GetAlleGroentenUitMoestuin(GekozenMoestuin.MoestuinId);
 
-            GroenteManager manager = new GroenteManager();
-            List<Groente> alleGroenten = manager.GetAlleGroenten();
+            //GroenteManager manager = new GroenteManager();
+            //List<Groente> alleGroenten = manager.GetAlleGroenten();
 
-            foreach (var groenteUitHeleLijst in alleGroenten)
-            {
-                foreach (var groenteUitGokozenLijst in StartschermGroenten.GekozenGroenten)
-                {
-                    if (groenteUitHeleLijst.NederlandseNaam == groenteUitGokozenLijst.NederlandseNaam)
-                    {
-                        listBoxGroentenInTuin.Items.Add(groenteUitHeleLijst);
-                    }
-                }
-            }
+            //foreach (var groenteUitHeleLijst in alleGroenten)
+            //{
+            //    foreach (var groenteUitGokozenLijst in StartschermGroenten.GekozenGroenten)
+            //    {
+            //        if (groenteUitHeleLijst.NederlandseNaam == groenteUitGokozenLijst.NederlandseNaam)
+            //        {
+            //            listBoxGroentenInTuin.Items.Add(groenteUitHeleLijst);
+            //        }
+            //    }
+            //}
         }
 
         private void buttonSluiten_Click(object sender, RoutedEventArgs e)
@@ -60,6 +63,22 @@ namespace WPFTuinkalender
         private void listBoxGroentenInTuin_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             klussenVanGeselecteerdeGroente.Clear();
+            foreach (var child in stackpanelInfoKlus.Children)
+            {
+                var stackPanel = (StackPanel)child;
+                foreach (var textBlock in stackPanel.Children)
+                {
+                    var textBlockMetTekst = (TextBlock)textBlock;
+                    textBlockMetTekst.Text = "";
+                }
+            }
+            //textBlockZaaienOfPlantenOmschrijving.Text = "";
+            //textBlockZaaienOfPlantenTijdstip.Text = "";
+            //textBlockVoorzaaienOmschrijving.Text = "";
+            //textBlockVoorzaaienTijdstip.Text = "";
+            //textBlockUitplantenOmschrijving.Text = "";
+            //textBlockUitplantenTijdstip.Text = "";
+            //textblock
             var manager = new GroenteManager();
             Groente geselecteerdeGroente = new Groente();
             geselecteerdeGroente = (Groente)listBoxGroentenInTuin.SelectedItem;

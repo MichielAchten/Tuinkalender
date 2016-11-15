@@ -31,7 +31,8 @@ namespace TuinkalenderBL
         public int Duur { get; set; }
 
         //[Column("Groente")]
-        public virtual ICollection<Groente> Groente { get; set; }
+        //public virtual ICollection<Groente> Groente { get; set; }
+        public virtual Groente Groente { get; set; }
         //public int GroenteId { get; set; }
 
         //[Column("Groente")]

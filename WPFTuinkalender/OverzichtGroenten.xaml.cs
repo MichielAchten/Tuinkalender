@@ -21,8 +21,15 @@ namespace WPFTuinkalender
     /// </summary>
     public partial class OverzichtGroenten : Window
     {
-        public OverzichtGroenten()
+        public List<Groente> AlleGroenten = new List<Groente>();
+        public List<Groente> GroentenInMoestuin = new List<Groente>();
+        public List<Groente> BeginGroenten = new List<Groente>();
+
+        public Moestuin GekozenMoestuin { get; set; }
+
+        public OverzichtGroenten(Moestuin gekozenMoestuin)
         {
+            GekozenMoestuin = gekozenMoestuin;
             InitializeComponent();
         }
 
@@ -32,25 +39,35 @@ namespace WPFTuinkalender
             //CollectionViewSource groenteViewSource = ((CollectionViewSource)(this.FindResource("groenteViewSource")));
             //var manager = new GroenteManager();
             //groenteViewSource.Source = manager.GetAlleGroenten();
-            LijstMetGroentenVullen();
 
-
-            foreach (var groente in StartschermGroenten.GekozenGroenten)
+            var manager = new GroenteManager();
+            AlleGroenten = manager.GetAlleGroenten();
+            GroentenInMoestuin = manager.GetAlleGroentenUitMoestuin(GekozenMoestuin.MoestuinId);
+            foreach (var begingroente in GroentenInMoestuin)
             {
-                listBoxGroentenTuin.Items.Add(groente);
+                BeginGroenten.Add(begingroente);
             }
+            LijstMetTeKiezenGroentenVullen();
+            LijstMetGekozenGroentenVullen();
             
         }
 
-        private void LijstMetGroentenVullen()
+        private void LijstMetGekozenGroentenVullen()
+        {
+            listBoxGroentenTuin.Items.Clear();
+            foreach (var groente in GroentenInMoestuin)
+            {
+                listBoxGroentenTuin.Items.Add(groente);
+            }
+        }
+
+        private void LijstMetTeKiezenGroentenVullen()
         {
             listBoxGroenten.Items.Clear();
-            var manager = new GroenteManager();
-            var alleGroenten = manager.GetAlleGroenten();
-            foreach (var groente in alleGroenten)
+            foreach (var groente in AlleGroenten)
             {
                 bool tuinBevatGroente = false;
-                foreach (var groenteInTuin in StartschermGroenten.GekozenGroenten)
+                foreach (var groenteInTuin in GroentenInMoestuin)
                 {
                     if (groente.NederlandseNaam == groenteInTuin.NederlandseNaam)
                     {
@@ -68,9 +85,11 @@ namespace WPFTuinkalender
         {
             if (listBoxGroenten.SelectedItem != null)
             {
-                listBoxGroentenTuin.Items.Add(listBoxGroenten.SelectedItem);
-                StartschermGroenten.GekozenGroenten.Add((Groente)listBoxGroenten.SelectedItem);
-                LijstMetGroentenVullen();
+                var aanTuinToeTeVoegenGroente = (Groente)listBoxGroenten.SelectedItem;
+                var manager = new GroenteManager();
+                GroentenInMoestuin.Add(aanTuinToeTeVoegenGroente);
+                LijstMetTeKiezenGroentenVullen();
+                LijstMetGekozenGroentenVullen();
             }
         }
 
@@ -78,27 +97,39 @@ namespace WPFTuinkalender
         {
             if (listBoxGroentenTuin.SelectedItem != null)
             {
-                foreach (var teVerwijderenGroente in StartschermGroenten.GekozenGroenten)
-                {
-                    string nederlandseNaam = ((Groente)listBoxGroentenTuin.SelectedItem).NederlandseNaam.ToString();
-                    if (nederlandseNaam == teVerwijderenGroente.NederlandseNaam)
-                    {
-                        StartschermGroenten.GekozenGroenten.Remove(teVerwijderenGroente);
-                        break;
-                    }
-                }
-                listBoxGroentenTuin.Items.Remove(listBoxGroentenTuin.SelectedItem);
+                var uitTuinTeVerwijderenGroente = (Groente)listBoxGroentenTuin.SelectedItem;
+                var manager = new GroenteManager();
+                GroentenInMoestuin.Remove(uitTuinTeVerwijderenGroente);
+                LijstMetTeKiezenGroentenVullen();
+                LijstMetGekozenGroentenVullen();
+                //foreach (var teVerwijderenGroente in StartschermGroenten.GekozenGroenten)
+                //{
+                //    string nederlandseNaam = ((Groente)listBoxGroentenTuin.SelectedItem).NederlandseNaam.ToString();
+                //    if (nederlandseNaam == teVerwijderenGroente.NederlandseNaam)
+                //    {
+                //        StartschermGroenten.GekozenGroenten.Remove(teVerwijderenGroente);
+                //        break;
+                //    }
+                //}
+                //listBoxGroentenTuin.Items.Remove(listBoxGroentenTuin.SelectedItem);
                 //StartschermGroenten.GekozenGroenten.Remove((Groente)listBoxGroenten.SelectedItem);
-                LijstMetGroentenVullen();
             }
         }
 
         private void buttonKeuzeDoorvoeren_Click(object sender, RoutedEventArgs e)
         {
-            //foreach (var groente in aangeduideGroenten)
-            //{
-            //    StartschermGroenten.GekozenGroenten.Add(groente);
-            //}
+            var manager = new GroenteManager();
+            foreach (var groente in GroentenInMoestuin)
+            {
+                manager.VoegGroenteToeAanMoestuin(groente.GroenteId, GekozenMoestuin.MoestuinId);
+            }
+            foreach(var groente in BeginGroenten)
+            {
+                if (!GroentenInMoestuin.Contains(groente))
+                {
+                    manager.VerwijderGroenteUitMoestuin(groente.GroenteId, GekozenMoestuin.MoestuinId);
+                }
+            }
             this.Close();
         }
     }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TuinkalenderBL
 {
+    [Table("Moestuin")]
     public class Moestuin
     {
         public int MoestuinId { get; set; }

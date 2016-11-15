@@ -8,9 +8,13 @@
         Title="StartschermGroenten" Height="300" Width="300">
     <DockPanel>
         <StackPanel>
-            <Button Name="buttonNaarOverzichtGroenten" Content="Kies groenten voor in tuin" Margin="10" Click="buttonNaarOverzichtGroenten_Click"></Button>
-            <Button Name="buttonNaarOverzichtKlussenPerGroente" Content="Overzicht klussen per groente" Margin="10" Click="buttonNaarOverzichtKlussenPerGroente_Click"></Button>
-            <Button Name="buttonNaarOverzichtKlussenPerMaand" Content="Overzicht klussen per maand" Margin="10" Click="buttonNaarOverzichtKlussenPerMaand_Click"></Button>
+            <Label Name="labelGekozenMoestuin" Margin="10" Height="50" HorizontalContentAlignment="Center" FontSize="18"></Label>
+            <Button Name="buttonNaarOverzichtGroenten" Content="Kies groenten voor in tuin" Margin="10" 
+                    Click="buttonNaarOverzichtGroenten_Click"></Button>
+            <Button Name="buttonNaarOverzichtKlussenPerGroente" Content="Overzicht klussen per groente" Margin="10" 
+                    Click="buttonNaarOverzichtKlussenPerGroente_Click"></Button>
+            <Button Name="buttonNaarOverzichtKlussenPerMaand" Content="Overzicht klussen per maand" Margin="10" 
+                    Click="buttonNaarOverzichtKlussenPerMaand_Click"></Button>
         </StackPanel>
     </DockPanel>
 </Window>
