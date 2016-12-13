@@ -42,7 +42,7 @@ namespace WPFTuinkalender
 
             var manager = new GroenteManager();
             AlleGroenten = manager.GetAlleGroenten();
-            GroentenInMoestuin = manager.GetAlleGroentenUitMoestuin(GekozenMoestuin.MoestuinId);
+            GroentenInMoestuin = manager.GetAlleGroentenUitMoestuin(GekozenMoestuin.Id);
             foreach (var begingroente in GroentenInMoestuin)
             {
                 BeginGroenten.Add(begingroente);
@@ -121,13 +121,13 @@ namespace WPFTuinkalender
             var manager = new GroenteManager();
             foreach (var groente in GroentenInMoestuin)
             {
-                manager.VoegGroenteToeAanMoestuin(groente.GroenteId, GekozenMoestuin.MoestuinId);
+                manager.VoegGroenteToeAanMoestuin(groente.GroenteId, GekozenMoestuin.Id);
             }
             foreach(var groente in BeginGroenten)
             {
                 if (!GroentenInMoestuin.Contains(groente))
                 {
-                    manager.VerwijderGroenteUitMoestuin(groente.GroenteId, GekozenMoestuin.MoestuinId);
+                    manager.VerwijderGroenteUitMoestuin(groente.GroenteId, GekozenMoestuin.Id);
                 }
             }
             this.Close();

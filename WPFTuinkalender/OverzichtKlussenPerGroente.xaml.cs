@@ -37,7 +37,7 @@ namespace WPFTuinkalender
 
             CollectionViewSource groenteViewSource = ((CollectionViewSource)(this.FindResource("groenteViewSource")));
             var manager = new GroenteManager();
-            groenteViewSource.Source = manager.GetAlleGroentenUitMoestuin(GekozenMoestuin.MoestuinId);
+            groenteViewSource.Source = manager.GetAlleGroentenUitMoestuin(GekozenMoestuin.Id);
 
             //GroenteManager manager = new GroenteManager();
             //List<Groente> alleGroenten = manager.GetAlleGroenten();

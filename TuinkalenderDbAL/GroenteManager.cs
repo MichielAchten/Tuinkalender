@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,21 +47,22 @@ namespace TuinkalenderDA
             //return klussen;
         }
 
-        public void MaakNieuweMoestuin(string naam)
+        public void MaakNieuweMoestuin(Moestuin moestuin)
         {
             using (var context = new KalenderContext())
             {
-                var nieuweMoestuin = new Moestuin();
-                nieuweMoestuin.Naam = naam;
+                //var nieuweMoestuin = new Moestuin();
+                //nieuweMoestuin.NaamTuin = naam;
 
-                context.Moestuinen.Add(nieuweMoestuin);
+                context.Moestuinen.Add(moestuin);
                 context.SaveChanges();
             }
         }
 
-        public List<Moestuin> GetAlleMoestuinen()
+        //public List<Moestuin> GetAlleMoestuinen()
+        public ObservableCollection<Moestuin> GetAlleMoestuinen()
         {
-            List<Moestuin> moestuinen = new List<Moestuin>();
+            ObservableCollection<Moestuin> moestuinen = new ObservableCollection<Moestuin>();
             using (var context = new KalenderContext())
             {
                 foreach (var moestuin in context.Moestuinen)

@@ -49,7 +49,7 @@ namespace WPFTuinkalender
             {
                 var teVerwijderenMoestuin = (Moestuin)listBoxMoestuinen.SelectedItem;
                 var manager = new GroenteManager();
-                manager.VerwijderMoestuin(teVerwijderenMoestuin.MoestuinId);
+                manager.VerwijderMoestuin(teVerwijderenMoestuin.Id);
                 VulLijstMetMoestuinen();
             }
         }
@@ -60,7 +60,7 @@ namespace WPFTuinkalender
             {
                 var manager = new GroenteManager();
                 string naam = textBoxNaam.Text.ToString();
-                manager.MaakNieuweMoestuin(naam);
+                //manager.MaakNieuweMoestuin(naam);     er moet een moestuin worden toegevoegd, geen naam
                 VulLijstMetMoestuinen();
             }
         }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TuinkalenderConsole", "Tuinkalender\TuinkalenderConsole.csproj", "{8DA0499E-3CA8-4B17-B22E-955451DE4E29}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1DC5D30D-8911-421E-9A5E-81DC175F1A2F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTuinkalender", "WPFTuinkalender\WPFTuinkalender.csproj", "{09B14E3D-4EBE-489F-9A70-70709D3378EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFTuinkalenderMetTabbladen", "WPFTuinkalenderMetTabbladen\WPFTuinkalenderMetTabbladen.csproj", "{10BFDEE9-6CA3-4EAF-9F9A-016E5AABC2F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{09B14E3D-4EBE-489F-9A70-70709D3378EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09B14E3D-4EBE-489F-9A70-70709D3378EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09B14E3D-4EBE-489F-9A70-70709D3378EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10BFDEE9-6CA3-4EAF-9F9A-016E5AABC2F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10BFDEE9-6CA3-4EAF-9F9A-016E5AABC2F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10BFDEE9-6CA3-4EAF-9F9A-016E5AABC2F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10BFDEE9-6CA3-4EAF-9F9A-016E5AABC2F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

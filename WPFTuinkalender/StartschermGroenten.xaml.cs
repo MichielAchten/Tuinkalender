@@ -28,7 +28,7 @@ namespace WPFTuinkalender
         {
             GekozenMoestuin = gekozenMoestuin;
             InitializeComponent();
-            labelGekozenMoestuin.Content = GekozenMoestuin.Naam.ToString();
+            labelGekozenMoestuin.Content = GekozenMoestuin.NaamTuin.ToString();
         }
 
         private void buttonNaarOverzichtGroenten_Click(object sender, RoutedEventArgs e)

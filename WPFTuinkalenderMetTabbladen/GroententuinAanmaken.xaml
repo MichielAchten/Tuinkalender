@@ -1,0 +1,38 @@
+﻿<Window x:Class="WPFTuinkalenderMetTabbladen.GroententuinAanmaken"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="GroententuinAanmaken" Height="400" Width="280"
+        xmlns:local="clr-namespace:WPFTuinkalenderMetTabbladen" Closing="Window_Closing">
+    
+    <DockPanel>
+        <StackPanel>
+            <StackPanel Margin="5 5 5 0" Orientation="Horizontal">
+                <Label Margin="0 0 10 0">Naam</Label>
+                <Label Name="labelNaamValidatie" Foreground="Red"></Label>
+            </StackPanel>
+            <TextBox Name="textBoxNaam" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"></TextBox>
+            <StackPanel Margin="5 5 5 0" Orientation="Horizontal">
+                <Label Margin="0 0 10 0">Eigenaar</Label>
+                <Label Name="labelEigenaarValidatie" Foreground="Red"></Label>
+            </StackPanel>
+            <TextBox Name="textBoxEigenaar" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"></TextBox>
+            <StackPanel Margin="5 5 5 0" Orientation="Horizontal">
+                <Label Margin="0 0 10 0">Adres</Label>
+                <Label Name="labelAdresValidatie" Foreground="Red"></Label>
+            </StackPanel>
+            <TextBox Name="textBoxAdres" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"></TextBox>
+            <StackPanel Margin="5 5 5 0" Orientation="Horizontal">
+                <Label Margin="0 0 10 0">Postcode</Label>
+                <Label Name="labelPostcodeValidatie" Foreground="Red"></Label>
+            </StackPanel>
+            <TextBox Name="textBoxPostcode" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"></TextBox>
+            <StackPanel Margin="5 5 5 0" Orientation="Horizontal">
+                <Label Margin="0 0 10 0">Gemeente</Label>
+                <Label Name="labelGemeenteValidatie" Foreground="Red"></Label>
+            </StackPanel>
+            <TextBox Name="textBoxGemeente" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"></TextBox>
+            <Button Name="buttonMoestuinToevoegen" Margin="10 25 10 10" Click="buttonMoestuinToevoegen_Click">Toevoegen</Button>
+            <Button Name="Annuleren" Margin="10 0 10 10" Click="Annuleren_Click">Annuleren</Button>
+        </StackPanel>
+    </DockPanel>
+</Window>

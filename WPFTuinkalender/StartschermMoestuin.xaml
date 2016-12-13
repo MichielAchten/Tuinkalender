@@ -39,7 +39,7 @@
                         Width="115" HorizontalAlignment="Left" Click="buttonVerwijderMoestuin_Click"></Button>
                     </StackPanel>
                     <ListBox Name="listBoxMoestuinen" Margin="10 0 10 10" Height="75" ItemsSource="{Binding}" SelectedValuePath="Moestuin"
-                            DisplayMemberPath="Naam"></ListBox>
+                            DisplayMemberPath="NaamTuin"></ListBox>
                 </StackPanel>
             </StackPanel>
         </DockPanel>
