@@ -23,7 +23,8 @@ namespace WPFTuinkalenderMetTabbladen
     /// </summary>
     public partial class Groententuin : Window
     {
-        public ObservableCollection<Moestuin> moestuinOb = new ObservableCollection<Moestuin>();
+        public ObservableCollection<Moestuin> MoestuinOb = new ObservableCollection<Moestuin>();
+        public List<Groente> AlleGroenten = new List<Groente>();
 
         public Groententuin()
         {
@@ -34,11 +35,19 @@ namespace WPFTuinkalenderMetTabbladen
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
-            //System.Windows.Data.CollectionViewSource moestuinViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("moestuinViewSource")));
-            // Load data by setting the CollectionViewSource.Source property:
-            // moestuinViewSource.Source = [generic data source]
-
             VulLijstMetMoestuinen();
+            VulLijstMetBeschikbareGroenten();
+
+            var aantal = MoestuinOb.Count;
+            if (MoestuinOb.Count > 0)
+            {
+                tabcontrol.IsEnabled = true;
+                listBoxMoestuinen.SelectedIndex = 0;
+            }
+            else
+            {
+                tabcontrol.IsEnabled = false;
+            }
         }
 
         private void VulLijstMetMoestuinen()
@@ -49,9 +58,46 @@ namespace WPFTuinkalenderMetTabbladen
 
             CollectionViewSource moestuinViewSource = ((CollectionViewSource)(this.FindResource("moestuinViewSource")));
             var manager = new GroenteManager();
-            moestuinOb = manager.GetAlleMoestuinen();
-            moestuinViewSource.Source = moestuinOb;
-            
+            MoestuinOb = manager.GetAlleMoestuinen();
+            moestuinViewSource.Source = MoestuinOb;
+        }
+
+        private void VulLijstMetBeschikbareGroenten()
+        {
+            if (MoestuinOb.Count > 0)
+            {
+                listBoxBeschikbareGroenten.Items.Clear();
+                Moestuin geselecteerdeMoestuin = (Moestuin)(listBoxMoestuinen.SelectedItem);
+                var manager = new GroenteManager();
+                var groentenInMoestuin = manager.GetAlleGroentenUitMoestuin(geselecteerdeMoestuin.Id);
+                AlleGroenten = manager.GetAlleGroenten();
+
+                foreach (var groente in AlleGroenten)
+                {
+                    var tuinBevatGroente = false;
+                    foreach (var groenteInMoestuin in groentenInMoestuin)
+                    {
+                        if (groente.GroenteId == groenteInMoestuin.GroenteId)
+                        {
+                            tuinBevatGroente = true;
+                            break;
+                        }
+                    }
+                    if (!tuinBevatGroente)
+                    {
+                        listBoxBeschikbareGroenten.Items.Add(groente);
+                    }
+                }
+            }
+        }
+
+        private void VulLijstMetGroentenInTuin()
+        {
+            Moestuin geselecteerdeMoestuin = (Moestuin)(listBoxMoestuinen.SelectedItem);
+
+            CollectionViewSource groenteViewSource = ((CollectionViewSource)(this.FindResource("groenteViewSource")));
+            var manager = new GroenteManager();
+            groenteViewSource.Source = manager.GetAlleGroentenUitMoestuin(geselecteerdeMoestuin.Id);
         }
 
         private void buttonMoestuinToevoegen_Click(object sender, RoutedEventArgs e)
@@ -64,13 +110,81 @@ namespace WPFTuinkalenderMetTabbladen
 
         private void buttonMoestuinVerwijderen_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MessageBox.Show("Weet u zeker dat u de moestuin wilt verwijderen?", "Moestuin verwijderen",
+                MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.Yes)
+            {
+                if (listBoxMoestuinen.SelectedItem != null)
+                {
+                    var geselecteerdeMoestuin = (Moestuin)(listBoxMoestuinen.SelectedItem);
+                    var manager = new GroenteManager();
+                    manager.VerwijderMoestuin(geselecteerdeMoestuin.Id);
+                    VulLijstMetMoestuinen();
+                    if (MoestuinOb.Count == 0)
+                    {
+                        tabcontrol.IsEnabled = false;
+                    }
+                }
+            }
         }
 
         private void listboxMoestuinen_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             tabMoestuinGegevens.Focus();
-            
+            if (listBoxMoestuinen.SelectedItem != null)
+            {
+                Moestuin moestuin = (Moestuin)(listBoxMoestuinen.SelectedItem);
+                labelNaamMoestuin.Content = moestuin.NaamTuin;
+                labelEigenaar.Content = moestuin.Eigenaar;
+                labelAdres.Content = moestuin.Adres;
+                labelPostcode.Content = moestuin.Postcode;
+                labelGemeente.Content = moestuin.Gemeente;
+
+                VulLijstMetGroentenInTuin();
+            }
+            else
+            {
+                labelNaamMoestuin.Content = null;
+                labelEigenaar.Content = null;
+                labelAdres.Content = null;
+                labelPostcode.Content = null;
+                labelGemeente.Content = null;
+            }
         }
+
+        private void buttonNaarTabbladGroenten_Click(object sender, RoutedEventArgs e)
+        {
+            tabGroenten.Focus();
+        }
+
+        private void buttonKiesGroente_Click(object sender, RoutedEventArgs e)
+        {
+            GroenteToevoegenAanMoestuin();
+        }
+
+        private void groenteToevoegenMetDubbelklik(object sender, RoutedEventArgs e)
+        {
+            GroenteToevoegenAanMoestuin();
+        }
+
+        private void GroenteToevoegenAanMoestuin()
+        {
+            if (listBoxBeschikbareGroenten.SelectedItem != null)
+            {
+                var manager = new GroenteManager();
+                Groente geselecteerdeGroente = (Groente)(listBoxBeschikbareGroenten.SelectedItem);
+                Moestuin geselecteerdeMoestuin = (Moestuin)(listBoxMoestuinen.SelectedItem);
+                manager.VoegGroenteToeAanMoestuin(geselecteerdeGroente.GroenteId, geselecteerdeMoestuin.Id);
+
+                VulLijstMetGroentenInTuin();
+                VulLijstMetBeschikbareGroenten();
+            }
+        }
+
+        private void buttonVerwijderGeselecteerdeGroente_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
     }
 }

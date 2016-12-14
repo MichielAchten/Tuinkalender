@@ -6,10 +6,11 @@
     xmlns:TuinkalenderBL="clr-namespace:TuinkalenderBL;assembly=TuinkalenderBL" 
     mc:Ignorable="d" 
     x:Class="WPFTuinkalenderMetTabbladen.Groententuin"
-        Title="Groententuin" Height="550" Width="650" Loaded="Window_Loaded">
+        Title="Groententuin" Height="550" Width="740" Loaded="Window_Loaded">
 
     <Window.Resources>
         <CollectionViewSource x:Key="moestuinViewSource" d:DesignSource="{d:DesignInstance {x:Type TuinkalenderBL:Moestuin}, CreateList=True}"/>
+        <CollectionViewSource x:Key="groenteViewSource" d:DesignSource="{d:DesignInstance {x:Type TuinkalenderBL:Groente}, CreateList=True}"/>
     </Window.Resources>
 
     <Grid>
@@ -23,39 +24,58 @@
                     <StackPanel Height="460" Width="165" DataContext="{StaticResource moestuinViewSource}">
                         <Button Name="buttonMoestuinToevoegen" Margin="10" Click="buttonMoestuinToevoegen_Click">Nieuwe moestuin</Button>
                         <Button Name="buttonMoestuinVerwijderen" Margin="10" Click="buttonMoestuinVerwijderen_Click">Verwijder moestuin</Button>
-                        <ListBox Name="listboxMoestuinen" Margin="10" Height="350" ItemsSource="{Binding}" SelectedValuePath="Moestuin"
+                        <ListBox Name="listBoxMoestuinen" Margin="10" Height="350" ItemsSource="{Binding}" SelectedValuePath="Moestuin"
                             DisplayMemberPath="NaamTuin" SelectionChanged="listboxMoestuinen_SelectionChanged"></ListBox>
                     </StackPanel>
-                    <StackPanel Height="460" Width="455">
+                    <StackPanel Height="460" Width="555">
                         <TabControl Name="tabcontrol">
                             <TabItem Name="tabMoestuinGegevens" Width="125">
                                 <TabItem.Header>Gegevens moestuin</TabItem.Header>
-                                <StackPanel Height="430" Width="450" Orientation="Vertical">
+                                <StackPanel Height="430" Width="535" Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
-                                        <Label Margin="10 20 10 10" Width="180" FontSize="16" FontWeight="Bold">Naam:</Label>
+                                        <Label Margin="20 30 10 10" Width="180" FontSize="16" FontWeight="Bold">Naam:</Label>
                                         <Label Name="labelNaamMoestuin" Margin="10 20 10 10" FontSize="16" FontWeight="Bold"></Label>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Label Margin="10 10 10 0" Width="180">Eigenaar:</Label>
+                                        <Label Margin="20 10 10 0" Width="180">Eigenaar:</Label>
                                         <Label Name="labelEigenaar" Margin="10 10 10 0" ></Label>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Label Margin="10 10 10 0" Width="180">Adres:</Label>
+                                        <Label Margin="20 10 10 0" Width="180">Adres:</Label>
                                         <Label Name="labelAdres" Margin="10 10 10 0" ></Label>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Label Margin="10 10 10 0" Width="180">Postcode:</Label>
+                                        <Label Margin="20 10 10 0" Width="180">Postcode:</Label>
                                         <Label Name="labelPostcode" Margin="10 10 10 0" ></Label>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Label Margin="10 10 10 0" Width="180">Gemeente:</Label>
+                                        <Label Margin="20 10 10 0" Width="180">Gemeente:</Label>
                                         <Label Name="labelGemeente" Margin="10 10 10 0" ></Label>
                                     </StackPanel>
+                                    <Button Name="buttonNaarTabbladGroenten" Margin="25 55 10 10" Height="50" Width="150" HorizontalAlignment="Left" 
+                                            Click="buttonNaarTabbladGroenten_Click">Kies groenten</Button>
                                 </StackPanel>
                             </TabItem>
                             <TabItem Name="tabGroenten" Width="75">
                                 <TabItem.Header>Groenten</TabItem.Header>
-                                <StackPanel Height="430" Width="450"></StackPanel>
+                                <StackPanel Height="430" Width="535" Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <StackPanel Orientation="Vertical" Margin="20 0 20 0">
+                                            <Label Margin="10 5 10 0" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="16">Beschikbare groenten</Label>
+                                            <ListBox Name="listBoxBeschikbareGroenten" Margin="10 5 10 5" Height="300" Width="205" 
+                                                     DisplayMemberPath="NederlandseNaam" MouseDoubleClick="groenteToevoegenMetDubbelklik"></ListBox>
+                                            <Button Name="buttonKiesGroente" Margin="10 0 10 10" Click="buttonKiesGroente_Click">Toevoegen aan tuin</Button>
+                                            <Button Name="buttonNaarTabbladGroenteInfo" Margin="10 0 10 10">Info Groente</Button>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="20 0 20 0" DataContext="{StaticResource groenteViewSource}">
+                                            <Label Margin="10 5 10 0" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="16">Groenten in moestuin</Label>
+                                            <ListBox Name="listBoxGroentenInMoestuin" Margin="10 5 10 5" Height="300" Width="205" 
+                                                     DisplayMemberPath="NederlandseNaam" ItemsSource="{Binding}" SelectedValuePath="NederlandseNaam"></ListBox>
+                                            <Button Name="buttonVerwijderGeselecteerdeGroente" Margin="10 0 10 10" Click="buttonVerwijderGeselecteerdeGroente_Click">Verwijder geselecteerde groente</Button>
+                                            <Button Name="buttonVerwijderAlleGroente" Margin="10 0 10 10">Verwijder alle groenten</Button>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
                             </TabItem>
                             <TabItem Name="tabKlussenPerGroente" Width="125">
                                 <TabItem.Header>Klussen per groente</TabItem.Header>
@@ -63,6 +83,10 @@
                             </TabItem>
                             <TabItem Name="tabKlussenPerMaand" Width="125">
                                 <TabItem.Header>Klussen per maand</TabItem.Header>
+                                <StackPanel Height="430" Width="450"></StackPanel>
+                            </TabItem>
+                            <TabItem Name="tabGroenteInfo" Width="100">
+                                <TabItem.Header>Info Groente</TabItem.Header>
                                 <StackPanel Height="430" Width="450"></StackPanel>
                             </TabItem>
                         </TabControl>

@@ -10,27 +10,32 @@
                 <Label Margin="0 0 10 0">Naam</Label>
                 <Label Name="labelNaamValidatie" Foreground="Red"></Label>
             </StackPanel>
-            <TextBox Name="textBoxNaam" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"></TextBox>
+            <TextBox Name="textBoxNaam" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"
+                     VerticalContentAlignment="Center"></TextBox>
             <StackPanel Margin="5 5 5 0" Orientation="Horizontal">
                 <Label Margin="0 0 10 0">Eigenaar</Label>
                 <Label Name="labelEigenaarValidatie" Foreground="Red"></Label>
             </StackPanel>
-            <TextBox Name="textBoxEigenaar" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"></TextBox>
+            <TextBox Name="textBoxEigenaar" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"
+                     VerticalContentAlignment="Center"></TextBox>
             <StackPanel Margin="5 5 5 0" Orientation="Horizontal">
                 <Label Margin="0 0 10 0">Adres</Label>
                 <Label Name="labelAdresValidatie" Foreground="Red"></Label>
             </StackPanel>
-            <TextBox Name="textBoxAdres" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"></TextBox>
+            <TextBox Name="textBoxAdres" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"
+                     VerticalContentAlignment="Center"></TextBox>
             <StackPanel Margin="5 5 5 0" Orientation="Horizontal">
                 <Label Margin="0 0 10 0">Postcode</Label>
                 <Label Name="labelPostcodeValidatie" Foreground="Red"></Label>
             </StackPanel>
-            <TextBox Name="textBoxPostcode" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"></TextBox>
+            <TextBox Name="textBoxPostcode" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"
+                     VerticalContentAlignment="Center"></TextBox>
             <StackPanel Margin="5 5 5 0" Orientation="Horizontal">
                 <Label Margin="0 0 10 0">Gemeente</Label>
                 <Label Name="labelGemeenteValidatie" Foreground="Red"></Label>
             </StackPanel>
-            <TextBox Name="textBoxGemeente" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"></TextBox>
+            <TextBox Name="textBoxGemeente" Margin="5 0 5 0" Height="24" Width="250" HorizontalAlignment="Left"
+                     VerticalContentAlignment="Center"></TextBox>
             <Button Name="buttonMoestuinToevoegen" Margin="10 25 10 10" Click="buttonMoestuinToevoegen_Click">Toevoegen</Button>
             <Button Name="Annuleren" Margin="10 0 10 10" Click="Annuleren_Click">Annuleren</Button>
         </StackPanel>

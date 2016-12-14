@@ -136,5 +136,15 @@ namespace TuinkalenderDA
             }
             return groentenUitMoestuin;
         }
+
+        //public Moestuin GetMoestuinVolgensId(int id)
+        //{
+        //    using (var context = new KalenderContext())
+        //    {
+        //        var moestuin = context.Moestuinen.Find(id);
+        //        return moestuin;
+        //    }
+        //}
+
     }
 }
