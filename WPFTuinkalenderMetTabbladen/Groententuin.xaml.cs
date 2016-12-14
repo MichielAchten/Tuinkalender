@@ -25,6 +25,7 @@ namespace WPFTuinkalenderMetTabbladen
     {
         public ObservableCollection<Moestuin> MoestuinOb = new ObservableCollection<Moestuin>();
         public List<Groente> AlleGroenten = new List<Groente>();
+        public ObservableCollection<Groente> GroentenInMoestuin = new ObservableCollection<Groente>();
 
         public Groententuin()
         {
@@ -97,7 +98,17 @@ namespace WPFTuinkalenderMetTabbladen
 
             CollectionViewSource groenteViewSource = ((CollectionViewSource)(this.FindResource("groenteViewSource")));
             var manager = new GroenteManager();
-            groenteViewSource.Source = manager.GetAlleGroentenUitMoestuin(geselecteerdeMoestuin.Id);
+            GroentenInMoestuin = manager.GetAlleGroentenUitMoestuin(geselecteerdeMoestuin.Id);
+            groenteViewSource.Source = GroentenInMoestuin;
+
+            if (GroentenInMoestuin.Count > 0)
+            {
+                stackPanelGroentenInMoestuin.IsEnabled = true;
+            }
+            else
+            {
+                stackPanelGroentenInMoestuin.IsEnabled = false;
+            }
         }
 
         private void buttonMoestuinToevoegen_Click(object sender, RoutedEventArgs e)
@@ -139,7 +150,10 @@ namespace WPFTuinkalenderMetTabbladen
                 labelPostcode.Content = moestuin.Postcode;
                 labelGemeente.Content = moestuin.Gemeente;
 
+                var manager = new GroenteManager();
+                var groentenInMoestuin = manager.GetAlleGroentenUitMoestuin(moestuin.Id);
                 VulLijstMetGroentenInTuin();
+                VulLijstMetBeschikbareGroenten();
             }
             else
             {
@@ -153,7 +167,7 @@ namespace WPFTuinkalenderMetTabbladen
 
         private void buttonNaarTabbladGroenten_Click(object sender, RoutedEventArgs e)
         {
-            tabGroenten.Focus();
+            tabGroentenInMoestuin.Focus();
         }
 
         private void buttonKiesGroente_Click(object sender, RoutedEventArgs e)
@@ -182,7 +196,57 @@ namespace WPFTuinkalenderMetTabbladen
 
         private void buttonVerwijderGeselecteerdeGroente_Click(object sender, RoutedEventArgs e)
         {
+            if (listBoxGroentenInMoestuinTabGroenten.SelectedItem != null)
+            {
+                Groente groente = (Groente)(listBoxGroentenInMoestuinTabGroenten.SelectedItem);
+                Moestuin moestuin = (Moestuin)(listBoxMoestuinen.SelectedItem);
+                var manager = new GroenteManager();
+                manager.VerwijderGroenteUitMoestuin(groente.GroenteId, moestuin.Id);
 
+                VulLijstMetGroentenInTuin();
+                VulLijstMetBeschikbareGroenten();
+            }
+        }
+
+        private void buttonVerwijderAlleGroente_Click(object sender, RoutedEventArgs e)
+        {
+            Moestuin moestuin = (Moestuin)(listBoxMoestuinen.SelectedItem);
+            var manager = new GroenteManager();
+            manager.VerwijderAlleGroentenUitMoestuin(moestuin.Id);
+
+            VulLijstMetGroentenInTuin();
+            VulLijstMetBeschikbareGroenten();
+        }
+
+        private void buttonNaarTabbladGroenteInfo_Click(object sender, RoutedEventArgs e)
+        {
+            tabGroenteInfo.Focus();
+        }
+
+        private void buttonNaarTabKlussenPerGroente_Click(object sender, RoutedEventArgs e)
+        {
+            tabKlussenPerGroente.Focus();
+        }
+
+        private void buttonNaarTabKlussenPerMaand_Click(object sender, RoutedEventArgs e)
+        {
+            tabKlussenPerMaand.Focus();
+        }
+
+        private void listBoxGroentenInMoestuinTabKlussen_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listBoxGroentenInMoestuinTabKlussen.SelectedItem != null)
+            {
+                textBoxOmschrijvingKlus.Text = "";
+                var geselecteerdeGroente = (Groente)(listBoxGroentenInMoestuinTabKlussen.SelectedItem);
+                var manager = new GroenteManager();
+                var lijstMetKlussen = manager.GetKlussenVanEenGroente(geselecteerdeGroente.GroenteId);
+                foreach (var klus in lijstMetKlussen)
+                {
+                    textBoxOmschrijvingKlus.Text += klus.KorteOmschrijving + "\t\t\t" + klus.Begintijdstip + "-" + (klus.Begintijdstip + klus.Duur) + "\n" +
+                    klus.LangeOmschrijving + "\n\n";
+                }
+            }
         }
 
 

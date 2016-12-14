@@ -26,40 +26,30 @@ namespace TuinkalenderDA
         public List<Klus> GetKlussenVanEenGroente(int id)
         {
             var groente = new Groente();
-            var klussen = new List<Klus>();
+            var klussenLijst = new List<Klus>();
             using (var context = new KalenderContext())
             {
                 groente = context.Groenten.Find(id);
-                foreach (var klus in groente.Klussen)
-                {
-                    klussen.Add(klus);
-                }
+                klussenLijst = (from klus in groente.Klussen
+                                orderby klus.Begintijdstip
+                                select klus).ToList();
+                //foreach (var klus in groente.Klussen)
+                //{
+                //    klussenLijst.Add(klus);
+                //}
             }
-            return klussen;
-            //List<Klus> klussen = new List<Klus>();
-            //using (var context = new KalenderContext())
-            //{
-            //    foreach (var klus in groente.Klussen)
-            //    {
-            //        klussen.Add(klus);
-            //    }
-            //}
-            //return klussen;
+            return klussenLijst;
         }
 
         public void MaakNieuweMoestuin(Moestuin moestuin)
         {
             using (var context = new KalenderContext())
             {
-                //var nieuweMoestuin = new Moestuin();
-                //nieuweMoestuin.NaamTuin = naam;
-
                 context.Moestuinen.Add(moestuin);
                 context.SaveChanges();
             }
         }
 
-        //public List<Moestuin> GetAlleMoestuinen()
         public ObservableCollection<Moestuin> GetAlleMoestuinen()
         {
             ObservableCollection<Moestuin> moestuinen = new ObservableCollection<Moestuin>();
@@ -120,9 +110,19 @@ namespace TuinkalenderDA
             }
         }
 
-        public List<Groente> GetAlleGroentenUitMoestuin(int id)
+        public void VerwijderAlleGroentenUitMoestuin(int moestuinId)
         {
-            var groentenUitMoestuin = new List<Groente>();
+            using (var context = new KalenderContext())
+            {
+                var moestuin = context.Moestuinen.Find(moestuinId);
+                moestuin.Groenten.Clear();
+                context.SaveChanges();
+            }
+        }
+
+        public ObservableCollection<Groente> GetAlleGroentenUitMoestuin(int id)
+        {
+            var groentenUitMoestuin = new ObservableCollection<Groente>();
             using (var context = new KalenderContext())
             {
                 var moestuin = context.Moestuinen.Find(id);
