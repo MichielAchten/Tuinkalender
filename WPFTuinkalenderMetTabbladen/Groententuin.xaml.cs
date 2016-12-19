@@ -27,6 +27,9 @@ namespace WPFTuinkalenderMetTabbladen
         public List<Groente> AlleGroenten = new List<Groente>();
         public ObservableCollection<Groente> GroentenInMoestuin = new ObservableCollection<Groente>();
 
+        public string[] maanden = new string[12] { "januari", "februari", "maart", "april", "mei", "juni", "juli", 
+            "augustus", "september", "oktober", "november", "december" };
+
         public Groententuin()
         {
             InitializeComponent();
@@ -237,14 +240,38 @@ namespace WPFTuinkalenderMetTabbladen
         {
             if (listBoxGroentenInMoestuinTabKlussen.SelectedItem != null)
             {
-                textBoxOmschrijvingKlus.Text = "";
+                textBoxOmschrijvingKlus.Text = "\n";
                 var geselecteerdeGroente = (Groente)(listBoxGroentenInMoestuinTabKlussen.SelectedItem);
                 var manager = new GroenteManager();
                 var lijstMetKlussen = manager.GetKlussenVanEenGroente(geselecteerdeGroente.GroenteId);
                 foreach (var klus in lijstMetKlussen)
                 {
-                    textBoxOmschrijvingKlus.Text += klus.KorteOmschrijving + "\t\t\t" + klus.Begintijdstip + "-" + (klus.Begintijdstip + klus.Duur) + "\n" +
-                    klus.LangeOmschrijving + "\n\n";
+                    var beginmaand = "";
+                    var eindmaand = "";
+                    if (klus.Duur > 1)
+                    {
+                        if (klus.Begintijdstip + klus.Duur <= 12)
+                        {
+                            beginmaand = maanden[klus.Begintijdstip - 1];
+                            eindmaand = maanden[(klus.Begintijdstip - 1) + (klus.Duur - 1)];
+                        }
+                        else
+                        {
+                            beginmaand = maanden[klus.Begintijdstip - 1];
+                            eindmaand = maanden[(klus.Begintijdstip - 1) + (klus.Duur - 1) - 12];
+                        }
+
+                        textBoxOmschrijvingKlus.Text += klus.KorteOmschrijving + ": van " + beginmaand + " tot en met " +
+                            eindmaand + "\n" +
+                        klus.LangeOmschrijving + "\n\n\n";
+                    }
+                    else
+                    {
+                        beginmaand = maanden[klus.Begintijdstip - 1];
+
+                        textBoxOmschrijvingKlus.Text += klus.KorteOmschrijving + ": in " + beginmaand + "\n" +
+                        klus.LangeOmschrijving + "\n\n\n";
+                    }
                 }
             }
         }

@@ -89,11 +89,12 @@
                                 <TabItem.Header>Klussen per groente</TabItem.Header>
                                 <StackPanel Height="430" Width="595" Orientation="Horizontal">
                                     <StackPanel DataContext="{StaticResource groenteViewSource}">
-                                        <ListBox Name="listBoxGroentenInMoestuinTabKlussen" Margin="10" Width="185" Height="400" DisplayMemberPath="NederlandseNaam" 
-                                                 ItemsSource="{Binding}" SelectedValuePath="NederlandseNaam" SelectionChanged="listBoxGroentenInMoestuinTabKlussen_SelectionChanged"></ListBox>
+                                        <ListBox Name="listBoxGroentenInMoestuinTabKlussen" Margin="10" Width="185" Height="400" FontSize="14"
+                                                 DisplayMemberPath="NederlandseNaam" ItemsSource="{Binding}" 
+                                                 SelectedValuePath="NederlandseNaam" SelectionChanged="listBoxGroentenInMoestuinTabKlussen_SelectionChanged"></ListBox>
                                     </StackPanel>
                                     <StackPanel Name="stackPanelMetInTeVullenTekstvakken" Orientation="Vertical">
-                                        <TextBlock Name="textBoxOmschrijvingKlus" Margin="10" Width="365" Height="400"></TextBlock>
+                                        <TextBlock Name="textBoxOmschrijvingKlus" Margin="10" Width="365" Height="400" FontSize="14" TextWrapping="Wrap"></TextBlock>
                                     </StackPanel>
                                 </StackPanel>
                             </TabItem>
