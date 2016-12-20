@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -240,10 +241,24 @@ namespace WPFTuinkalenderMetTabbladen
         {
             if (listBoxGroentenInMoestuinTabKlussen.SelectedItem != null)
             {
+                foreach (Canvas item in canvasKleurKlussenPerMaand.Children)
+                {
+                    foreach (Polygon polygon in item.Children)
+                    {
+                        polygon.Fill = null;
+                    }
+                }
+
                 textBoxOmschrijvingKlus.Text = "\n";
                 var geselecteerdeGroente = (Groente)(listBoxGroentenInMoestuinTabKlussen.SelectedItem);
                 var manager = new GroenteManager();
                 var lijstMetKlussen = manager.GetKlussenVanEenGroente(geselecteerdeGroente.GroenteId);
+
+                //om bij te houden welke maanden gekleurd moeten worden
+                var groeneMaanden = new List<int>();
+                var geleMaanden = new List<int>();
+                var blauweMaanden = new List<int>();
+
                 foreach (var klus in lijstMetKlussen)
                 {
                     var beginmaand = "";
@@ -263,14 +278,117 @@ namespace WPFTuinkalenderMetTabbladen
 
                         textBoxOmschrijvingKlus.Text += klus.KorteOmschrijving + ": van " + beginmaand + " tot en met " +
                             eindmaand + "\n" +
-                        klus.LangeOmschrijving + "\n\n\n";
+                        klus.LangeOmschrijving + "\n\n";
                     }
                     else
                     {
                         beginmaand = maanden[klus.Begintijdstip - 1];
 
                         textBoxOmschrijvingKlus.Text += klus.KorteOmschrijving + ": in " + beginmaand + "\n" +
-                        klus.LangeOmschrijving + "\n\n\n";
+                        klus.LangeOmschrijving + "\n\n";
+                    }
+
+                    //lijst vullen met op te vullen canvas en welke kleur deze moet hebben
+                    var begin = klus.Begintijdstip;
+                    var einde = 0;
+                    if ((begin + klus.Duur - 1) <= 12)
+                    {
+                        einde = begin + klus.Duur - 1;
+                    }
+                    else
+                    {
+                        einde = begin + klus.Duur - 13;
+                    }
+                    
+                    for (int i = begin; i <= einde; i++)
+                    {
+                        switch (klus.SoortKlus.ToString())
+                        {
+                            case "Voorzaaien":
+                                geleMaanden.Add(i);
+                                break;
+                            case "ZaaienOfPlanten":
+                                groeneMaanden.Add(i);
+                                break;
+                            case "Oogsten":
+                                blauweMaanden.Add(i);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+
+                //polygonen opvullen
+                foreach (var item in canvasKleurKlussenPerMaand.Children)
+                {
+                    var canvasMaand = (Canvas)item;
+                    int maandNr = int.Parse(canvasMaand.Name.Substring(11));
+                    var lijstPolygonen = new List<Polygon>();
+                    var moetGeelGekleurdWorden = false;
+                    var moetGroenGekleurdWorden = false;
+                    var moetBlauwGekleurdWorden = false;
+                    //nagaan welke kleuren de maand moet hebben
+                    if (geleMaanden.Contains(maandNr))
+                    {
+                        moetGeelGekleurdWorden = true;
+                    }
+                    if (groeneMaanden.Contains(maandNr))
+                    {
+                        moetGroenGekleurdWorden = true;
+                    }
+                    if (blauweMaanden.Contains(maandNr))
+                    {
+                        moetBlauwGekleurdWorden = true;
+                    }
+
+                    foreach (var child in canvasMaand.Children)
+                    {
+                        var polygon = (Polygon)child;
+                        lijstPolygonen.Add(polygon);
+                    }
+
+                    BrushConverter bc = new BrushConverter();
+                    SolidColorBrush geel = (SolidColorBrush)bc.ConvertFromString("Yellow");
+                    SolidColorBrush groen = (SolidColorBrush)bc.ConvertFromString("Green");
+                    SolidColorBrush blauw = (SolidColorBrush)bc.ConvertFromString("blue");
+                    if (moetGeelGekleurdWorden)
+                    {
+                        lijstPolygonen[0].Fill = geel;
+                        lijstPolygonen[1].Fill = geel;
+                    }
+                    if (moetGroenGekleurdWorden)
+                    {
+                        if (lijstPolygonen[0].Fill == null)
+                        {
+                            lijstPolygonen[0].Fill = groen;
+                            lijstPolygonen[1].Fill = groen;
+                        }
+                        else
+                        {
+                            lijstPolygonen[1].Fill = groen;
+                        }
+                    }
+                    if (moetBlauwGekleurdWorden)
+                    {
+                        if (lijstPolygonen[0].Fill == null)
+                        {
+                            lijstPolygonen[0].Fill = blauw;
+                            lijstPolygonen[1].Fill = blauw;
+                        }
+                        else
+                        {
+                            if (lijstPolygonen[0].Fill == lijstPolygonen[1].Fill)
+                            {
+                                lijstPolygonen[1].Fill = blauw;
+                            }
+                            else
+                            {
+                                lijstPolygonen[2].Fill = geel;
+                                lijstPolygonen[3].Fill = groen;
+                                lijstPolygonen[4].Fill = blauw;
+                            }
+                        }
                     }
                 }
             }
