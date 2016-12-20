@@ -28,7 +28,7 @@ namespace WPFTuinkalenderMetTabbladen
         public List<Groente> AlleGroenten = new List<Groente>();
         public ObservableCollection<Groente> GroentenInMoestuin = new ObservableCollection<Groente>();
 
-        public string[] maanden = new string[12] { "januari", "februari", "maart", "april", "mei", "juni", "juli", 
+        public string[] arrMaanden = new string[12] { "januari", "februari", "maart", "april", "mei", "juni", "juli", 
             "augustus", "september", "oktober", "november", "december" };
 
         public Groententuin()
@@ -52,6 +52,16 @@ namespace WPFTuinkalenderMetTabbladen
             else
             {
                 tabcontrol.IsEnabled = false;
+            }
+
+            //lijst in tabblad klussenPerMaand vullen met maanden
+            comboBoxMaanden.Items.Add("  --kies een maand--");
+            for (int i = 0; i < arrMaanden.Length; i++)
+            {
+                var eersteLetter = (arrMaanden[i].ToUpper())[0];
+                var maand = eersteLetter + arrMaanden[i].Substring(1);
+                comboBoxMaanden.Items.Add(maand);
+                comboBoxMaanden.SelectedIndex = 0;
             }
         }
 
@@ -241,6 +251,7 @@ namespace WPFTuinkalenderMetTabbladen
         {
             if (listBoxGroentenInMoestuinTabKlussen.SelectedItem != null)
             {
+                //kleur verwijderen uit polygonen
                 foreach (Canvas item in canvasKleurKlussenPerMaand.Children)
                 {
                     foreach (Polygon polygon in item.Children)
@@ -253,6 +264,24 @@ namespace WPFTuinkalenderMetTabbladen
                 var geselecteerdeGroente = (Groente)(listBoxGroentenInMoestuinTabKlussen.SelectedItem);
                 var manager = new GroenteManager();
                 var lijstMetKlussen = manager.GetKlussenVanEenGroente(geselecteerdeGroente.GroenteId);
+
+                //kleiner lettertype bij veel klussen
+                if (lijstMetKlussen.Count <= 5)
+                {
+                    textBoxOmschrijvingKlus.FontSize = 12;
+                }
+                else if (lijstMetKlussen.Count <= 6)
+                {
+                    textBoxOmschrijvingKlus.FontSize = 11;
+                }
+                else if (lijstMetKlussen.Count <= 7)
+                {
+                    textBoxOmschrijvingKlus.FontSize = 10;
+                }
+                else
+                {
+                    textBoxOmschrijvingKlus.FontSize = 8.7;
+                }
 
                 //om bij te houden welke maanden gekleurd moeten worden
                 var groeneMaanden = new List<int>();
@@ -267,13 +296,13 @@ namespace WPFTuinkalenderMetTabbladen
                     {
                         if (klus.Begintijdstip + klus.Duur <= 12)
                         {
-                            beginmaand = maanden[klus.Begintijdstip - 1];
-                            eindmaand = maanden[(klus.Begintijdstip - 1) + (klus.Duur - 1)];
+                            beginmaand = arrMaanden[klus.Begintijdstip - 1];
+                            eindmaand = arrMaanden[(klus.Begintijdstip - 1) + (klus.Duur - 1)];
                         }
                         else
                         {
-                            beginmaand = maanden[klus.Begintijdstip - 1];
-                            eindmaand = maanden[(klus.Begintijdstip - 1) + (klus.Duur - 1) - 12];
+                            beginmaand = arrMaanden[klus.Begintijdstip - 1];
+                            eindmaand = arrMaanden[(klus.Begintijdstip) + (klus.Duur - 1) - 12];
                         }
 
                         textBoxOmschrijvingKlus.Text += klus.KorteOmschrijving + ": van " + beginmaand + " tot en met " +
@@ -282,7 +311,7 @@ namespace WPFTuinkalenderMetTabbladen
                     }
                     else
                     {
-                        beginmaand = maanden[klus.Begintijdstip - 1];
+                        beginmaand = arrMaanden[klus.Begintijdstip - 1];
 
                         textBoxOmschrijvingKlus.Text += klus.KorteOmschrijving + ": in " + beginmaand + "\n" +
                         klus.LangeOmschrijving + "\n\n";
@@ -299,7 +328,7 @@ namespace WPFTuinkalenderMetTabbladen
                     {
                         einde = begin + klus.Duur - 13;
                     }
-                    
+
                     for (int i = begin; i <= einde; i++)
                     {
                         switch (klus.SoortKlus.ToString())
@@ -390,6 +419,40 @@ namespace WPFTuinkalenderMetTabbladen
                             }
                         }
                     }
+                }
+            }
+        }
+
+        //als een maand gekozen wordt
+        private void comboBoxMaanden_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboBoxMaanden.SelectedIndex != 0)
+            {
+                labelMaand.Content = comboBoxMaanden.SelectedItem.ToString();
+            }
+            else
+            {
+                labelMaand.Content = "";
+            }
+
+            Moestuin geselecteerdeMoestuin = (Moestuin)listBoxMoestuinen.SelectedItem;
+            var manager = new GroenteManager();
+            var lijstGroenten = manager.GetAlleGroentenUitMoestuin(geselecteerdeMoestuin.Id);
+            var lijstAlleKlussenVanDeGroenten = new List<Klus>();
+            foreach (var groente in lijstGroenten)
+            {
+                var lijstKlussen = manager.GetKlussenVanEenGroente(groente.GroenteId);
+                foreach (var klus in lijstKlussen)
+                {
+                    lijstAlleKlussenVanDeGroenten.Add(klus);
+                }
+            }
+
+            foreach (var klus in lijstAlleKlussenVanDeGroenten)
+            {
+                if ((comboBoxMaanden.SelectedIndex <= 1))
+                {
+                    //nog aanvullen
                 }
             }
         }
