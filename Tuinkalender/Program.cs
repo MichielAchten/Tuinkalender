@@ -251,7 +251,7 @@ namespace TuinkalenderConsole
                     LangeOmschrijving = "aanvullen",
                     SoortKlus = SoortKlus.Oogsten,
                     Begintijdstip = 7,
-                    Duur = 5
+                    Duur = 4
                 };
 
                 //groente
@@ -613,7 +613,7 @@ namespace TuinkalenderConsole
                     LangeOmschrijving = "aanvullen",
                     SoortKlus = SoortKlus.Oogsten,
                     Begintijdstip = 7,
-                    Duur = 10
+                    Duur = 4
                 };
                 
                 //groente
@@ -668,7 +668,7 @@ namespace TuinkalenderConsole
                     KorteOmschrijving = "Oogsten",
                     LangeOmschrijving = "aanvullen",
                     SoortKlus = SoortKlus.Oogsten,
-                    Begintijdstip = 6,
+                    Begintijdstip = 7,
                     Duur = 4
                 };
 
@@ -934,7 +934,7 @@ namespace TuinkalenderConsole
                     LangeOmschrijving = "aanvullen",
                     SoortKlus = SoortKlus.Oogsten,
                     Begintijdstip = 9,
-                    Duur = 10
+                    Duur = 2
                 };
 
                 //groente
@@ -1284,17 +1284,17 @@ namespace TuinkalenderConsole
 
                 LijstGroenten.Add(snijbiet);
 
-                //spersieboon
+                //sperzieboon
                 //klussen
-                var zaaienSpersieboon = new Klus
+                var zaaienSperzieboon = new Klus
                 {
                     KorteOmschrijving = "Zaaien",
-                    LangeOmschrijving = "Spersiebonen ter plaatse zaaien van april tot en met augustus; dopbonen ter plaatse zaaien van april tot en met juni.",
+                    LangeOmschrijving = "Sperziebonen ter plaatse zaaien van april tot en met augustus; dopbonen ter plaatse zaaien van april tot en met juni.",
                     SoortKlus = SoortKlus.ZaaienOfPlanten,
                     Begintijdstip = 4,
                     Duur = 5
                 };
-                var oogstenSpersieboon = new Klus
+                var oogstenSperzieboon = new Klus
                 {
                     KorteOmschrijving = "Oogsten",
                     LangeOmschrijving = "aanvullen",
@@ -1304,13 +1304,13 @@ namespace TuinkalenderConsole
                 };
 
                 //groente
-                var spersieboon = new Groente
+                var sperzieboon = new Groente
                 {
-                    NederlandseNaam = "Spersieboon",
-                    Klussen = new List<Klus> { zaaienSpersieboon, oogstenSpersieboon }
+                    NederlandseNaam = "Sperzieboon",
+                    Klussen = new List<Klus> { zaaienSperzieboon, oogstenSperzieboon }
                 };
 
-                LijstGroenten.Add(spersieboon);
+                LijstGroenten.Add(sperzieboon);
 
                 //spinazie
                 //klussen

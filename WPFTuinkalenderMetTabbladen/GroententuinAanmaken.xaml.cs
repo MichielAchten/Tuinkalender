@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -53,10 +54,18 @@ namespace WPFTuinkalenderMetTabbladen
                 adres = textBoxAdres.Text;
                 aantalJuisteVelden++;
             }
-            if (valideerTextBoxMetString(textBoxGemeente, labelGemeenteValidatie))
+            //if (valideerTextBoxMetString(textBoxGemeente, labelGemeenteValidatie))
+            //{
+            //    gemeente = textBoxGemeente.Text;
+            //    aantalJuisteVelden++;
+            //}
+            if (textBoxGemeente.Text == "")
             {
-                gemeente = textBoxGemeente.Text;
-                aantalJuisteVelden++;
+                labelGemeenteValidatie.Content = "Verplicht in te vulle veld!";
+            }
+            else if (textBoxGemeente.Text != ("^[a-z]+([-\\s][a-z]+)?$"))
+            {
+                labelGemeenteValidatie.Content = "Geef een gemeente in!";
             }
 
             if (textBoxPostcode.Text == "")

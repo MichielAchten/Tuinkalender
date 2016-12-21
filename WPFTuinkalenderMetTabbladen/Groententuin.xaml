@@ -63,7 +63,13 @@
                                         <StackPanel Orientation="Vertical" Margin="40 0 35 0">
                                             <Label Margin="10 2 10 0" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="16">Beschikbare groenten</Label>
                                             <ListBox Name="listBoxBeschikbareGroenten" Margin="10 5 10 5" Height="250" Width="205" 
-                                                     DisplayMemberPath="NederlandseNaam" MouseDoubleClick="groenteToevoegenMetDubbelklik"></ListBox>
+                                                     DisplayMemberPath="NederlandseNaam" MouseDoubleClick="groenteToevoegenMetDubbelklik">
+                                                <ListBox.ItemContainerStyle>
+                                                    <Style TargetType="{x:Type ListBoxItem}">
+                                                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="listBoxBeschikbareGroentenCtrlClick"></EventSetter>
+                                                    </Style>
+                                                </ListBox.ItemContainerStyle>
+                                            </ListBox>
                                             <Button Name="buttonKiesGroente" Margin="10 5 10 10" Click="buttonKiesGroente_Click">Toevoegen aan tuin</Button>
                                             <Button Name="buttonNaarTabbladGroenteInfo" Margin="10 0 10 10" 
                                                     Click="buttonNaarTabbladGroenteInfo_Click">Info Groente</Button>
@@ -72,7 +78,15 @@
                                                     DataContext="{StaticResource groenteViewSource}">
                                             <Label Margin="10 2 10 0" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="16">Groenten in moestuin</Label>
                                             <ListBox Name="listBoxGroentenInMoestuinTabGroenten" Margin="10 5 10 5" Height="250" Width="205" 
-                                                     DisplayMemberPath="NederlandseNaam" ItemsSource="{Binding}" SelectedValuePath="NederlandseNaam"></ListBox>
+                                                     DisplayMemberPath="NederlandseNaam" ItemsSource="{Binding}" SelectedValuePath="NederlandseNaam"
+                                                     MouseDoubleClick="groenteVerwijderenMetDubbelklik">
+                                                <ListBox.ItemContainerStyle>
+                                                    <Style TargetType="{x:Type ListBoxItem}">
+                                                        <EventSetter Event="PreviewMouseLeftButtonDown" 
+                                                                     Handler="listBoxGroentenInMoestuinTabGroentenCtrlClick"></EventSetter>
+                                                    </Style>
+                                                </ListBox.ItemContainerStyle>
+                                            </ListBox>
                                             <Button Name="buttonVerwijderGeselecteerdeGroente" Margin="10 5 10 10" 
                                                     Click="buttonVerwijderGeselecteerdeGroente_Click">Verwijder geselecteerde groente</Button>
                                             <Button Name="buttonVerwijderAlleGroente" Margin="10 0 10 10"
@@ -100,30 +114,18 @@
                                     </StackPanel>
                                     <StackPanel Height="85" Orientation="Vertical">
                                         <StackPanel Width="540" Orientation="Horizontal" Height="30">
-                                            <Label Width="45" Content="jan" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                                   BorderBrush="Black" BorderThickness="1 1 0 1"></Label>
-                                            <Label Width="45" Content="feb" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                                   BorderBrush="Black" BorderThickness="1 1 0 1"></Label>
-                                            <Label Width="45" Content="mrt" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                                   BorderBrush="Black" BorderThickness="1 1 0 1"></Label>
-                                            <Label Width="45" Content="apr" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                                                   BorderBrush="Black" BorderThickness="1 1 0 1"></Label>
-                                            <Label Width="45" Content="mei" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                                   BorderBrush="Black" BorderThickness="1 1 0 1"></Label>
-                                            <Label Width="45" Content="jun" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                                   BorderBrush="Black" BorderThickness="1 1 0 1"></Label>
-                                            <Label Width="45" Content="jul" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                                   BorderBrush="Black" BorderThickness="1 1 0 1"></Label>
-                                            <Label Width="45" Content="aug" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                                   BorderBrush="Black" BorderThickness="1 1 0 1"></Label>
-                                            <Label Width="45" Content="sep" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                                   BorderBrush="Black" BorderThickness="1 1 0 1"></Label>
-                                            <Label Width="45" Content="okt" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                                   BorderBrush="Black" BorderThickness="1 1 0 1"></Label>
-                                            <Label Width="45" Content="nov" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                                   BorderBrush="Black" BorderThickness="1 1 0 1"></Label>
-                                            <Label Width="45" Content="dec" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
-                                                   BorderBrush="Black" BorderThickness="1 1 1 1"></Label>
+                                            <Label Width="45" Content="jan" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1 1 0 1"/>
+                                            <Label Width="45" Content="feb" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1 1 0 1"/>
+                                            <Label Width="45" Content="mrt" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1 1 0 1"/>
+                                            <Label Width="45" Content="apr" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1 1 0 1"/>
+                                            <Label Width="45" Content="mei" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1 1 0 1"/>
+                                            <Label Width="45" Content="jun" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1 1 0 1"/>
+                                            <Label Width="45" Content="jul" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1 1 0 1"/>
+                                            <Label Width="45" Content="aug" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1 1 0 1"/>
+                                            <Label Width="45" Content="sep" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1 1 0 1"/>
+                                            <Label Width="45" Content="okt" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1 1 0 1"/>
+                                            <Label Width="45" Content="nov" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1 1 0 1"/>
+                                            <Label Width="45" Content="dec" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="1 1 1 1"/>
                                         </StackPanel>
                                         <Canvas Name="canvasKleurKlussenPerMaand" Height="45" Width="540" Margin="2 0 0 0">
                                             <Canvas Name="canvasMaand1">
