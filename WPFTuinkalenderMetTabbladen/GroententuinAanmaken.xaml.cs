@@ -63,9 +63,14 @@ namespace WPFTuinkalenderMetTabbladen
             {
                 labelGemeenteValidatie.Content = "Verplicht in te vulle veld!";
             }
-            else if (textBoxGemeente.Text != ("^[a-z]+([-\\s][a-z]+)?$"))
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(textBoxGemeente.Text, "^[a-z]+([-\\s][a-z]+)*$"))
             {
                 labelGemeenteValidatie.Content = "Geef een gemeente in!";
+            }
+            else
+            {
+                labelGemeenteValidatie.Content = "";
+                aantalJuisteVelden++;
             }
 
             if (textBoxPostcode.Text == "")
