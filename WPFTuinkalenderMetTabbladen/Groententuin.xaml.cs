@@ -66,6 +66,7 @@ namespace WPFTuinkalenderMetTabbladen
                 //huidige maand wordt geselecteerd
                 var huidigeMaand = DateTime.Now.Month;
                 comboBoxMaanden.SelectedIndex = huidigeMaand;
+                listBoxOmschrijvingKlussenPerMaand.SelectedIndex = -1;
             }
 
             //lijst met alle groenten in tab info groenten
@@ -73,7 +74,7 @@ namespace WPFTuinkalenderMetTabbladen
             {
                 listBoxAlleGroenten.Items.Add(groente);
             }
-            listBoxAlleGroenten.SelectedIndex = 0;
+            listBoxAlleGroenten.SelectedIndex = -1;
         }
 
         private void VulLijstMetMoestuinen()
@@ -136,8 +137,12 @@ namespace WPFTuinkalenderMetTabbladen
             }
 
             //listBox met klussen per maand leegmaken
+            var selectieMaand = comboBoxMaanden.SelectedIndex;
             comboBoxMaanden.SelectedIndex = -1;
-            comboBoxMaanden.SelectedIndex = 0;
+            comboBoxMaanden.SelectedIndex = selectieMaand;
+            listBoxOmschrijvingKlussenPerMaand.SelectedIndex = 0;
+            listBoxOmschrijvingKlussenPerMaand.ScrollIntoView(listBoxOmschrijvingKlussenPerMaand.SelectedItem);
+            listBoxOmschrijvingKlussenPerMaand.SelectedIndex = -1;
             if (GroentenInMoestuin.Count == 0)
             {
                 tabKlussenPerMaand.IsEnabled = false;
@@ -307,7 +312,16 @@ namespace WPFTuinkalenderMetTabbladen
 
         private void buttonNaarTabbladGroenteInfo_Click(object sender, RoutedEventArgs e)
         {
+            var geselecteerdeGroente = (Groente)(listBoxBeschikbareGroenten.SelectedItem);
             tabGroenteInfo.Focus();
+            foreach (var groente in listBoxAlleGroenten.Items)
+            {
+                if (groente == geselecteerdeGroente)
+                {
+                    listBoxAlleGroenten.SelectedItem = groente;
+                    break;
+                }
+            }
         }
 
         private void listBoxGroentenInMoestuinTabKlussen_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -370,7 +384,7 @@ namespace WPFTuinkalenderMetTabbladen
                         else
                         {
                             beginmaand = arrMaanden[klus.Begintijdstip - 1];
-                            eindmaand = arrMaanden[(klus.Begintijdstip) + (klus.Duur - 1) - 12];
+                            eindmaand = arrMaanden[(klus.Begintijdstip) + (klus.Duur - 2)];
                         }
 
                         textBoxOmschrijvingKlus.Text += klus.KorteOmschrijving + ": van " + beginmaand + " tot en met " +
