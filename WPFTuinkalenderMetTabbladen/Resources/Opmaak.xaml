@@ -1,51 +1,81 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!--opmaak listbox-->
+    <Style TargetType="{x:Type ListBox}">
+        <Setter Property="Background" Value="#FDFFFF"></Setter>
+        <Setter Property="BorderBrush" Value="#68A225"></Setter>
+        <Setter Property="BorderThickness" Value="2"></Setter>
+        <!--<Setter Property="ItemContainerStyle" Value="{StaticResource AlternatingListBoxItemStyle}"></Setter>
+        <Setter Property="AlternationCount" Value="2"></Setter>-->
+    </Style>
+
+    <!--afwisselende opmaak rijen in listbox (behalve voor tab groenten in tuin)-->
     <Style x:Key="AlternatingListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
         <Style.Triggers>
             <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                <Setter Property="Background" Value="#B3DE81"></Setter>
+                <Setter Property="Background" Value="#E6F7D1"></Setter>
+                <Setter Property="Foreground" Value="#341C00"></Setter>
             </Trigger>
             <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                <Setter Property="Background" Value="#E6F7D1"></Setter>
+                <Setter Property="Background" Value="#FDFFFF"></Setter>
+                <Setter Property="Foreground" Value="#341C00"></Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
 
+    <!--opmaak tabheaders-->
     <Style TargetType="{x:Type TabItem}">
-        <Setter Property="BorderThickness" Value="0"></Setter>
-        <Setter Property="Padding" Value="0"></Setter>
-        <Setter Property="Background" Value="#FFFFFF"></Setter> <!--kleur nog aanpassen-->
-        <Setter Property="Height" Value="20"></Setter>
-    </Style>
-
-    <!--<Style TargetType="{x:Type TabItem}">
-        <Setter Property="BorderThickness" Value="0"></Setter>
-        <Setter Property="Padding" Value="0"></Setter>
-        <Setter Property="Background" Value="Blue"></Setter>
-        <Setter Property="HeaderTemplate">
+        <Setter Property="Template">
             <Setter.Value>
-                <DataTemplate>
-                    <Border x:Name="grid" Background="Red">
-                        <ContentPresenter>
-                            <ContentPresenter.Content>
-                                <TextBlock Text="{TemplateBinding Content}"></TextBlock>
-                            </ContentPresenter.Content>
-                        </ContentPresenter>
-                    </Border>
-                    <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabItem}},Path=IsSelected}" Value="true">
-                            <Setter TargetName="grid" Property="Background" Value="Green"></Setter>
-                            <Setter TargetName="grid" Property="Width" Value="150"></Setter>
-                            <Setter TargetName="grid" Property="HorizontalAlignment" Value="Center"></Setter>
-                        </DataTrigger>
-                    </DataTemplate.Triggers>
-                </DataTemplate>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Grid>
+                        <Border Name="Border" Margin="0 0 0 0" Background="#68A225" BorderBrush="#265C00"
+                                BorderThickness="1 1 1 1">
+                            <ContentPresenter x:Name="Headers" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="0 1 0 1"
+                                              RecognizesAccessKey="True"></ContentPresenter>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="#B3DE81"></Setter> 
+                            <Setter TargetName="Border" Property="BorderThickness" Value="1 1 1 0"></Setter>
+                            <Setter Property="Foreground" Value="#341C00"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="#68A225"></Setter>
+                            <Setter TargetName="Border" Property="BorderThickness" Value="1 1 1 0"></Setter>
+                            <Setter Property="Foreground" Value="#341C00"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="#B3DE81"></Setter>
+                            <Setter TargetName="Border" Property="BorderThickness" Value="1 1 1 0"></Setter>
+                            <Setter Property="Foreground" Value="#341C00"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>-->
-
+    </Style>
+    <!--opmaak tabblaben-->
+    <Style TargetType="{x:Type TabControl}">
+        <Setter Property="Background" Value="#E6F7D1"></Setter>
+        <Setter Property="BorderThickness" Value="2 1 2 2"></Setter>
+        <Setter Property="BorderBrush" Value="#265C00"></Setter>
+    </Style>
     
-    <!--<Style TargetType="{x:Type ListBox}">
-        <Setter Property="Background" Value="#FFE6F7D1"></Setter>
-    </Style>-->
+    <!--opmaak buttons-->
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#68A225"></Setter>
+        <Setter Property="BorderBrush" Value="#265C00"></Setter>
+        <Setter Property="Foreground" Value="#341C00"></Setter>
+    </Style>
+    
+    <!--opmaak labels-->
+    <Style TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="#341C00"></Setter>
+    </Style>
+    
+    <!--opmaak comboboxen-->
+    <!--aanvullen-->
 </ResourceDictionary>

@@ -361,9 +361,9 @@ namespace WPFTuinkalenderMetTabbladen
                 }
 
                 //om bij te houden welke maanden gekleurd moeten worden
+                var beigeMaanden = new List<int>();
+                var bruineMaanden = new List<int>();
                 var groeneMaanden = new List<int>();
-                var geleMaanden = new List<int>();
-                var blauweMaanden = new List<int>();
 
                 foreach (var klus in lijstMetKlussen)
                 {
@@ -410,13 +410,13 @@ namespace WPFTuinkalenderMetTabbladen
                             switch (klus.SoortKlus.ToString())
                             {
                                 case "Voorzaaien":
-                                    geleMaanden.Add(i);
+                                    bruineMaanden.Add(i);
                                     break;
                                 case "ZaaienOfPlanten":
-                                    groeneMaanden.Add(i);
+                                    beigeMaanden.Add(i);
                                     break;
                                 case "Oogsten":
-                                    blauweMaanden.Add(i);
+                                    groeneMaanden.Add(i);
                                     break;
                                 default:
                                     break;
@@ -433,14 +433,24 @@ namespace WPFTuinkalenderMetTabbladen
                                 case "Voorzaaien":
                                     if (i > 12)
                                     {
-                                        geleMaanden.Add(i - 12);
+                                        bruineMaanden.Add(i - 12);
                                     }
                                     else
                                     {
-                                        geleMaanden.Add(i);
+                                        bruineMaanden.Add(i);
                                     }
                                     break;
                                 case "ZaaienOfPlanten":
+                                    if (i > 12)
+                                    {
+                                        beigeMaanden.Add(i - 12);
+                                    }
+                                    else
+                                    {
+                                        beigeMaanden.Add(i);
+                                    }
+                                    break;
+                                case "Oogsten":
                                     if (i > 12)
                                     {
                                         groeneMaanden.Add(i - 12);
@@ -448,16 +458,6 @@ namespace WPFTuinkalenderMetTabbladen
                                     else
                                     {
                                         groeneMaanden.Add(i);
-                                    }
-                                    break;
-                                case "Oogsten":
-                                    if (i > 12)
-                                    {
-                                        blauweMaanden.Add(i - 12);
-                                    }
-                                    else
-                                    {
-                                        blauweMaanden.Add(i);
                                     }
                                     break;
                                 default:
@@ -479,15 +479,15 @@ namespace WPFTuinkalenderMetTabbladen
                     var moetGroenGekleurdWorden = false;
                     var moetBlauwGekleurdWorden = false;
                     //nagaan welke kleuren de maand moet hebben
-                    if (geleMaanden.Contains(maandNr))
+                    if (bruineMaanden.Contains(maandNr))
                     {
                         moetGeelGekleurdWorden = true;
                     }
-                    if (groeneMaanden.Contains(maandNr))
+                    if (beigeMaanden.Contains(maandNr))
                     {
                         moetGroenGekleurdWorden = true;
                     }
-                    if (blauweMaanden.Contains(maandNr))
+                    if (groeneMaanden.Contains(maandNr))
                     {
                         moetBlauwGekleurdWorden = true;
                     }
@@ -499,15 +499,27 @@ namespace WPFTuinkalenderMetTabbladen
                     }
 
                     BrushConverter bc = new BrushConverter();
-                    SolidColorBrush geel = (SolidColorBrush)bc.ConvertFromString("Yellow");
-                    SolidColorBrush groen = (SolidColorBrush)bc.ConvertFromString("Green");
-                    SolidColorBrush blauw = (SolidColorBrush)bc.ConvertFromString("blue");
+                    SolidColorBrush bruin = (SolidColorBrush)bc.ConvertFromString("#8F660F");
+                    SolidColorBrush beige = (SolidColorBrush)bc.ConvertFromString("#E0BD5E");
+                    SolidColorBrush groen = (SolidColorBrush)bc.ConvertFromString("#265C00");
                     if (moetGeelGekleurdWorden)
                     {
-                        lijstPolygonen[0].Fill = geel;
-                        lijstPolygonen[1].Fill = geel;
+                        lijstPolygonen[0].Fill = bruin;
+                        lijstPolygonen[1].Fill = bruin;
                     }
                     if (moetGroenGekleurdWorden)
+                    {
+                        if (lijstPolygonen[0].Fill == null)
+                        {
+                            lijstPolygonen[0].Fill = beige;
+                            lijstPolygonen[1].Fill = beige;
+                        }
+                        else
+                        {
+                            lijstPolygonen[1].Fill = beige;
+                        }
+                    }
+                    if (moetBlauwGekleurdWorden)
                     {
                         if (lijstPolygonen[0].Fill == null)
                         {
@@ -516,27 +528,15 @@ namespace WPFTuinkalenderMetTabbladen
                         }
                         else
                         {
-                            lijstPolygonen[1].Fill = groen;
-                        }
-                    }
-                    if (moetBlauwGekleurdWorden)
-                    {
-                        if (lijstPolygonen[0].Fill == null)
-                        {
-                            lijstPolygonen[0].Fill = blauw;
-                            lijstPolygonen[1].Fill = blauw;
-                        }
-                        else
-                        {
                             if (lijstPolygonen[0].Fill == lijstPolygonen[1].Fill)
                             {
-                                lijstPolygonen[1].Fill = blauw;
+                                lijstPolygonen[1].Fill = groen;
                             }
                             else
                             {
-                                lijstPolygonen[2].Fill = geel;
-                                lijstPolygonen[3].Fill = groen;
-                                lijstPolygonen[4].Fill = blauw;
+                                lijstPolygonen[2].Fill = bruin;
+                                lijstPolygonen[3].Fill = beige;
+                                lijstPolygonen[4].Fill = groen;
                             }
                         }
                     }

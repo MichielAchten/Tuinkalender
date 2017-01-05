@@ -40,15 +40,15 @@ namespace WPFTuinkalender
             //var manager = new GroenteManager();
             //groenteViewSource.Source = manager.GetAlleGroenten();
 
-            var manager = new GroenteManager();
-            AlleGroenten = manager.GetAlleGroenten();
-            GroentenInMoestuin = manager.GetAlleGroentenUitMoestuin(GekozenMoestuin.Id);
-            foreach (var begingroente in GroentenInMoestuin)
-            {
-                BeginGroenten.Add(begingroente);
-            }
-            LijstMetTeKiezenGroentenVullen();
-            LijstMetGekozenGroentenVullen();
+            //var manager = new GroenteManager();
+            //AlleGroenten = manager.GetAlleGroenten();
+            //GroentenInMoestuin = manager.GetAlleGroentenUitMoestuin(GekozenMoestuin.Id);
+            //foreach (var begingroente in GroentenInMoestuin)
+            //{
+            //    BeginGroenten.Add(begingroente);
+            //}
+            //LijstMetTeKiezenGroentenVullen();
+            //LijstMetGekozenGroentenVullen();
             
         }
 
