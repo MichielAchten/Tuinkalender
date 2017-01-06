@@ -21,7 +21,8 @@
                 <!--menubalk nodig?-->
                 <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
                     <StackPanel Height="480" Width="165" DataContext="{StaticResource moestuinViewSource}">
-                        <Button Name="buttonMoestuinToevoegen" Margin="10 2 10 10" Click="buttonMoestuinToevoegen_Click">Nieuwe moestuin</Button>
+                        <Button Name="buttonMoestuinToevoegen" Margin="10 2 10 10" Click="buttonMoestuinToevoegen_Click" Content="Nieuwe moestuin">
+                        </Button>
                         <Button Name="buttonMoestuinVerwijderen" Margin="10 9 10 10" Click="buttonMoestuinVerwijderen_Click">Verwijder moestuin</Button>
                         <ListBox Name="listBoxMoestuinen" Margin="10 8 10 10" Height="399" ItemsSource="{Binding}" SelectedValuePath="Moestuin"
                             DisplayMemberPath="NaamTuin" SelectionChanged="listboxMoestuinen_SelectionChanged"
@@ -32,11 +33,38 @@
                             <TabItem Name="tabKlussenPerMaand" Width="125">
                                 <TabItem.Header>Klussen per maand</TabItem.Header>
                                 <StackPanel Orientation="Vertical" Height="450" Width="595">
-                                    <StackPanel Orientation="Horizontal">
-                                        <ComboBox Name="comboBoxMaanden" Width="150" Height="24" Margin="10" 
-                                                  SelectionChanged="comboBoxMaanden_SelectionChanged"></ComboBox>
+                                    <StackPanel Name="stackPanelMetToggleButtons" Orientation="Horizontal" Margin="10 10 0 0" Height="30">
+                                        <!--<ComboBox Name="comboBoxMaanden" Width="150" Height="24" Margin="10" 
+                                                  SelectionChanged="comboBoxMaanden_SelectionChanged">
+                                        </ComboBox>-->
+                                        <ToggleButton Name="toggleButtonBalkAlleMaanden" Width="85" Content="alle maanden" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonBalkAlleMaanden_Clicked"/>
+                                        <ToggleButton Name="toggleButtonJanuari" Width="41" Content="jan" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonJanuari_Clicked"/>
+                                        <ToggleButton Name="toggleButtonFebruari" Width="41" Content="feb" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonFebruari_Clicked"/>
+                                        <ToggleButton Name="toggleButtonMaart" Width="41" Content="mrt" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonMaart_Clicked"/>
+                                        <ToggleButton Name="toggleButtonApril" Width="41" Content="apr" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonApril_Clicked"/>
+                                        <ToggleButton Name="toggleButtonMei" Width="41" Content="mei" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonMei_Clicked"/>
+                                        <ToggleButton Name="toggleButtonJuni" Width="41" Content="jun" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonJuni_Clicked"/>
+                                        <ToggleButton Name="toggleButtonJuli" Width="41" Content="jul" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonJuli_Clicked"/>
+                                        <ToggleButton Name="toggleButtonAugustus" Width="41" Content="aug" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonAugustus_Clicked"/>
+                                        <ToggleButton Name="toggleButtonSeptember" Width="41" Content="sep" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonSeptember_Clicked"/>
+                                        <ToggleButton Name="toggleButtonOktober" Width="41" Content="okt" BorderThickness="1 1 0 1"
+                                                      Click="toggleButtonOktober_Clicked"/>
+                                        <ToggleButton Name="toggleButtonNovember" Width="41" Content="nov" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonNovember_Clicked"/>
+                                        <ToggleButton Name="toggleButtonDecember" Width="41" Content="dec" BorderThickness="1 1 1 1"
+                                                      Click="toggleButtonDecember_Clicked"/>
                                     </StackPanel>
-                                    <ListBox Name="listBoxOmschrijvingKlussenPerMaand" Margin="10" Height="385"
+                                    <ListBox Name="listBoxOmschrijvingKlussenPerMaand" Margin="10 10 7 10" Height="385"
                                               ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}" AlternationCount="2"></ListBox>
                                 </StackPanel>
                             </TabItem>

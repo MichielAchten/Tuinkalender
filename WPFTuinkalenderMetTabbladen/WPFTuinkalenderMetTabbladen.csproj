@@ -126,8 +126,18 @@
       <Name>TuinkalenderDA</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Images\" />
+    <Resource Include="Images\Aardappel.png" />
+    <Resource Include="Images\Aubergine.png" />
+    <Resource Include="Images\Courgette.png" />
+    <Resource Include="Images\Paprika.png" />
+    <Resource Include="Images\Peper.png" />
+    <Resource Include="Images\Pompoen.png" />
+    <Resource Include="Images\Sla.png" />
+    <Resource Include="Images\Tomaat.png" />
+    <Resource Include="Images\Ui.png" />
+    <Resource Include="Images\Wortel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
