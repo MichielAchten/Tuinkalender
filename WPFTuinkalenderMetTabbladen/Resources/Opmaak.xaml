@@ -6,6 +6,7 @@
         <Setter Property="Background" Value="#FDFFFF"></Setter>
         <Setter Property="BorderBrush" Value="#68A225"></Setter>
         <Setter Property="BorderThickness" Value="2"></Setter>
+        <Setter Property="FontWeight" Value="Normal"></Setter>
         <!--<Setter Property="ItemContainerStyle" Value="{StaticResource AlternatingListBoxItemStyle}"></Setter>
         <Setter Property="AlternationCount" Value="2"></Setter>-->
     </Style>
@@ -20,6 +21,9 @@
             <Trigger Property="ItemsControl.AlternationIndex" Value="1">
                 <Setter Property="Background" Value="#FDFFFF"></Setter>
                 <Setter Property="Foreground" Value="#341C00"></Setter>
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="FontWeight" Value="Bold"></Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -41,6 +45,7 @@
                             <Setter TargetName="Border" Property="Background" Value="#B3DE81"></Setter>
                             <Setter TargetName="Border" Property="BorderThickness" Value="1 1 1 0"></Setter>
                             <Setter Property="Foreground" Value="#341C00"></Setter>
+                            <Setter Property="FontWeight" Value="Bold"></Setter>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
                             <Setter TargetName="Border" Property="Background" Value="#68A225"></Setter>
@@ -51,6 +56,7 @@
                             <Setter TargetName="Border" Property="Background" Value="#B3DE81"></Setter>
                             <Setter TargetName="Border" Property="BorderThickness" Value="1 1 1 0"></Setter>
                             <Setter Property="Foreground" Value="#341C00"></Setter>
+                            <Setter Property="FontWeight" Value="Bold"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -70,6 +76,7 @@
         <Setter Property="BorderBrush" Value="#265C00"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>
         <Setter Property="Background" Value="#68A225"></Setter>
+        <Setter Property="FontWeight" Value="Normal"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -82,7 +89,7 @@
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="#B3DE81"></Setter>
-                
+                <Setter Property="FontWeight" Value="Bold"></Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -90,8 +97,42 @@
     <!--opmaak labels-->
     <Style TargetType="{x:Type Label}">
         <Setter Property="Foreground" Value="#341C00"></Setter>
+        <Setter Property="FontWeight" Value="Normal"></Setter>
     </Style>
 
+    <!--opmaak togglebuttons-->
+    <Style TargetType="{x:Type ToggleButton}">
+        <Setter Property="Foreground" Value="#341C00"></Setter>
+        <Setter Property="BorderBrush" Value="#265C00"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="Background" Value="#68A225"></Setter>
+        <Setter Property="FontWeight" Value="Normal"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#B3DE81"></Setter>
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="#B3DE81"></Setter>
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!--opmaak textblock-->
+    <!--<Style x:Name="textblockKlussen">
+        <Setter Property="FontWeight" Value="Normal"></Setter>
+    </Style>-->
+    
     <!--opmaak comboboxen-->
     <!--<Style TargetType="{x:Type ComboBox}">
         <Setter Property="Background" Value="#68A225"></Setter>

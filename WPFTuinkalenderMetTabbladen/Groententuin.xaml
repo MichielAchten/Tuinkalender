@@ -6,33 +6,35 @@
     xmlns:TuinkalenderBL="clr-namespace:TuinkalenderBL;assembly=TuinkalenderBL" 
     mc:Ignorable="d" 
     x:Class="WPFTuinkalenderMetTabbladen.Groententuin"
-        Title="Groententuin" Height="545" Width="805" Loaded="Window_Loaded">
+        Title="Groententuin" Height="625" Width="900" Loaded="Window_Loaded">
 
     <Window.Resources>
         <CollectionViewSource x:Key="moestuinViewSource" d:DesignSource="{d:DesignInstance {x:Type TuinkalenderBL:Moestuin}, CreateList=True}"/>
         <CollectionViewSource x:Key="groenteViewSource" d:DesignSource="{d:DesignInstance {x:Type TuinkalenderBL:Groente}, CreateList=True}"/>
     </Window.Resources>
-    
-    
-    
+
+
+
     <Grid>
         <DockPanel>
-            <StackPanel Orientation="Vertical" Background="#B3DE81"> <!--kleur nog aanpassen-->
+            <StackPanel Orientation="Vertical" Background="#B3DE81">
+                <!--kleur nog aanpassen-->
                 <!--menubalk nodig?-->
                 <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
-                    <StackPanel Height="480" Width="165" DataContext="{StaticResource moestuinViewSource}">
-                        <Button Name="buttonMoestuinToevoegen" Margin="10 2 10 10" Click="buttonMoestuinToevoegen_Click" Content="Nieuwe moestuin">
+                    <StackPanel Width="210" DataContext="{StaticResource moestuinViewSource}">
+                        <Button Name="buttonMoestuinToevoegen" Margin="25 2 25 15" Click="buttonMoestuinToevoegen_Click" Content="Nieuwe moestuin">
                         </Button>
-                        <Button Name="buttonMoestuinVerwijderen" Margin="10 9 10 10" Click="buttonMoestuinVerwijderen_Click">Verwijder moestuin</Button>
-                        <ListBox Name="listBoxMoestuinen" Margin="10 8 10 10" Height="399" ItemsSource="{Binding}" SelectedValuePath="Moestuin"
+                        <Button Name="buttonMoestuinVerwijderen" Margin="25 9 25 15" Click="buttonMoestuinVerwijderen_Click">Verwijder moestuin</Button>
+                        <ListBox Name="listBoxMoestuinen" Margin="25 7 25 10" Height="465" ItemsSource="{Binding}" SelectedValuePath="Moestuin"
                             DisplayMemberPath="NaamTuin" SelectionChanged="listboxMoestuinen_SelectionChanged"
                                  ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}" AlternationCount="2" BorderBrush="#265C00"></ListBox>
                     </StackPanel>
-                    <StackPanel Height="480" Width="615">
-                        <TabControl Name="tabcontrol"> <!--kleur nog aanpassen-->
+                    <StackPanel>
+                        <TabControl Name="tabcontrol">
+                            <!--kleur nog aanpassen-->
                             <TabItem Name="tabKlussenPerMaand" Width="125">
                                 <TabItem.Header>Klussen per maand</TabItem.Header>
-                                <StackPanel Orientation="Vertical" Height="450" Width="595">
+                                <StackPanel Orientation="Vertical" Height="450">
                                     <StackPanel Name="stackPanelMetToggleButtons" Orientation="Horizontal" Margin="10 10 0 0" Height="30">
                                         <!--<ComboBox Name="comboBoxMaanden" Width="150" Height="24" Margin="10" 
                                                   SelectionChanged="comboBoxMaanden_SelectionChanged">
@@ -68,7 +70,7 @@
                                               ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}" AlternationCount="2"></ListBox>
                                 </StackPanel>
                             </TabItem>
-                            <TabItem Name="tabKlussenPerGroente" Width="125">
+                            <!--<TabItem Name="tabKlussenPerGroente" Width="125" Height="19" VerticalAlignment="Top">
                                 <TabItem.Header>Klussen per groente</TabItem.Header>
                                 <StackPanel Height="450" Width="595">
                                     <StackPanel Height="305" Orientation="Horizontal">
@@ -79,7 +81,7 @@
                                                      ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}" AlternationCount="2"></ListBox>
                                         </StackPanel>
                                         <StackPanel Name="stackPanelMetInTeVullenTekstvakken" Orientation="Vertical">
-                                            <TextBlock Name="textBoxOmschrijvingKlus" Margin="10" Width="365" FontSize="12" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Name="textBoxOmschrijvingKlus" Margin="10" Width="365" FontSize="12" TextWrapping="Wrap" FontWeight="Normal"></TextBlock>
                                         </StackPanel>
                                     </StackPanel>
                                     <Label FontSize="10" Foreground="Gray" Margin="10 0 0 0">Klik op de maand voor een overzicht van de klussen voor die maand</Label>
@@ -206,40 +208,18 @@
                                         <Label Height="24" FontSize="9">Oogsten</Label>
                                     </StackPanel>
                                 </StackPanel>
-                            </TabItem>
+                            </TabItem>-->
                             <TabItem Name="tabGroentenInMoestuin" Width="135">
                                 <TabItem.Header>Groenten in moestuin</TabItem.Header>
                                 <StackPanel Height="450" Width="595" Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
-                                        <StackPanel Orientation="Vertical" Margin="40 10 35 0">
-                                            <Label Margin="10 20 10 10" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="16">Beschikbare groenten</Label>
-                                            <ListBox Name="listBoxBeschikbareGroenten" Margin="10 5 10 5" Height="250" Width="205" 
-                                                     DisplayMemberPath="NederlandseNaam" MouseDoubleClick="groenteToevoegenMetDubbelklik"
-                                                     AlternationCount="2">
-                                                <ListBox.ItemContainerStyle>
-                                                    <Style TargetType="{x:Type ListBoxItem}">
-                                                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="listBoxBeschikbareGroentenCtrlClick"></EventSetter>
-                                                        <Style.Triggers>
-                                                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                                                                <Setter Property="Background" Value="#E6F7D1"></Setter>
-                                                            </Trigger>
-                                                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                                                                <Setter Property="Background" Value="#FDFFFF"></Setter>
-                                                            </Trigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </ListBox.ItemContainerStyle>
-                                            </ListBox>
-                                            <Button Name="buttonKiesGroente" Margin="10 15 10 10" Click="buttonKiesGroente_Click">Toevoegen aan tuin</Button>
-                                            <Button Name="buttonNaarTabbladGroenteInfo" Margin="10 10 10 10" 
-                                                    Click="buttonNaarTabbladGroenteInfo_Click">Info Groente</Button>
-                                        </StackPanel>
                                         <StackPanel Name="stackPanelGroentenInMoestuin" Orientation="Vertical" Margin="20 10 20 0" 
                                                     DataContext="{StaticResource groenteViewSource}">
-                                            <Label Margin="10 20 10 10" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="16">Groenten in moestuin</Label>
-                                            <ListBox Name="listBoxGroentenInMoestuinTabGroenten" Margin="10 5 10 5" Height="250" Width="205" 
+                                            <Label Margin="10 20 10 0" HorizontalContentAlignment="Left" FontWeight="Bold" FontSize="16">Groenten in moestuin</Label>
+                                            <ListBox Name="listBoxGroentenInMoestuinTabGroenten" Margin="10 0 0 5" Height="250" Width="205" 
                                                      DisplayMemberPath="NederlandseNaam" ItemsSource="{Binding}" SelectedValuePath="NederlandseNaam"
-                                                     MouseDoubleClick="groenteVerwijderenMetDubbelklik" AlternationCount="2">
+                                                     MouseDoubleClick="groenteVerwijderenMetDubbelklik" AlternationCount="2" 
+                                                     SelectionChanged="listBoxGroentenInMoestuinTabGroenten_SelectionChanged">
                                                 <ListBox.ItemContainerStyle>
                                                     <Style TargetType="{x:Type ListBoxItem}">
                                                         <EventSetter Event="PreviewMouseLeftButtonDown" 
@@ -251,14 +231,47 @@
                                                             <Trigger Property="ItemsControl.AlternationIndex" Value="1">
                                                                 <Setter Property="Background" Value="#FDFFFF"></Setter>
                                                             </Trigger>
+                                                            <Trigger Property="IsSelected" Value="True">
+                                                                <Setter Property="FontWeight" Value="Bold"></Setter>
+                                                            </Trigger>
                                                         </Style.Triggers>
                                                     </Style>
                                                 </ListBox.ItemContainerStyle>
                                             </ListBox>
-                                            <Button Name="buttonVerwijderGeselecteerdeGroente" Margin="10 15 10 10" 
-                                                    Click="buttonVerwijderGeselecteerdeGroente_Click">Verwijderen uit tuin</Button>
-                                            <Button Name="buttonVerwijderAlleGroente" Margin="10 10 10 10"
-                                                    Click="buttonVerwijderAlleGroente_Click">Verwijder alle groenten</Button>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Button Name="buttonKiesGroente" Margin="10 100 10 10" Width="25" Height="25" Click="buttonKiesGroente_Click"
+                                                    ToolTip="Voeg de geselecteerde groente(n) toe aan de moestuin">&lt;</Button>
+                                            <Button Name="buttonVerwijderGeselecteerdeGroente" Margin="10 15 10 10" Width="25" Height="25"
+                                                    Click="buttonVerwijderGeselecteerdeGroente_Click"
+                                                    ToolTip="Verwijder de geselecteerde groente(n) uit de moestuin">&gt;</Button>
+                                            <Button Name="buttonVerwijderAlleGroente" Margin="10 10 10 10" Width="25" Height="25"
+                                                    Click="buttonVerwijderAlleGroente_Click" ToolTip="Verwijder alle groenten uit de moestuin">&gt;&gt;</Button>
+                                            <Button Name="buttonNaarTabbladGroenteInfo" Margin="10 10 10 10" Width="25" Height="25"
+                                                    Click="buttonNaarTabbladGroenteInfo_Click" ToolTip="Info over geselecteerde groente">?</Button>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="10 10 10 0">
+                                            <Label Margin="10 20 10 0" HorizontalContentAlignment="Left" FontWeight="Bold" FontSize="16">Beschikbare groenten</Label>
+                                            <ListBox Name="listBoxBeschikbareGroenten" Margin="10 0 10 5" Height="250" Width="205" 
+                                                     DisplayMemberPath="NederlandseNaam" MouseDoubleClick="groenteToevoegenMetDubbelklik"
+                                                     AlternationCount="2" SelectionChanged="listBoxBeschikbareGroenten_SelectionChanged">
+                                                <ListBox.ItemContainerStyle>
+                                                    <Style TargetType="{x:Type ListBoxItem}">
+                                                        <EventSetter Event="PreviewMouseLeftButtonDown" Handler="listBoxBeschikbareGroentenCtrlClick"></EventSetter>
+                                                        <Style.Triggers>
+                                                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                                                <Setter Property="Background" Value="#E6F7D1"></Setter>
+                                                            </Trigger>
+                                                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                                                <Setter Property="Background" Value="#FDFFFF"></Setter>
+                                                            </Trigger>
+                                                            <Trigger Property="IsSelected" Value="True">
+                                                                <Setter Property="FontWeight" Value="Bold"></Setter>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ListBox.ItemContainerStyle>
+                                            </ListBox>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
@@ -266,7 +279,7 @@
                             <TabItem Name="tabMoestuinGegevens" Width="125">
                                 <TabItem.Header>Gegevens moestuin</TabItem.Header>
                                 <StackPanel Height="450" Width="595" Orientation="Vertical">
-                                    <Label Name="labelNaamMoestuin" Margin="30 30 10 10" FontSize="18" FontWeight="Bold"></Label>
+                                    <Label Name="labelNaamMoestuin" Margin="30 30 10 10" FontSize="18" FontWeight="Bold">in te vullen</Label>
                                     <StackPanel Orientation="Horizontal">
                                         <Label Margin="30 10 10 0" Width="180">Eigenaar:</Label>
                                         <Label Name="labelEigenaar" Margin="10 10 10 0" ></Label>
@@ -287,18 +300,138 @@
                             </TabItem>
                             <TabItem Name="tabGroenteInfo" Width="100">
                                 <TabItem.Header>Info Groente</TabItem.Header>
-                                <StackPanel Height="450" Width="595" Orientation="Horizontal">
-                                    <ListBox Name="listBoxAlleGroenten" DisplayMemberPath="NederlandseNaam" Margin="10" Height="425" Width="200"
+                                <StackPanel Height="450" Width="595" Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <ListBox Name="listBoxAlleGroenten" DisplayMemberPath="NederlandseNaam" Margin="10 10 0 10" Height="285" Width="185"
                                              HorizontalAlignment="Left" SelectionChanged="listBoxAlleGroenten_SelectionChanged"
                                              ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}" AlternationCount="2"></ListBox>
-                                    <StackPanel Orientation="Vertical" Width="420">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Label Name="labelNaamGroente" Margin="10 20 0 0" Height="34" FontSize="18" FontWeight="Bold"></Label>
+                                        <StackPanel Orientation="Vertical" Margin="10">
+                                            <Label Name="labelNaamGroente" Margin="0 0 0 10" Height="34" FontSize="18" FontWeight="Bold"></Label>
+                                            <TextBlock Name="textBoxOmschrijvingKlus" Margin="0 10 0 0" Width="390" FontSize="12" TextWrapping="Wrap" FontWeight="Normal"></TextBlock>
                                         </StackPanel>
-                                        <!--<StackPanel Orientation="Horizontal">
-                                            <Label Margin="10" Width="150">nog aanvullen</Label>
-                                            <Label Height="24"></Label>
-                                        </StackPanel>-->
+                                    </StackPanel>
+                                    <Label FontSize="10" Foreground="Gray" Margin="10 0 0 0">Klik op de maand voor een overzicht van de klussen voor die maand</Label>
+                                    <StackPanel Height="85" Orientation="Vertical">
+                                        <StackPanel Width="540" Orientation="Horizontal" Height="30" HorizontalAlignment="Left" Margin="10 0 0 0">
+                                            <Button Name="buttonBalkJanuari" Width="45" Content="jan" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                                    BorderThickness="1 1 0 1" Click="buttonBalkJanuari_Click"/>
+                                            <Button Name="buttonBalkFebruari" Width="45" Content="feb" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                                    BorderThickness="1 1 0 1" Click="buttonBalkFebruari_Click"/>
+                                            <Button Name="buttonBalkMaart" Width="45" Content="mrt" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                                    BorderThickness="1 1 0 1" Height="30" VerticalAlignment="Top" Click="buttonBalkMaart_Click"/>
+                                            <Button Name="buttonBalkApril" Width="45" Content="apr" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                                    BorderThickness="1 1 0 1" Click="buttonBalkApril_Click"/>
+                                            <Button Name="buttonBalkMei" Width="45" Content="mei" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                                    BorderThickness="1 1 0 1" Click="buttonBalkMei_Click"/>
+                                            <Button Name="buttonBalkJuni" Width="45" Content="jun" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                                    BorderThickness="1 1 0 1" Click="buttonBalkJuni_Click"/>
+                                            <Button Name="buttonBalkJuli" Width="45" Content="jul" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                                    BorderThickness="1 1 0 1" Height="30" VerticalAlignment="Top" Click="buttonBalkJuli_Click"/>
+                                            <Button Name="buttonBalkAugustus" Width="45" Content="aug" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                                    BorderThickness="1 1 0 1" Click="buttonBalkAugustus_Click"/>
+                                            <Button Name="buttonBalkSeptember" Width="45" Content="sep" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                                    BorderThickness="1 1 0 1" Click="buttonBalkSeptember_Click"/>
+                                            <Button Name="buttonBalkOktober" Width="45" Content="okt" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                                    BorderThickness="1 1 0 1" Click="buttonBalkOktober_Click"/>
+                                            <Button Name="buttonBalkNovember" Width="45" Content="nov" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                                    BorderThickness="1 1 0 1" Click="buttonBalkNovember_Click"/>
+                                            <Button Name="buttonBalkDecember" Width="45" Content="dec" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                                    BorderThickness="1 1 1 1" Click="buttonBalkDecember_Click"/>
+                                        </StackPanel>
+                                        <Canvas Name="canvasKleurKlussenPerMaand" Height="45" Width="540" HorizontalAlignment="Left" Margin="10 0 0 0">
+                                            <Canvas Name="canvasMaand1">
+                                                <Polygon Name="polygon1_1" Points="0 0 45 0 0 45"></Polygon>
+                                                <Polygon Name="polygon1_2" Points="0 45 45 0 45 45"></Polygon>
+                                                <Polygon Name="polygon1_3" Points="0 0 0 15 45 15 45 0"></Polygon>
+                                                <Polygon Name="polygon1_4" Points="0 15 0 30 45 30 45 15"></Polygon>
+                                                <Polygon Name="polygon1_5" Points="0 30 0 45 45 45 45 30"></Polygon>
+                                            </Canvas>
+                                            <Canvas Name="canvasMaand2">
+                                                <Polygon Name="polygon2_1" Points="45 0 90 0 45 45"></Polygon>
+                                                <Polygon Name="polygon2_2" Points="45 45 90 0 90 45"></Polygon>
+                                                <Polygon Name="polygon2_3" Points="45 0 45 15 90 15 90 0"></Polygon>
+                                                <Polygon Name="polygon2_4" Points="45 15 45 30 90 30 90 15"></Polygon>
+                                                <Polygon Name="polygon2_5" Points="45 30 45 45 90 45 90 30"></Polygon>
+                                            </Canvas>
+                                            <Canvas Name="canvasMaand3">
+                                                <Polygon Name="polygon3_1" Points="90 0 135 0 90 45"></Polygon>
+                                                <Polygon Name="polygon3_2" Points="90 45 135 0 135 45"></Polygon>
+                                                <Polygon Name="polygon3_3" Points="90 0 90 15 135 15 135 0"></Polygon>
+                                                <Polygon Name="polygon3_4" Points="90 15 90 30 135 30 135 15"></Polygon>
+                                                <Polygon Name="polygon3_5" Points="90 30 90 45 135 45 135 30"></Polygon>
+                                            </Canvas>
+                                            <Canvas Name="canvasMaand4">
+                                                <Polygon Name="polygon4_1" Points="135 0 180 0 135 45"></Polygon>
+                                                <Polygon Name="polygon4_2" Points="135 45 180 0 180 45"></Polygon>
+                                                <Polygon Name="polygon4_3" Points="135 0 135 15 180 15 180 0"></Polygon>
+                                                <Polygon Name="polygon4_4" Points="135 15 135 30 180 30 180 15"></Polygon>
+                                                <Polygon Name="polygon4_5" Points="135 30 135 45 180 45 180 30"></Polygon>
+                                            </Canvas>
+                                            <Canvas Name="canvasMaand5">
+                                                <Polygon Name="polygon5_1" Points="180 0 225 0 180 45"></Polygon>
+                                                <Polygon Name="polygon5_2" Points="180 45 225 0 225 45"></Polygon>
+                                                <Polygon Name="polygon5_3" Points="180 0 180 15 225 15 225 0"></Polygon>
+                                                <Polygon Name="polygon5_4" Points="180 15 180 30 225 30 225 15"></Polygon>
+                                                <Polygon Name="polygon5_5" Points="180 30 180 45 225 45 225 30"></Polygon>
+                                            </Canvas>
+                                            <Canvas Name="canvasMaand6">
+                                                <Polygon Name="polygon6_1" Points="225 0 270 0 225 45"></Polygon>
+                                                <Polygon Name="polygon6_2" Points="225 45 270 0 270 45"></Polygon>
+                                                <Polygon Name="polygon6_3" Points="225 0 225 15 270 15 270 0"></Polygon>
+                                                <Polygon Name="polygon6_4" Points="225 15 225 30 270 30 270 15"></Polygon>
+                                                <Polygon Name="polygon6_5" Points="225 30 225 45 270 45 270 30"></Polygon>
+                                            </Canvas>
+                                            <Canvas Name="canvasMaand7">
+                                                <Polygon Name="polygon7_1" Points="270 0 315 0 270 45"></Polygon>
+                                                <Polygon Name="polygon7_2" Points="270 45 315 0 315 45"></Polygon>
+                                                <Polygon Name="polygon7_3" Points="270 0 270 15 315 15 315 0"></Polygon>
+                                                <Polygon Name="polygon7_4" Points="270 15 270 30 315 30 315 15"></Polygon>
+                                                <Polygon Name="polygon7_5" Points="270 30 270 45 315 45 315 30"></Polygon>
+                                            </Canvas>
+                                            <Canvas Name="canvasMaand8">
+                                                <Polygon Name="polygon8_1" Points="315 0 360 0 315 45"></Polygon>
+                                                <Polygon Name="polygon8_2" Points="315 45 360 0 360 45"></Polygon>
+                                                <Polygon Name="polygon8_3" Points="315 0 315 15 360 15 360 0"></Polygon>
+                                                <Polygon Name="polygon8_4" Points="315 15 315 30 360 30 360 15"></Polygon>
+                                                <Polygon Name="polygon8_5" Points="315 30 315 45 360 45 360 30"></Polygon>
+                                            </Canvas>
+                                            <Canvas Name="canvasMaand9">
+                                                <Polygon Name="polygon9_1" Points="360 0 405 0 360 45"></Polygon>
+                                                <Polygon Name="polygon9_2" Points="360 45 405 0 405 45"></Polygon>
+                                                <Polygon Name="polygon9_3" Points="360 0 360 15 405 15 405 0"></Polygon>
+                                                <Polygon Name="polygon9_4" Points="360 15 360 30 405 30 405 15"></Polygon>
+                                                <Polygon Name="polygon9_5" Points="360 30 360 45 405 45 405 30"></Polygon>
+                                            </Canvas>
+                                            <Canvas Name="canvasMaand10">
+                                                <Polygon Name="polygon10_1" Points="405 0 450 0 405 45"></Polygon>
+                                                <Polygon Name="polygon10_2" Points="405 45 450 0 450 45"></Polygon>
+                                                <Polygon Name="polygon10_3" Points="405 0 405 15 450 15 450 0"></Polygon>
+                                                <Polygon Name="polygon10_4" Points="405 15 405 30 450 30 450 15"></Polygon>
+                                                <Polygon Name="polygon10_5" Points="405 30 405 45 450 45 450 30"></Polygon>
+                                            </Canvas>
+                                            <Canvas Name="canvasMaand11">
+                                                <Polygon Name="polygon11_1" Points="450 0 495 0 450 45"></Polygon>
+                                                <Polygon Name="polygon11_2" Points="450 45 495 0 495 45"></Polygon>
+                                                <Polygon Name="polygon11_3" Points="450 0 450 15 495 15 495 0"></Polygon>
+                                                <Polygon Name="polygon11_4" Points="450 15 450 30 495 30 495 15"></Polygon>
+                                                <Polygon Name="polygon11_5" Points="450 30 450 45 495 45 495 30"></Polygon>
+                                            </Canvas>
+                                            <Canvas Name="canvasMaand12">
+                                                <Polygon Name="polygon12_1" Points="495 0 540 0 495 45"></Polygon>
+                                                <Polygon Name="polygon12_2" Points="495 45 540 0 540 45"></Polygon>
+                                                <Polygon Name="polygon12_3" Points="495 0 495 15 540 15 540 0"></Polygon>
+                                                <Polygon Name="polygon12_4" Points="495 15 495 30 540 30 540 15"></Polygon>
+                                                <Polygon Name="polygon12_5" Points="495 30 495 45 540 45 540 30"></Polygon>
+                                            </Canvas>
+                                        </Canvas>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Height="20">
+                                        <Label Height="10" Width="10" Background="#8F660F" BorderThickness="1" BorderBrush="#341C00" Margin="65 0 0 0"></Label>
+                                        <Label Height="24" FontSize="9">Voorzaaien</Label>
+                                        <Label Height="10" Width="10" Background="#E0BD5E" BorderThickness="1" BorderBrush="#341C00" Margin="65 0 0 0"></Label>
+                                        <Label Height="24" FontSize="9">Ter plaatse zaaien of planten</Label>
+                                        <Label Height="10" Width="10" Background="#265C00" BorderThickness="1" BorderBrush="#341C00" Margin="65 0 0 0"></Label>
+                                        <Label Height="24" FontSize="9">Oogsten</Label>
                                     </StackPanel>
                                 </StackPanel>
                             </TabItem>
