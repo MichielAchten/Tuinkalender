@@ -6,7 +6,7 @@
     xmlns:TuinkalenderBL="clr-namespace:TuinkalenderBL;assembly=TuinkalenderBL" 
     mc:Ignorable="d" 
     x:Class="WPFTuinkalenderMetTabbladen.Groententuin"
-        Title="Groententuin" Height="625" Width="900" Loaded="Window_Loaded">
+        Title="Groententuin" Height="625" Width="905" Loaded="Window_Loaded">
 
     <Window.Resources>
         <CollectionViewSource x:Key="moestuinViewSource" d:DesignSource="{d:DesignInstance {x:Type TuinkalenderBL:Moestuin}, CreateList=True}"/>
@@ -34,8 +34,8 @@
                             <!--kleur nog aanpassen-->
                             <TabItem Name="tabKlussenPerMaand" Width="125">
                                 <TabItem.Header>Klussen per maand</TabItem.Header>
-                                <StackPanel Orientation="Vertical" Height="450">
-                                    <StackPanel Name="stackPanelMetToggleButtons" Orientation="Horizontal" Margin="10 10 0 0" Height="30">
+                                <StackPanel Orientation="Vertical" Height="521" Width="650">
+                                    <StackPanel Name="stackPanelMetToggleButtons" Orientation="Horizontal" Margin="15 10 0 0" Height="30">
                                         <!--<ComboBox Name="comboBoxMaanden" Width="150" Height="24" Margin="10" 
                                                   SelectionChanged="comboBoxMaanden_SelectionChanged">
                                         </ComboBox>-->
@@ -66,7 +66,7 @@
                                         <ToggleButton Name="toggleButtonDecember" Width="41" Content="dec" BorderThickness="1 1 1 1"
                                                       Click="toggleButtonDecember_Clicked"/>
                                     </StackPanel>
-                                    <ListBox Name="listBoxOmschrijvingKlussenPerMaand" Margin="10 10 7 10" Height="385"
+                                    <ListBox Name="listBoxOmschrijvingKlussenPerMaand" Margin="15 15 15 10" Height="450"
                                               ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}" AlternationCount="2"></ListBox>
                                 </StackPanel>
                             </TabItem>
@@ -211,11 +211,11 @@
                             </TabItem>-->
                             <TabItem Name="tabGroentenInMoestuin" Width="135">
                                 <TabItem.Header>Groenten in moestuin</TabItem.Header>
-                                <StackPanel Height="450" Width="595" Orientation="Vertical">
+                                <StackPanel Height="521" Width="650" Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
                                         <StackPanel Name="stackPanelGroentenInMoestuin" Orientation="Vertical" Margin="20 10 20 0" 
                                                     DataContext="{StaticResource groenteViewSource}">
-                                            <Label Margin="10 20 10 0" HorizontalContentAlignment="Left" FontWeight="Bold" FontSize="16">Groenten in moestuin</Label>
+                                            <Label Margin="10 20 10 0" HorizontalContentAlignment="Left" FontWeight="Bold" FontSize="18">Groenten in moestuin</Label>
                                             <ListBox Name="listBoxGroentenInMoestuinTabGroenten" Margin="10 0 0 5" Height="250" Width="205" 
                                                      DisplayMemberPath="NederlandseNaam" ItemsSource="{Binding}" SelectedValuePath="NederlandseNaam"
                                                      MouseDoubleClick="groenteVerwijderenMetDubbelklik" AlternationCount="2" 
@@ -233,6 +233,7 @@
                                                             </Trigger>
                                                             <Trigger Property="IsSelected" Value="True">
                                                                 <Setter Property="FontWeight" Value="Bold"></Setter>
+                                                                <Setter Property="FontSize" Value="16"></Setter>
                                                             </Trigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -251,7 +252,7 @@
                                                     Click="buttonNaarTabbladGroenteInfo_Click" ToolTip="Info over geselecteerde groente">?</Button>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" Margin="10 10 10 0">
-                                            <Label Margin="10 20 10 0" HorizontalContentAlignment="Left" FontWeight="Bold" FontSize="16">Beschikbare groenten</Label>
+                                            <Label Margin="10 20 10 0" HorizontalContentAlignment="Left" FontWeight="Bold" FontSize="18">Beschikbare groenten</Label>
                                             <ListBox Name="listBoxBeschikbareGroenten" Margin="10 0 10 5" Height="250" Width="205" 
                                                      DisplayMemberPath="NederlandseNaam" MouseDoubleClick="groenteToevoegenMetDubbelklik"
                                                      AlternationCount="2" SelectionChanged="listBoxBeschikbareGroenten_SelectionChanged">
@@ -267,6 +268,7 @@
                                                             </Trigger>
                                                             <Trigger Property="IsSelected" Value="True">
                                                                 <Setter Property="FontWeight" Value="Bold"></Setter>
+                                                                <Setter Property="FontSize" Value="16"></Setter>
                                                             </Trigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -278,7 +280,7 @@
                             </TabItem>
                             <TabItem Name="tabMoestuinGegevens" Width="125">
                                 <TabItem.Header>Gegevens moestuin</TabItem.Header>
-                                <StackPanel Height="450" Width="595" Orientation="Vertical">
+                                <StackPanel Height="521" Width="650" Orientation="Vertical">
                                     <Label Name="labelNaamMoestuin" Margin="30 30 10 10" FontSize="18" FontWeight="Bold">in te vullen</Label>
                                     <StackPanel Orientation="Horizontal">
                                         <Label Margin="30 10 10 0" Width="180">Eigenaar:</Label>
@@ -300,17 +302,22 @@
                             </TabItem>
                             <TabItem Name="tabGroenteInfo" Width="100">
                                 <TabItem.Header>Info Groente</TabItem.Header>
-                                <StackPanel Height="450" Width="595" Orientation="Vertical">
+                                <StackPanel Height="521" Width="650" Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
-                                        <ListBox Name="listBoxAlleGroenten" DisplayMemberPath="NederlandseNaam" Margin="10 10 0 10" Height="285" Width="185"
+                                        <ListBox Name="listBoxAlleGroenten" DisplayMemberPath="NederlandseNaam" Margin="10 10 0 10" Height="340" Width="185"
                                              HorizontalAlignment="Left" SelectionChanged="listBoxAlleGroenten_SelectionChanged"
                                              ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}" AlternationCount="2"></ListBox>
                                         <StackPanel Orientation="Vertical" Margin="10">
-                                            <Label Name="labelNaamGroente" Margin="0 0 0 10" Height="34" FontSize="18" FontWeight="Bold"></Label>
-                                            <TextBlock Name="textBoxOmschrijvingKlus" Margin="0 10 0 0" Width="390" FontSize="12" TextWrapping="Wrap" FontWeight="Normal"></TextBlock>
+                                            <Expander Header="Eigenschappen groente" Width="433" HorizontalAlignment="Left">
+                                                
+                                            </Expander>
+                                            <Expander Header="Omschrijving klussen" Width="433" HorizontalAlignment="Left">
+                                                <TextBlock Name="textBoxOmschrijvingKlus" Width="380" Height="278" FontSize="12" TextWrapping="Wrap" 
+                                                           FontWeight="Normal"></TextBlock>
+                                            </Expander>
                                         </StackPanel>
                                     </StackPanel>
-                                    <Label FontSize="10" Foreground="Gray" Margin="10 0 0 0">Klik op de maand voor een overzicht van de klussen voor die maand</Label>
+                                    <Label FontSize="10" Foreground="Gray" Margin="10 17 0 0">Klik op de maand voor een overzicht van de klussen voor die maand</Label>
                                     <StackPanel Height="85" Orientation="Vertical">
                                         <StackPanel Width="540" Orientation="Horizontal" Height="30" HorizontalAlignment="Left" Margin="10 0 0 0">
                                             <Button Name="buttonBalkJanuari" Width="45" Content="jan" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 

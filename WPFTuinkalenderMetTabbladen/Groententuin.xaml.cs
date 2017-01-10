@@ -911,7 +911,6 @@ namespace WPFTuinkalenderMetTabbladen
         private void listBoxAlleGroenten_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Groente geselecteerdeGroente = (Groente)(listBoxAlleGroenten.SelectedItem);
-            labelNaamGroente.Content = geselecteerdeGroente.NederlandseNaam;
             listBoxAlleGroenten.ScrollIntoView(listBoxAlleGroenten.SelectedItem);
 
 

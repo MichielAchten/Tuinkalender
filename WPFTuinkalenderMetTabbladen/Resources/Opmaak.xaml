@@ -24,6 +24,7 @@
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="FontSize" Value="16"></Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -127,7 +128,89 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
+
+
+    <!--controltemplate expander-->
+    <ControlTemplate x:Key="ExpanderToggleButton" TargetType="{x:Type ToggleButton}">
+        <Border x:Name="Border" CornerRadius="0 0 0 0" BorderThickness="0 0 1 0" Background="#68A225" BorderBrush="Black" Width="25">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal"></VisualState>
+                    <VisualState x:Name="MouseOver">
+                        <Storyboard>
+                            <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
+                                            From="#68A225" To="#B3DE81" Duration="0"></ColorAnimation>
+                        </Storyboard>
+                    </VisualState>
+                </VisualStateGroup>
+                <VisualStateGroup x:Name="CheckStates">
+                    <VisualState x:Name="Checked">
+                        <Storyboard>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="CollapsedArrow">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"></DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                            <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
+                                            From="#68A225" To="#B3DE81" Duration="0"></ColorAnimation>
+                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ExpandedArrow">
+                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"></DiscreteObjectKeyFrame>
+                            </ObjectAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </VisualState>
+                    <VisualState x:Name="Unchecked"></VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <Grid>
+                <Path x:Name="CollapsedArrow" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z">
+                    <Path.Fill>
+                        <SolidColorBrush Color="Black"></SolidColorBrush>
+                    </Path.Fill>
+                </Path>
+                <Path x:Name="ExpandedArrow" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Data="M 0 4 L 4 0 L 8 4 Z">
+                    <Path.Fill>
+                        <SolidColorBrush Color="Black"></SolidColorBrush>
+                    </Path.Fill>
+                </Path>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <!--opmaak expander-->
+    <Style TargetType="{x:Type Expander}"><Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Expander}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition x:Name="ContentRow" Height="0"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Border x:Name="Border" Grid.Row="0" BorderThickness="1" BorderBrush="Black" CornerRadius="0 0 0 0" Background="#68A225">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="25"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <ToggleButton OverridesDefaultStyle="True" Template="{StaticResource ExpanderToggleButton}" 
+                                              IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
+                                              Background="White"></ToggleButton>
+                                <ContentPresenter Grid.Column="1" Margin="4" ContentSource="Header" RecognizesAccessKey="True"></ContentPresenter>
+                            </Grid>
+                        </Border>
+                        <Border x:Name="Content" Grid.Row="1" BorderThickness="1 0 1 1" CornerRadius="0 0 0 0" BorderBrush="Black" Background="#B3DE81">
+                            <ContentPresenter Margin="4"></ContentPresenter>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsExpanded" Value="True">
+                            <Setter TargetName="ContentRow" Property="Height" Value="{Binding DesiredHeight, ElementName=Content}"></Setter>
+                            <Setter TargetName="Border" Property="Background" Value="#B3DE81"></Setter>
+                            <Setter TargetName="Content" Property="Background" Value="#B3DE81"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--opmaak textblock-->
     <!--<Style x:Name="textblockKlussen">
         <Setter Property="FontWeight" Value="Normal"></Setter>
