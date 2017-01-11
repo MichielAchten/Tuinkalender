@@ -45,17 +45,20 @@
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="#B3DE81"></Setter>
                             <Setter TargetName="Border" Property="BorderThickness" Value="1 1 1 0"></Setter>
+                            <Setter TargetName="Border" Property="Margin" Value="0 0 -1 -1"></Setter>
                             <Setter Property="Foreground" Value="#341C00"></Setter>
                             <Setter Property="FontWeight" Value="Bold"></Setter>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
                             <Setter TargetName="Border" Property="Background" Value="#68A225"></Setter>
                             <Setter TargetName="Border" Property="BorderThickness" Value="1 1 1 0"></Setter>
+                            <Setter TargetName="Border" Property="Margin" Value="0 0 -1 0"></Setter>
                             <Setter Property="Foreground" Value="#341C00"></Setter>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="#B3DE81"></Setter>
                             <Setter TargetName="Border" Property="BorderThickness" Value="1 1 1 0"></Setter>
+                            <Setter TargetName="Border" Property="Margin" Value="0 0 -1 -1"></Setter>
                             <Setter Property="Foreground" Value="#341C00"></Setter>
                             <Setter Property="FontWeight" Value="Bold"></Setter>
                         </Trigger>
@@ -67,7 +70,7 @@
     <!--opmaak tabblaben-->
     <Style TargetType="{x:Type TabControl}">
         <Setter Property="Background" Value="#E6F7D1"></Setter>
-        <Setter Property="BorderThickness" Value="2 1 2 2"></Setter>
+        <Setter Property="BorderThickness" Value="2 2 2 2"></Setter>
         <Setter Property="BorderBrush" Value="#265C00"></Setter>
     </Style>
 
@@ -133,7 +136,7 @@
 
     <!--controltemplate expander-->
     <ControlTemplate x:Key="ExpanderToggleButton" TargetType="{x:Type ToggleButton}">
-        <Border x:Name="Border" CornerRadius="0 0 0 0" BorderThickness="0 0 1 0" Background="#68A225" BorderBrush="Black" Width="25">
+        <Border x:Name="Border" CornerRadius="0 0 0 0" BorderThickness="0 0 1 0" Background="#68A225" BorderBrush="#265C00" Width="25">
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal"></VisualState>
@@ -150,11 +153,11 @@
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="CollapsedArrow">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"></DiscreteObjectKeyFrame>
                             </ObjectAnimationUsingKeyFrames>
-                            <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
-                                            From="#68A225" To="#B3DE81" Duration="0"></ColorAnimation>
                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ExpandedArrow">
                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"></DiscreteObjectKeyFrame>
                             </ObjectAnimationUsingKeyFrames>
+                            <!--<ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
+                                            From="#68A225" To="#B3DE81" Duration="0"></ColorAnimation>-->
                         </Storyboard>
                     </VisualState>
                     <VisualState x:Name="Unchecked"></VisualState>
@@ -163,19 +166,20 @@
             <Grid>
                 <Path x:Name="CollapsedArrow" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z">
                     <Path.Fill>
-                        <SolidColorBrush Color="Black"></SolidColorBrush>
+                        <SolidColorBrush Color="#341C00"></SolidColorBrush>
                     </Path.Fill>
                 </Path>
                 <Path x:Name="ExpandedArrow" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Data="M 0 4 L 4 0 L 8 4 Z">
                     <Path.Fill>
-                        <SolidColorBrush Color="Black"></SolidColorBrush>
+                        <SolidColorBrush Color="#341C00"></SolidColorBrush>
                     </Path.Fill>
                 </Path>
             </Grid>
         </Border>
     </ControlTemplate>
     <!--opmaak expander-->
-    <Style TargetType="{x:Type Expander}"><Setter Property="Template">
+    <Style TargetType="{x:Type Expander}">
+        <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Expander}">
                     <Grid>
@@ -183,19 +187,18 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition x:Name="ContentRow" Height="0"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Border x:Name="Border" Grid.Row="0" BorderThickness="1" BorderBrush="Black" CornerRadius="0 0 0 0" Background="#68A225">
+                        <Border x:Name="Border" Grid.Row="0" BorderThickness="1 1 1 0" BorderBrush="#265C00" CornerRadius="0 0 0 0" Background="#68A225">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="25"></ColumnDefinition>
                                     <ColumnDefinition Width="*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
                                 <ToggleButton OverridesDefaultStyle="True" Template="{StaticResource ExpanderToggleButton}" 
-                                              IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" 
-                                              Background="White"></ToggleButton>
+                                              IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"></ToggleButton>
                                 <ContentPresenter Grid.Column="1" Margin="4" ContentSource="Header" RecognizesAccessKey="True"></ContentPresenter>
                             </Grid>
                         </Border>
-                        <Border x:Name="Content" Grid.Row="1" BorderThickness="1 0 1 1" CornerRadius="0 0 0 0" BorderBrush="Black" Background="#B3DE81">
+                        <Border x:Name="Content" Grid.Row="1" BorderThickness="1 1 1 0" CornerRadius="0 0 0 0" BorderBrush="#265C00" Background="#B3DE81">
                             <ContentPresenter Margin="4"></ContentPresenter>
                         </Border>
                     </Grid>
@@ -204,18 +207,116 @@
                             <Setter TargetName="ContentRow" Property="Height" Value="{Binding DesiredHeight, ElementName=Content}"></Setter>
                             <Setter TargetName="Border" Property="Background" Value="#B3DE81"></Setter>
                             <Setter TargetName="Content" Property="Background" Value="#B3DE81"></Setter>
+                            <Setter Property="Foreground" Value="#341C00"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsExpanded" Value="False">
+                            <Setter Property="Foreground" Value="#341C00"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!--opmaak scrollbar listbox-->
+    <Style x:Key="ScrollBarLineButton" TargetType="{x:Type RepeatButton}">
+        <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="Focusable" Value="False"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border x:Name="Border" Margin="1" CornerRadius="0 0 0 0" BorderThickness="1" BorderBrush="#265C00" Background="#B3DE81">
+                        <Path x:Name="Arrow" HorizontalAlignment="Center" VerticalAlignment="Center"
+                              Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}">
+                            <Path.Fill>
+                                <SolidColorBrush Color="#341C00"></SolidColorBrush>
+                            </Path.Fill>
+                        </Path>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"></VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
+                                            From="#B3DE81" To="#E6F7D1" Duration="0"></ColorAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ScrollBarThumb" TargetType="{x:Type Thumb}">
+        <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Setter Property="IsTabStop" Value="False"></Setter>
+        <Setter Property="Focusable" Value="False"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border x:Name="Thumb" CornerRadius="0 0 0 0" Background="#B3DE81" BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="1">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"></VisualState>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation Storyboard.TargetName="Thumb" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
+                                            From="#B3DE81" To="#E6F7D1" Duration="0"></ColorAnimation>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <ControlTemplate x:Key="VerticalScrollBar" TargetType="{x:Type ScrollBar}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition MaxHeight="18"></RowDefinition>
+                <RowDefinition Height="0.00001*"></RowDefinition>
+                <RowDefinition MaxHeight="18"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.RowSpan="3" CornerRadius="2" Background="#FDFFFF"></Border>
+            <RepeatButton Grid.Row="0" Style="{StaticResource ScrollBarLineButton}" Height="18" Command="ScrollBar.LineUpCommand"
+                          Content="M 0 4 L 8 4 L 4 0 Z"></RepeatButton>
+            <Track x:Name="PART_Track" Grid.Row="1" IsDirectionReversed="True">
+                <Track.Thumb>
+                    <Thumb Style="{StaticResource ScrollBarThumb}" Margin="1 0 1 0" BorderBrush="Black" Background="White"></Thumb>
+                </Track.Thumb>
+            </Track>
+            <RepeatButton Grid.Row="3" Style="{StaticResource ScrollBarLineButton}" Height="18" Command="ScrollBar.LineDownCommand"
+                          Content="M 0 0 L 4 4 L 8 0 Z"></RepeatButton>
+        </Grid>
+    </ControlTemplate>
+    <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+        <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
+        <Setter Property="OverridesDefaultStyle" Value="True"></Setter>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Width" Value="18"></Setter>
+                <Setter Property="Height" Value="Auto"></Setter>
+                <Setter Property="Template" Value="{StaticResource VerticalScrollBar}"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    
+    
+    
+    
+    
 
     <!--opmaak textblock-->
     <!--<Style x:Name="textblockKlussen">
         <Setter Property="FontWeight" Value="Normal"></Setter>
     </Style>-->
-    
+
     <!--opmaak comboboxen-->
     <!--<Style TargetType="{x:Type ComboBox}">
         <Setter Property="Background" Value="#68A225"></Setter>
@@ -229,5 +330,4 @@
         </Setter>
         
     </Style>-->
-
 </ResourceDictionary>
