@@ -62,6 +62,10 @@
                             <Setter Property="Foreground" Value="#341C00"></Setter>
                             <Setter Property="FontWeight" Value="Bold"></Setter>
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Border" Property="Background" Value="#FDFFFF"></Setter>
+                            <Setter Property="Foreground" Value="#E6F7D1"></Setter>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -105,7 +109,7 @@
     </Style>
 
     <!--opmaak togglebuttons-->
-    <Style TargetType="{x:Type ToggleButton}">
+    <Style x:Name="toggleButtonBalk" TargetType="{x:Type ToggleButton}">
         <Setter Property="Foreground" Value="#341C00"></Setter>
         <Setter Property="BorderBrush" Value="#265C00"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>
@@ -131,8 +135,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-
-
 
     <!--controltemplate expander-->
     <ControlTemplate x:Key="ExpanderToggleButton" TargetType="{x:Type ToggleButton}">
@@ -305,8 +307,6 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
-    
     
     
     

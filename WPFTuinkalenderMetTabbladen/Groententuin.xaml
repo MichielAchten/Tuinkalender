@@ -6,17 +6,18 @@
     xmlns:TuinkalenderBL="clr-namespace:TuinkalenderBL;assembly=TuinkalenderBL" 
     mc:Ignorable="d" 
     x:Class="WPFTuinkalenderMetTabbladen.Groententuin"
-        Title="Groententuin" Height="625" Width="905" Loaded="Window_Loaded">
+        Title="Groententuin" Height="650" Width="905" Loaded="Window_Loaded">
 
     <Window.Resources>
         <CollectionViewSource x:Key="moestuinViewSource" d:DesignSource="{d:DesignInstance {x:Type TuinkalenderBL:Moestuin}, CreateList=True}"/>
         <CollectionViewSource x:Key="groenteViewSource" d:DesignSource="{d:DesignInstance {x:Type TuinkalenderBL:Groente}, CreateList=True}"/>
     </Window.Resources>
 
-
-
     <Grid>
         <DockPanel>
+            <StatusBar DockPanel.Dock="Bottom" Height="24" Background="#68A225">
+                <StatusBarItem Name="statusGeselecteerdeMoestuin"></StatusBarItem>
+            </StatusBar>
             <StackPanel Orientation="Vertical" Background="#B3DE81">
                 <!--kleur nog aanpassen-->
                 <!--menubalk nodig?-->
@@ -30,82 +31,89 @@
                                  ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}" AlternationCount="2" BorderBrush="#265C00"></ListBox>
                     </StackPanel>
                     <StackPanel>
-                        <TabControl Name="tabcontrol">
+                        <TabControl Name="tabcontrolGroententuin">
                             <!--kleur nog aanpassen-->
-                            <TabItem Name="tabKlussenPerMaand" Width="125">
+                            <TabItem Name="tabKlussenPerMaand" Width="130">
                                 <TabItem.Header>Klussen per maand</TabItem.Header>
                                 <StackPanel Orientation="Vertical" Height="521" Width="650">
-                                    <StackPanel Name="stackPanelMetToggleButtons" Orientation="Horizontal" Margin="15 10 0 0" Height="30">
+                                    <StackPanel Name="stackPanelMetToggleButtonsMaanden" Orientation="Horizontal" Margin="15 10 0 0" Height="30">
                                         <!--<ComboBox Name="comboBoxMaanden" Width="150" Height="24" Margin="10" 
                                                   SelectionChanged="comboBoxMaanden_SelectionChanged">
                                         </ComboBox>-->
-                                        <ToggleButton Name="toggleButtonBalkAlleMaanden" Width="85" Content="alle maanden" BorderThickness="1 1 0 1" 
-                                                      Click="toggleButtonBalkAlleMaanden_Clicked"/>
-                                        <ToggleButton Name="toggleButtonJanuari" Width="41" Content="jan" BorderThickness="1 1 0 1" 
-                                                      Click="toggleButtonJanuari_Clicked"/>
-                                        <ToggleButton Name="toggleButtonFebruari" Width="41" Content="feb" BorderThickness="1 1 0 1" 
-                                                      Click="toggleButtonFebruari_Clicked"/>
-                                        <ToggleButton Name="toggleButtonMaart" Width="41" Content="mrt" BorderThickness="1 1 0 1" 
-                                                      Click="toggleButtonMaart_Clicked"/>
-                                        <ToggleButton Name="toggleButtonApril" Width="41" Content="apr" BorderThickness="1 1 0 1" 
-                                                      Click="toggleButtonApril_Clicked"/>
-                                        <ToggleButton Name="toggleButtonMei" Width="41" Content="mei" BorderThickness="1 1 0 1" 
-                                                      Click="toggleButtonMei_Clicked"/>
-                                        <ToggleButton Name="toggleButtonJuni" Width="41" Content="jun" BorderThickness="1 1 0 1" 
-                                                      Click="toggleButtonJuni_Clicked"/>
-                                        <ToggleButton Name="toggleButtonJuli" Width="41" Content="jul" BorderThickness="1 1 0 1" 
-                                                      Click="toggleButtonJuli_Clicked"/>
-                                        <ToggleButton Name="toggleButtonAugustus" Width="41" Content="aug" BorderThickness="1 1 0 1" 
-                                                      Click="toggleButtonAugustus_Clicked"/>
-                                        <ToggleButton Name="toggleButtonSeptember" Width="41" Content="sep" BorderThickness="1 1 0 1" 
-                                                      Click="toggleButtonSeptember_Clicked"/>
-                                        <ToggleButton Name="toggleButtonOktober" Width="41" Content="okt" BorderThickness="1 1 0 1"
-                                                      Click="toggleButtonOktober_Clicked"/>
-                                        <ToggleButton Name="toggleButtonNovember" Width="41" Content="nov" BorderThickness="1 1 0 1" 
-                                                      Click="toggleButtonNovember_Clicked"/>
-                                        <ToggleButton Name="toggleButtonDecember" Width="41" Content="dec" BorderThickness="1 1 1 1"
-                                                      Click="toggleButtonDecember_Clicked"/>
+                                        <ToggleButton Name="toggleButtonAlleMaanden" Width="85" Content="Alle maanden" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonAlleMaanden_Click"/>
+                                        <ToggleButton Name="toggleButtonJanuari" Width="41" Content="Jan" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonJanuari_Click"/>
+                                        <ToggleButton Name="toggleButtonFebruari" Width="41" Content="Feb" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonFebruari_Click"/>
+                                        <ToggleButton Name="toggleButtonMaart" Width="41" Content="Mrt" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonMaart_Click"/>
+                                        <ToggleButton Name="toggleButtonApril" Width="41" Content="Apr" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonApril_Click"/>
+                                        <ToggleButton Name="toggleButtonMei" Width="41" Content="Mei" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonMei_Click"/>
+                                        <ToggleButton Name="toggleButtonJuni" Width="41" Content="Jun" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonJuni_Click"/>
+                                        <ToggleButton Name="toggleButtonJuli" Width="41" Content="Jul" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonJuli_Click"/>
+                                        <ToggleButton Name="toggleButtonAugustus" Width="41" Content="Aug" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonAugustus_Click"/>
+                                        <ToggleButton Name="toggleButtonSeptember" Width="41" Content="Sep" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonSeptember_Click"/>
+                                        <ToggleButton Name="toggleButtonOktober" Width="41" Content="Okt" BorderThickness="1 1 0 1"
+                                                      Click="toggleButtonOktober_Click"/>
+                                        <ToggleButton Name="toggleButtonNovember" Width="41" Content="Nov" BorderThickness="1 1 0 1" 
+                                                      Click="toggleButtonNovember_Click"/>
+                                        <ToggleButton Name="toggleButtonDecember" Width="41" Content="Dec" BorderThickness="1 1 1 1"
+                                                      Click="toggleButtonDecember_Click"/>
                                     </StackPanel>
-                                    <ListBox Name="listBoxOmschrijvingKlussenPerMaand" Margin="15 15 15 10" Height="450"
+                                    <StackPanel Orientation="Horizontal" Height="30" Margin="15 10 0 0">
+                                        <StackPanel Name="stackPanelMetToggleButtonsMoestuinen" Orientation="Horizontal">
+                                            <ToggleButton Name="toggleButtonAlleMoestuinen" BorderThickness="1 1 0 1" Width="100"
+                                                      Click="toggleButtonAlleMoestuinen_Click">Alle moestuinen</ToggleButton>
+                                            <ToggleButton Name="toggleButtonMeerdereMoestuinen" BorderThickness="1 1 0 1" Width="120"
+                                                      Click="toggleButtonMeerdereMoestuinen_Click">Meerdere maanden</ToggleButton>
+                                            <ToggleButton Name="toggleButtonEenMoestuinen" BorderThickness="1 1 1 1" Width="80" Margin="0 0 72 0"
+                                                      Click="toggleButtonEenMoestuinen_Click">Een maand</ToggleButton>
+                                        </StackPanel>
+                                        <ComboBox Name="comboBoxMeerdereMoestuinen" Width="0" Visibility="Hidden">
+
+                                        </ComboBox>
+                                        <ComboBox Name="comboBoxEenMoestuin"  Width="0" Visibility="Hidden"></ComboBox>
+                                    </StackPanel>
+                                    <ListBox Name="listBoxOmschrijvingKlussenPerMaand" Margin="15 15 15 10" Height="400"
                                               ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}" AlternationCount="2"></ListBox>
                                 </StackPanel>
                             </TabItem>
-                            <TabItem Name="tabMoestuinGegevens" Width="125">
+                            <TabItem Name="tabMoestuinGegevens" Width="130">
                                 <TabItem.Header>Gegevens moestuin</TabItem.Header>
                                 <StackPanel Height="521" Width="650" Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
                                         <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                                            <Label Margin="40 30 10 0" Width="200" FontSize="20" FontWeight="Bold" 
+                                            <Label Margin="60 30 0 0" Width="200" FontSize="20" FontWeight="Bold" 
                                                    HorizontalAlignment="Left">Gegevens eigenaar:</Label>
-                                            <Label Name="labelEigenaar" Margin="40 0 10 -10" Width="200" FontSize="20" Height="37" 
-                                                   HorizontalAlignment="Left">a</Label>
-                                            <Label Name="labelAdres" Margin="40 0 10 -10" Width="200" FontSize="14" Height="29" 
-                                                   HorizontalAlignment="Left">a</Label>
-                                            <Label Name="labelPostcode" Margin="40 0 10 -10" Width="200" FontSize="14" Height="29" 
-                                                   HorizontalAlignment="Left">a</Label>
-                                            <Label Name="labelGemeente" Margin="40 0 10 0" Width="200" FontSize="14" Height="29" 
-                                                   HorizontalAlignment="Left">a</Label>
+                                            <Label Name="labelEigenaar" Margin="60 0 0 -10" Width="200" FontSize="14" Height="29" 
+                                                   HorizontalAlignment="Left"></Label>
+                                            <Label Name="labelAdres" Margin="60 0 0 -10" Width="200" FontSize="14" Height="29" 
+                                                   HorizontalAlignment="Left"></Label>
+                                            <Label Name="labelPostcode" Margin="60 0 0 -10" Width="200" FontSize="14" Height="29" 
+                                                   HorizontalAlignment="Left"></Label>
+                                            <Label Name="labelGemeente" Margin="60 0 0 0" Width="200" FontSize="14" Height="29" 
+                                                   HorizontalAlignment="Left"></Label>
                                         </StackPanel>
-                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="10 0 0 0">
-                                            <Label Margin="40 30 10 0" Width="300" FontSize="20" FontWeight="Bold" 
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="125 0 0 0">
+                                            <Label Margin="0 30 10 0" Width="200" FontSize="20" FontWeight="Bold" 
                                                    HorizontalAlignment="Left">Gegevens moestuin:</Label>
-                                            <Label Margin="40 0 10 -10" Width="300" FontSize="20" Height="37" HorizontalAlignment="Left"></Label>
-                                            <StackPanel Margin="40 0 10 -10" Width="300" Orientation="Horizontal">
-                                                <Label Width="150"></Label>
-                                                <Label Name="labelBodemsoortTuin" Width="150" FontSize="14" Height="29" HorizontalAlignment="Left">a</Label>
-                                            </StackPanel>
-                                            <StackPanel Margin="40 0 10 -10" Width="300" Orientation="Horizontal">
-                                                <Label Width="150"></Label>
-                                                <Label Name="labelBodemvochtigheidTuin" Width="150" FontSize="14" Height="29" HorizontalAlignment="Left">a</Label>
-                                            </StackPanel>
-                                            <StackPanel Margin="40 0 10 -10" Width="300" Orientation="Horizontal">
-                                                <Label Width="150"></Label>
-                                                <Label Name="labelLichtTuin" Width="150" FontSize="14" Height="29" HorizontalAlignment="Left">a</Label>
-                                            </StackPanel>
+                                            <Label Name="labelBodemsoortTuin" Margin="0 0 10 -10" Width="300" FontSize="14" Height="29"
+                                                   HorizontalAlignment="Left">bodemsoort</Label>
+                                            <Label Name="labelBodemvochtigheidTuin" Margin="0 0 10 -10" Width="300" FontSize="14" Height="29" 
+                                                   HorizontalAlignment="Left">bodemvochtigheid</Label>
+                                            <Label Name="labelLichtTuin" Margin="0 0 10 -10" Width="300" FontSize="14" Height="29" 
+                                                   HorizontalAlignment="Left">licht</Label>
                                         </StackPanel>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Margin="0 15 0 0" HorizontalAlignment="Left">
-                                        <StackPanel Name="stackPanelGroentenInMoestuin" Orientation="Vertical" Margin="40 0 0 0" 
+                                        <StackPanel Name="stackPanelGroentenInMoestuin" Orientation="Vertical" Margin="60 0 0 0" 
                                                     DataContext="{StaticResource groenteViewSource}">
                                             <Label Margin="0 20 0 0" HorizontalContentAlignment="Left" FontWeight="Bold" FontSize="18">Groenten in moestuin</Label>
                                             <ListBox Name="listBoxGroentenInMoestuinTabGroenten" Margin="0 0 0 0" Height="250" Width="205" 
@@ -132,7 +140,7 @@
                                                 </ListBox.ItemContainerStyle>
                                             </ListBox>
                                         </StackPanel>
-                                        <StackPanel Margin="60 0 60 0">
+                                        <StackPanel Margin="48 0 48 0">
                                             <Button Name="buttonKiesGroente" Margin="0 100 0 10" Width="25" Height="25" Click="buttonKiesGroente_Click"
                                                     ToolTip="Voeg de geselecteerde groente(n) toe aan de moestuin">&lt;</Button>
                                             <Button Name="buttonVerwijderGeselecteerdeGroente" Margin="0 15 0 10" Width="25" Height="25"
@@ -170,8 +178,8 @@
                                     </StackPanel>
                                 </StackPanel>
                             </TabItem>
-                            <TabItem Name="tabGroenteInfo" Width="100">
-                                <TabItem.Header>Info Groente</TabItem.Header>
+                            <TabItem Name="tabGroenteInfo" Width="105">
+                                <TabItem.Header>Info Groenten</TabItem.Header>
                                 <StackPanel Height="521" Width="650" Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
                                         <ListBox Name="listBoxAlleGroenten" DisplayMemberPath="NederlandseNaam" Margin="10 10 0 10" Height="340" Width="185"
@@ -201,7 +209,7 @@
                                                 <StackPanel Margin="10 0 10 0" Height="280">
                                                     <!--<StackPanel Name="stackPanelBovenOmschijvingKlussen" Height="10"></StackPanel>
                                                     <TextBlock Name="textBoxOmschrijvingKlus" FontSize="12" TextWrapping="Wrap" FontWeight="Normal"></TextBlock>-->
-                                                    <ListBox Name="listBoxOmschijvingKlussenPerGroente" Height="270" AlternationCount="2">
+                                                    <ListBox Name="listBoxOmschrijvingKlussenPerGroente" Height="270" AlternationCount="2">
                                                         <ListBox.ItemContainerStyle>
                                                             <Style TargetType="{x:Type ListBoxItem}">
                                                                 <EventSetter Event="PreviewMouseLeftButtonDown" 
@@ -229,29 +237,29 @@
                                     <Label FontSize="10" Foreground="Gray" Margin="10 17 0 0">Klik op de maand voor een overzicht van de klussen voor die maand</Label>
                                     <StackPanel Height="85" Orientation="Vertical">
                                         <StackPanel Width="540" Orientation="Horizontal" Height="30" HorizontalAlignment="Left" Margin="10 0 0 0">
-                                            <Button Name="buttonBalkJanuari" Width="45" Content="jan" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                            <Button Name="buttonBalkJanuari" Width="45" Content="Jan" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                                     BorderThickness="1 1 0 1" Click="buttonBalkJanuari_Click"/>
-                                            <Button Name="buttonBalkFebruari" Width="45" Content="feb" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                            <Button Name="buttonBalkFebruari" Width="45" Content="Feb" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                                     BorderThickness="1 1 0 1" Click="buttonBalkFebruari_Click"/>
-                                            <Button Name="buttonBalkMaart" Width="45" Content="mrt" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                            <Button Name="buttonBalkMaart" Width="45" Content="Mrt" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                                     BorderThickness="1 1 0 1" Height="30" VerticalAlignment="Top" Click="buttonBalkMaart_Click"/>
-                                            <Button Name="buttonBalkApril" Width="45" Content="apr" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                            <Button Name="buttonBalkApril" Width="45" Content="Apr" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                                     BorderThickness="1 1 0 1" Click="buttonBalkApril_Click"/>
-                                            <Button Name="buttonBalkMei" Width="45" Content="mei" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                            <Button Name="buttonBalkMei" Width="45" Content="Mei" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                                     BorderThickness="1 1 0 1" Click="buttonBalkMei_Click"/>
-                                            <Button Name="buttonBalkJuni" Width="45" Content="jun" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                            <Button Name="buttonBalkJuni" Width="45" Content="Jun" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                                     BorderThickness="1 1 0 1" Click="buttonBalkJuni_Click"/>
-                                            <Button Name="buttonBalkJuli" Width="45" Content="jul" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                            <Button Name="buttonBalkJuli" Width="45" Content="Jul" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                                     BorderThickness="1 1 0 1" Height="30" VerticalAlignment="Top" Click="buttonBalkJuli_Click"/>
-                                            <Button Name="buttonBalkAugustus" Width="45" Content="aug" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                            <Button Name="buttonBalkAugustus" Width="45" Content="Aug" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                                     BorderThickness="1 1 0 1" Click="buttonBalkAugustus_Click"/>
-                                            <Button Name="buttonBalkSeptember" Width="45" Content="sep" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                            <Button Name="buttonBalkSeptember" Width="45" Content="Sep" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                                     BorderThickness="1 1 0 1" Click="buttonBalkSeptember_Click"/>
-                                            <Button Name="buttonBalkOktober" Width="45" Content="okt" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                            <Button Name="buttonBalkOktober" Width="45" Content="Okt" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                                     BorderThickness="1 1 0 1" Click="buttonBalkOktober_Click"/>
-                                            <Button Name="buttonBalkNovember" Width="45" Content="nov" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                            <Button Name="buttonBalkNovember" Width="45" Content="Nov" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                                     BorderThickness="1 1 0 1" Click="buttonBalkNovember_Click"/>
-                                            <Button Name="buttonBalkDecember" Width="45" Content="dec" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
+                                            <Button Name="buttonBalkDecember" Width="45" Content="Dec" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
                                                     BorderThickness="1 1 1 1" Click="buttonBalkDecember_Click"/>
                                         </StackPanel>
                                         <Canvas Name="canvasKleurKlussenPerMaand" Height="45" Width="540" HorizontalAlignment="Left" Margin="10 0 0 0">
@@ -352,6 +360,7 @@
                                 </StackPanel>
                             </TabItem>
                         </TabControl>
+                        <Label Name="labelMeldingMoestuinAanmaken" Height="0"></Label>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
