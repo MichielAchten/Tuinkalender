@@ -71,16 +71,15 @@
                                         <StackPanel Name="stackPanelMetToggleButtonsMoestuinen" Orientation="Horizontal">
                                             <ToggleButton Name="toggleButtonAlleMoestuinen" BorderThickness="1 1 0 1" Width="100"
                                                       Click="toggleButtonAlleMoestuinen_Click">Alle moestuinen</ToggleButton>
-                                            <ToggleButton Name="toggleButtonMeerdereMoestuinen" BorderThickness="1 1 0 1" Width="120"
-                                                      Click="toggleButtonMeerdereMoestuinen_Click">Meerdere maanden</ToggleButton>
-                                            <ToggleButton Name="toggleButtonEenMoestuin" BorderThickness="1 1 1 1" Width="80" Margin="0 0 10 0"
-                                                      Click="toggleButtonEenMoestuin_Click">Een maand</ToggleButton>
+                                            <ToggleButton Name="toggleButtonMeerdereMoestuinen" BorderThickness="1 1 0 1" Width="130"
+                                                      Click="toggleButtonMeerdereMoestuinen_Click">Meerdere moestuinen</ToggleButton>
+                                            <ToggleButton Name="toggleButtonEenMoestuin" BorderThickness="1 1 1 1" Width="90" Margin="0 0 10 0"
+                                                      Click="toggleButtonEenMoestuin_Click">Een moestuin</ToggleButton>
                                         </StackPanel>
-                                        <ComboBox Name="comboBoxMaandenPerMoestuinenOfMoestuinenPerMaand"></ComboBox>
-                                        <ComboBox Name="comboBoxMeerdereMoestuinen" Width="0" Visibility="Hidden">
-
-                                        </ComboBox>
-                                        <ComboBox Name="comboBoxEenMoestuin"  Width="0" Visibility="Hidden"></ComboBox>
+                                        <!--<ComboBox Name="comboBoxMaandenPerMoestuinenOfMoestuinenPerMaand" Margin="10 0 0 0"></ComboBox>-->
+                                        <ComboBox Name="comboBoxMeerdereMoestuinen" Width="0" Visibility="Hidden" Margin="10 0 0 0"></ComboBox>
+                                        <ComboBox Name="comboBoxEenMoestuin" Width="0" Visibility="Hidden" Margin="10 0 0 0" DisplayMemberPath="NaamTuin" 
+                                                  SelectionChanged="comboBoxEenMoestuin_SelectionChanged"></ComboBox>
                                     </StackPanel>
                                     <ListBox Name="listBoxOmschrijvingKlussenPerMaand" Margin="15 15 15 10" Height="400"
                                               ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}" AlternationCount="2"></ListBox>
