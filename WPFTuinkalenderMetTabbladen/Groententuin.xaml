@@ -73,9 +73,10 @@
                                                       Click="toggleButtonAlleMoestuinen_Click">Alle moestuinen</ToggleButton>
                                             <ToggleButton Name="toggleButtonMeerdereMoestuinen" BorderThickness="1 1 0 1" Width="120"
                                                       Click="toggleButtonMeerdereMoestuinen_Click">Meerdere maanden</ToggleButton>
-                                            <ToggleButton Name="toggleButtonEenMoestuinen" BorderThickness="1 1 1 1" Width="80" Margin="0 0 72 0"
-                                                      Click="toggleButtonEenMoestuinen_Click">Een maand</ToggleButton>
+                                            <ToggleButton Name="toggleButtonEenMoestuin" BorderThickness="1 1 1 1" Width="80" Margin="0 0 10 0"
+                                                      Click="toggleButtonEenMoestuin_Click">Een maand</ToggleButton>
                                         </StackPanel>
+                                        <ComboBox Name="comboBoxMaandenPerMoestuinenOfMoestuinenPerMaand"></ComboBox>
                                         <ComboBox Name="comboBoxMeerdereMoestuinen" Width="0" Visibility="Hidden">
 
                                         </ComboBox>
