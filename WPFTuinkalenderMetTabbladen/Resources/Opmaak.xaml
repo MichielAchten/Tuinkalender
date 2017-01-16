@@ -4,15 +4,46 @@
     <!--opmaak listbox-->
     <Style TargetType="{x:Type ListBox}">
         <Setter Property="Background" Value="#FDFFFF"></Setter>
-        <Setter Property="BorderBrush" Value="#68A225"></Setter>
-        <Setter Property="BorderThickness" Value="2"></Setter>
+        <Setter Property="BorderBrush" Value="#B3DE81"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
         <Setter Property="FontWeight" Value="Normal"></Setter>
-        <!--<Setter Property="ItemContainerStyle" Value="{StaticResource AlternatingListBoxItemStyle}"></Setter>
-        <Setter Property="AlternationCount" Value="2"></Setter>-->
+        <Setter Property="FontSize" Value="14"></Setter>
     </Style>
 
     <!--afwisselende opmaak rijen in listbox (behalve voor tab groenten in tuin)-->
     <Style x:Key="AlternatingListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Background" Value="White"></Setter>
+        <Setter Property="Padding" Value="2 0 0 0"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"></ContentPresenter>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                <Setter Property="Background" Value="#E6F7D1"></Setter>
+                                <Setter Property="Foreground" Value="#341C00"></Setter>
+                            </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                <Setter Property="Background" Value="#FDFFFF"></Setter>
+                                <Setter Property="Foreground" Value="#341C00"></Setter>
+                            </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="FontWeight" Value="Bold"></Setter>
+                            <Setter Property="FontSize" Value="18"></Setter>
+                            <Setter Property="Background" Value="#68A225"></Setter>
+                            <Setter Property="Foreground" Value="#E6F7D1"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#E6C9A7"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--<Style x:Key="AlternatingListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
         <Style.Triggers>
             <Trigger Property="ItemsControl.AlternationIndex" Value="0">
                 <Setter Property="Background" Value="#E6F7D1"></Setter>
@@ -22,12 +53,8 @@
                 <Setter Property="Background" Value="#FDFFFF"></Setter>
                 <Setter Property="Foreground" Value="#341C00"></Setter>
             </Trigger>
-            <Trigger Property="IsSelected" Value="True">
-                <Setter Property="FontWeight" Value="Bold"></Setter>
-                <Setter Property="FontSize" Value="16"></Setter>
-            </Trigger>
         </Style.Triggers>
-    </Style>
+    </Style>-->
 
     <!--opmaak tabheaders-->
     <Style TargetType="{x:Type TabItem}">
@@ -35,7 +62,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TabItem}">
                     <Grid>
-                        <Border Name="Border" Margin="0 0 0 0" Background="#68A225" BorderBrush="#265C00"
+                        <Border Name="Border" Margin="0 0 0 0" Background="#68A225" BorderBrush="#B3DE81"
                                 BorderThickness="1 1 1 1">
                             <ContentPresenter x:Name="Headers" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="0 1 0 1"
                                               RecognizesAccessKey="True"></ContentPresenter>
@@ -43,28 +70,29 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsSelected" Value="True">
-                            <Setter TargetName="Border" Property="Background" Value="#B3DE81"></Setter>
+                            <Setter TargetName="Border" Property="Background" Value="#CEECAB"></Setter>
                             <Setter TargetName="Border" Property="BorderThickness" Value="1 1 1 0"></Setter>
-                            <Setter TargetName="Border" Property="Margin" Value="0 0 -1 -1"></Setter>
-                            <Setter Property="Foreground" Value="#341C00"></Setter>
+                            <Setter TargetName="Border" Property="Margin" Value="0 0 0 0"></Setter>
+                            <Setter Property="Foreground" Value="#265C00"></Setter>
                             <Setter Property="FontWeight" Value="Bold"></Setter>
+                            <Setter Property="FontSize" Value="14"></Setter>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#B3DE81"></Setter>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="False">
-                            <Setter TargetName="Border" Property="Background" Value="#68A225"></Setter>
-                            <Setter TargetName="Border" Property="BorderThickness" Value="1 1 1 0"></Setter>
-                            <Setter TargetName="Border" Property="Margin" Value="0 0 -1 0"></Setter>
-                            <Setter Property="Foreground" Value="#341C00"></Setter>
-                        </Trigger>
-                        <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Border" Property="Background" Value="#B3DE81"></Setter>
                             <Setter TargetName="Border" Property="BorderThickness" Value="1 1 1 0"></Setter>
-                            <Setter TargetName="Border" Property="Margin" Value="0 0 -1 -1"></Setter>
-                            <Setter Property="Foreground" Value="#341C00"></Setter>
-                            <Setter Property="FontWeight" Value="Bold"></Setter>
+                            <Setter TargetName="Border" Property="Margin" Value="0 0 0 -1"></Setter>
+                            <Setter Property="Foreground" Value="#265C00"></Setter>
+                            <Setter Property="FontSize" Value="14"></Setter>
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="Border" Property="Background" Value="#FDFFFF"></Setter>
-                            <Setter Property="Foreground" Value="#E6F7D1"></Setter>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="#CEECAB"></Setter>
+                            <Setter TargetName="Border" Property="BorderThickness" Value="1 1 1 0"></Setter>
+                            <Setter TargetName="Border" Property="Margin" Value="0 0 0 0"></Setter>
+                            <Setter Property="Foreground" Value="#265C00"></Setter>
+                            <Setter Property="FontWeight" Value="Bold"></Setter>
+                            <Setter Property="FontSize" Value="14"></Setter>
+                            <Setter TargetName="Border" Property="BorderBrush" Value="#B3DE81"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -73,18 +101,19 @@
     </Style>
     <!--opmaak tabblaben-->
     <Style TargetType="{x:Type TabControl}">
-        <Setter Property="Background" Value="#E6F7D1"></Setter>
-        <Setter Property="BorderThickness" Value="2 2 2 2"></Setter>
-        <Setter Property="BorderBrush" Value="#265C00"></Setter>
+        <Setter Property="Background" Value="#CEECAB"></Setter>
+        <Setter Property="BorderThickness" Value="1 1 1 1"></Setter>
+        <Setter Property="BorderBrush" Value="#B3DE81"></Setter>
     </Style>
 
     <!--opmaak buttons-->
     <Style TargetType="{x:Type Button}">
-        <Setter Property="Foreground" Value="#341C00"></Setter>
+        <Setter Property="Foreground" Value="#E6F7D1"></Setter>
         <Setter Property="BorderBrush" Value="#265C00"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>
         <Setter Property="Background" Value="#68A225"></Setter>
         <Setter Property="FontWeight" Value="Normal"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -96,25 +125,29 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#B3DE81"></Setter>
+                <Setter Property="Background" Value="#E6C9A7"></Setter>
                 <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="BorderBrush" Value="#BF9A6F"></Setter>
+                <Setter Property="Foreground" Value="#9E6D34"></Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <!--opmaak labels-->
     <Style TargetType="{x:Type Label}">
-        <Setter Property="Foreground" Value="#341C00"></Setter>
+        <Setter Property="Foreground" Value="#265C00"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
         <Setter Property="FontWeight" Value="Normal"></Setter>
     </Style>
 
     <!--opmaak togglebuttons-->
     <Style x:Name="toggleButtonBalk" TargetType="{x:Type ToggleButton}">
-        <Setter Property="Foreground" Value="#341C00"></Setter>
+        <Setter Property="Foreground" Value="#E6F7D1"></Setter>
         <Setter Property="BorderBrush" Value="#265C00"></Setter>
         <Setter Property="BorderThickness" Value="1"></Setter>
         <Setter Property="Background" Value="#68A225"></Setter>
         <Setter Property="FontWeight" Value="Normal"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -126,26 +159,30 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#B3DE81"></Setter>
+                <Setter Property="Background" Value="#E6C9A7"></Setter>
                 <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="BorderBrush" Value="#BF9A6F"></Setter>
+                <Setter Property="Foreground" Value="#9E6D34"></Setter>
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="#B3DE81"></Setter>
                 <Setter Property="FontWeight" Value="Bold"></Setter>
+                <Setter Property="BorderBrush" Value="#68A225"></Setter>
+                <Setter Property="Foreground" Value="#265C00"></Setter>
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <!--controltemplate expander-->
     <ControlTemplate x:Key="ExpanderToggleButton" TargetType="{x:Type ToggleButton}">
-        <Border x:Name="Border" CornerRadius="0 0 0 0" BorderThickness="0 0 1 0" Background="#68A225" BorderBrush="#265C00" Width="25">
+        <Border x:Name="Border" CornerRadius="0 0 0 0" BorderThickness="0 0 1 0" Background="#B3DE81" BorderBrush="#68A225" Width="25">
             <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal"></VisualState>
                     <VisualState x:Name="MouseOver">
                         <Storyboard>
                             <ColorAnimation Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
-                                            From="#68A225" To="#B3DE81" Duration="0"></ColorAnimation>
+                                            From="#B3DE81" To="#CEECAB" Duration="0"></ColorAnimation>
                         </Storyboard>
                     </VisualState>
                 </VisualStateGroup>
@@ -168,12 +205,12 @@
             <Grid>
                 <Path x:Name="CollapsedArrow" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z">
                     <Path.Fill>
-                        <SolidColorBrush Color="#341C00"></SolidColorBrush>
+                        <SolidColorBrush Color="#265C00"></SolidColorBrush>
                     </Path.Fill>
                 </Path>
                 <Path x:Name="ExpandedArrow" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed" Data="M 0 4 L 4 0 L 8 4 Z">
                     <Path.Fill>
-                        <SolidColorBrush Color="#341C00"></SolidColorBrush>
+                        <SolidColorBrush Color="#265C00"></SolidColorBrush>
                     </Path.Fill>
                 </Path>
             </Grid>
@@ -189,7 +226,7 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition x:Name="ContentRow" Height="0"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Border x:Name="Border" Grid.Row="0" BorderThickness="1 1 1 0" BorderBrush="#265C00" CornerRadius="0 0 0 0" Background="#68A225">
+                        <Border x:Name="Border" Grid.Row="0" BorderThickness="1" CornerRadius="0 0 0 0" BorderBrush="#68A225" Background="#B3DE81">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="25"></ColumnDefinition>
@@ -200,7 +237,7 @@
                                 <ContentPresenter Grid.Column="1" Margin="4" ContentSource="Header" RecognizesAccessKey="True"></ContentPresenter>
                             </Grid>
                         </Border>
-                        <Border x:Name="Content" Grid.Row="1" BorderThickness="1 1 1 0" CornerRadius="0 0 0 0" BorderBrush="#265C00" Background="#B3DE81">
+                        <Border x:Name="Content" Grid.Row="1" BorderThickness="1 0 1 1" CornerRadius="0 0 0 0" BorderBrush="#68A225" Background="#B3DE81">
                             <ContentPresenter Margin="4"></ContentPresenter>
                         </Border>
                     </Grid>
@@ -209,10 +246,10 @@
                             <Setter TargetName="ContentRow" Property="Height" Value="{Binding DesiredHeight, ElementName=Content}"></Setter>
                             <Setter TargetName="Border" Property="Background" Value="#B3DE81"></Setter>
                             <Setter TargetName="Content" Property="Background" Value="#B3DE81"></Setter>
-                            <Setter Property="Foreground" Value="#341C00"></Setter>
+                            <Setter Property="Foreground" Value="#265C00"></Setter>
                         </Trigger>
                         <Trigger Property="IsExpanded" Value="False">
-                            <Setter Property="Foreground" Value="#341C00"></Setter>
+                            <Setter Property="Foreground" Value="#265C00"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -308,7 +345,33 @@
         </Style.Triggers>
     </Style>
     
-    
+    <!--opmaak comboboxen-->
+    <!--<Style TargetType="{x:Type ComboBox}">
+        <Setter Property="Padding" Value="6 2 25 2"></Setter>
+        <Setter Property="Background" Value="#1F3B53"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"></Setter>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"></Setter>
+        <Setter Property="BorderBrush" Value="Black"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style x:Name="comboToggleStyle" TargetType="ToggleButton">
+                                <Setter Property="Foreground" Value="Black"></Setter>
+                                <Setter Property="Background" Value="White"></Setter>
+                                <Setter Property="BorderBrush" Value="Black"></Setter>
+                            </Style>
+                            <Setter Property="BorderThickness" Value=""
+                        </Grid.Resources>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>-->
     
     
 
@@ -317,17 +380,5 @@
         <Setter Property="FontWeight" Value="Normal"></Setter>
     </Style>-->
 
-    <!--opmaak comboboxen-->
-    <!--<Style TargetType="{x:Type ComboBox}">
-        <Setter Property="Background" Value="#68A225"></Setter>
-        <Setter Property="Foreground" Value="#341C00"></Setter>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ComboBox}">
-                    <Border Background="{TemplateBinding Background}"></Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        
-    </Style>-->
+    
 </ResourceDictionary>

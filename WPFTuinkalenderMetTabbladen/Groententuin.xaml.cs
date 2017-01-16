@@ -180,6 +180,11 @@ namespace WPFTuinkalenderMetTabbladen
             this.Close();
         }
 
+        private void buttonMoestuinAanpassen_Click(object sender, RoutedEventArgs e)
+        {
+//aanvullen
+        }
+
         private void buttonMoestuinVerwijderen_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Weet u zeker dat u de moestuin wilt verwijderen?", "Moestuin verwijderen",
@@ -657,6 +662,8 @@ namespace WPFTuinkalenderMetTabbladen
 
         private void VulLijstMetKlussenPerMaand(List<int> maandNummers, List<Moestuin> lijstMoestuinen)
         {
+  //proberen deze method sneller te maken
+
             listBoxOmschrijvingKlussenPerMaand.Items.Clear();
             foreach (var moestuin in lijstMoestuinen)
             {
@@ -668,7 +675,6 @@ namespace WPFTuinkalenderMetTabbladen
                 foreach (var maandNr in maandNummers)
                 {
                     var tweedeTextBlock = new TextBlock();
-                    //tweedeTextBlock.Text = arrMaanden[maandNr] + ":";
                     tweedeTextBlock.Text = ((arrMaanden[maandNr].ToUpper())[0]) + (arrMaanden[maandNr].Substring(1)) + ":";
                     tweedeTextBlock.FontSize = 14;
                     tweedeTextBlock.FontWeight = FontWeights.Bold;
@@ -1020,8 +1026,8 @@ namespace WPFTuinkalenderMetTabbladen
                 {
                     selectieMoestuinen.Add(moestuin);
                 }
-                VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
             }
+            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
         }
 
         private void toggleButtonMeerdereMoestuinen_Click(object sender, RoutedEventArgs e)
@@ -1183,5 +1189,6 @@ namespace WPFTuinkalenderMetTabbladen
                 VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
             }
         }
+
     }
 }
