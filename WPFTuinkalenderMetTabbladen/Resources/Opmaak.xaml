@@ -17,17 +17,17 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <Border x:Name="Bd" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                    <TextBlock x:Name="Border" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
                         <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"></ContentPresenter>
-                    </Border>
+                    </TextBlock>
                     <ControlTemplate.Triggers>
                         <Trigger Property="ItemsControl.AlternationIndex" Value="0">
                                 <Setter Property="Background" Value="#E6F7D1"></Setter>
-                                <Setter Property="Foreground" Value="#341C00"></Setter>
+                                <Setter Property="Foreground" Value="#265C00"></Setter>
                             </Trigger>
                             <Trigger Property="ItemsControl.AlternationIndex" Value="1">
                                 <Setter Property="Background" Value="#FDFFFF"></Setter>
-                                <Setter Property="Foreground" Value="#341C00"></Setter>
+                                <Setter Property="Foreground" Value="#265C00"></Setter>
                             </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="FontWeight" Value="Bold"></Setter>
@@ -37,6 +37,7 @@
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="#E6C9A7"></Setter>
+                            <Setter Property="Foreground" Value="#9E6D34"></Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -226,7 +227,7 @@
                             <RowDefinition Height="Auto"></RowDefinition>
                             <RowDefinition x:Name="ContentRow" Height="0"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Border x:Name="Border" Grid.Row="0" BorderThickness="1" CornerRadius="0 0 0 0" BorderBrush="#68A225" Background="#B3DE81">
+                        <Border x:Name="Border" Grid.Row="0" BorderThickness="1 1 1 0" CornerRadius="0 0 0 0" BorderBrush="#68A225" Background="#B3DE81">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="25"></ColumnDefinition>
@@ -237,7 +238,7 @@
                                 <ContentPresenter Grid.Column="1" Margin="4" ContentSource="Header" RecognizesAccessKey="True"></ContentPresenter>
                             </Grid>
                         </Border>
-                        <Border x:Name="Content" Grid.Row="1" BorderThickness="1 0 1 1" CornerRadius="0 0 0 0" BorderBrush="#68A225" Background="#B3DE81">
+                        <Border x:Name="Content" Grid.Row="1" BorderThickness="1 1 1 0" CornerRadius="0 0 0 0" BorderBrush="#68A225" Background="#B3DE81">
                             <ContentPresenter Margin="4"></ContentPresenter>
                         </Border>
                     </Grid>
@@ -345,6 +346,13 @@
         </Style.Triggers>
     </Style>
     
+    <!--opmaak statusbar-->
+    <Style TargetType="{x:Type StatusBar}">
+        <Setter  Property="Height" Value="24"></Setter>
+        <Setter Property="Background" Value="#68A225"></Setter>
+        <Setter Property="Foreground" Value="#E6F7D1"></Setter>
+    </Style>
+    
     <!--opmaak comboboxen-->
     <!--<Style TargetType="{x:Type ComboBox}">
         <Setter Property="Padding" Value="6 2 25 2"></Setter>
@@ -376,8 +384,8 @@
     
 
     <!--opmaak textblock-->
-    <!--<Style x:Name="textblockKlussen">
-        <Setter Property="FontWeight" Value="Normal"></Setter>
+    <!--<Style x:Name="textblockKlussen" TargetType="{x:Type TextBlock}">
+        <Setter Property="Foreground" Value="Blue"></Setter>
     </Style>-->
 
     

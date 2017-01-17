@@ -182,7 +182,7 @@ namespace WPFTuinkalenderMetTabbladen
 
         private void buttonMoestuinAanpassen_Click(object sender, RoutedEventArgs e)
         {
-//aanvullen
+            //aanvullen
         }
 
         private void buttonMoestuinVerwijderen_Click(object sender, RoutedEventArgs e)
@@ -660,9 +660,109 @@ namespace WPFTuinkalenderMetTabbladen
             }
         }
 
+        /*listbox omschrijving klussen per maand vullen met tekst ipv textblocken*/
+        //private void VulLijstMetKlussenPerMaand(List<int> maandNummers, List<Moestuin> lijstMoestuinen)
+        //{
+        //    //proberen deze method sneller te maken
+
+        //    listBoxOmschrijvingKlussenPerMaand.Items.Clear();
+        //    foreach (var moestuin in lijstMoestuinen)
+        //    {
+        //        var eersteString = "";
+        //        eersteString = moestuin.NaamTuin + ":";
+
+        //        listBoxOmschrijvingKlussenPerMaand.Items.Add(eersteString);
+        //        foreach (var maandNr in maandNummers)
+        //        {
+        //            var tweedeString = "   ";
+        //            tweedeString += ((arrMaanden[maandNr].ToUpper())[0]) + (arrMaanden[maandNr].Substring(1)) + ":";
+        //            listBoxOmschrijvingKlussenPerMaand.Items.Add(tweedeString);
+
+        //            var manager = new GroenteManager();
+        //            var lijstGroenten = manager.GetAlleGroentenUitMoestuin(moestuin.Id);
+
+        //            if (lijstGroenten.Count != 0)
+        //            {
+        //                var klussenInDeMaand = new List<Klus>();
+        //                var teSchrijvenTekst = "       ";
+        //                foreach (var groente in lijstGroenten)
+        //                {
+        //                    var klussenVanGroente = manager.GetKlussenVanEenGroente(groente.GroenteId);
+        //                    foreach (var klus in klussenVanGroente)
+        //                    {
+        //                        var maandenKlus = new List<int>();
+        //                        var beginMaandNr = klus.Begintijdstip;
+        //                        var eindMaandNr = klus.Begintijdstip + klus.Duur - 1;
+        //                        for (int i = beginMaandNr; i <= eindMaandNr; i++)
+        //                        {
+        //                            if (i <= 12)
+        //                            {
+        //                                maandenKlus.Add(i);
+        //                            }
+        //                            else
+        //                            {
+        //                                maandenKlus.Add(i - 12);
+        //                            }
+        //                        }
+        //                        if (maandenKlus.Contains(maandNr + 1))
+        //                        {
+        //                            klussenInDeMaand.Add(klus);
+        //                        }
+        //                    }
+        //                }
+
+        //                if (klussenInDeMaand.Count != 0)
+        //                {
+        //                    var vorigeGroente = "";
+        //                    foreach (var klus in klussenInDeMaand)
+        //                    {
+        //                        if ((vorigeGroente != klus.Groente.NederlandseNaam))
+        //                        {
+        //                            teSchrijvenTekst = "       ";
+        //                            teSchrijvenTekst += klus.Groente.NederlandseNaam + ":\n       ";
+        //                            if (klus.LangeOmschrijving == "aanvullen")      //voorlopig
+        //                            {
+        //                                teSchrijvenTekst += klus.KorteOmschrijving + "\n       ";
+        //                            }
+        //                            else
+        //                            {
+        //                                teSchrijvenTekst += klus.LangeOmschrijving + "\n       ";
+        //                            }
+
+        //                            listBoxOmschrijvingKlussenPerMaand.Items.Add(teSchrijvenTekst);
+        //                        }
+        //                        else
+        //                        {
+        //                            if (klus.LangeOmschrijving == "aanvullen")      //voorlopig
+        //                            {
+        //                                teSchrijvenTekst += klus.KorteOmschrijving + "\n       ";
+        //                            }
+        //                            else
+        //                            {
+        //                                teSchrijvenTekst += klus.LangeOmschrijving + "\n       ";
+        //                            }
+        //                        }
+        //                        vorigeGroente = klus.Groente.NederlandseNaam;
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    var stringGeenKlussen = "       Voor " + moestuin.NaamTuin + " zijn er geen klussen in " + arrMaanden[maandNr] + ".";
+        //                    listBoxOmschrijvingKlussenPerMaand.Items.Add(stringGeenKlussen);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                var stringGeenGroenten = "       Er zijn nog geen groenten gekozen voor deze moestuin.";
+        //                listBoxOmschrijvingKlussenPerMaand.Items.Add(stringGeenGroenten);
+        //            }
+        //        }
+        //    }
+        //}
+
         private void VulLijstMetKlussenPerMaand(List<int> maandNummers, List<Moestuin> lijstMoestuinen)
         {
-  //proberen deze method sneller te maken
+            //proberen deze method sneller te maken
 
             listBoxOmschrijvingKlussenPerMaand.Items.Clear();
             foreach (var moestuin in lijstMoestuinen)
@@ -671,6 +771,11 @@ namespace WPFTuinkalenderMetTabbladen
                 eersteTextBlock.Text = moestuin.NaamTuin + ":";
                 eersteTextBlock.FontWeight = FontWeights.Bold;
                 eersteTextBlock.FontSize = 18;
+                eersteTextBlock.Foreground = (Brush)new BrushConverter().ConvertFromString("#265C00");
+                eersteTextBlock.Width = 610;
+                eersteTextBlock.AddHandler(TextBlock.MouseEnterEvent, new RoutedEventHandler(textBlock_MouseEnter));
+                eersteTextBlock.AddHandler(TextBlock.MouseLeaveEvent, new RoutedEventHandler(textBlock_MouseLeave));
+
                 listBoxOmschrijvingKlussenPerMaand.Items.Add(eersteTextBlock);
                 foreach (var maandNr in maandNummers)
                 {
@@ -678,9 +783,14 @@ namespace WPFTuinkalenderMetTabbladen
                     tweedeTextBlock.Text = ((arrMaanden[maandNr].ToUpper())[0]) + (arrMaanden[maandNr].Substring(1)) + ":";
                     tweedeTextBlock.FontSize = 14;
                     tweedeTextBlock.FontWeight = FontWeights.Bold;
-                    var marginTweedeTextBlock = tweedeTextBlock.Margin;
-                    marginTweedeTextBlock.Left = 15;
-                    tweedeTextBlock.Margin = marginTweedeTextBlock;
+                    tweedeTextBlock.Foreground = (Brush)new BrushConverter().ConvertFromString("#265C00");
+                    tweedeTextBlock.Width = 610;
+                    var paddingTweedeTextBlock = tweedeTextBlock.Padding;
+                    paddingTweedeTextBlock.Left = 15;
+                    tweedeTextBlock.Padding = paddingTweedeTextBlock;
+                    tweedeTextBlock.AddHandler(TextBlock.MouseEnterEvent, new RoutedEventHandler(textBlock_MouseEnter));
+                    tweedeTextBlock.AddHandler(TextBlock.MouseLeaveEvent, new RoutedEventHandler(textBlock_MouseLeave));
+
                     listBoxOmschrijvingKlussenPerMaand.Items.Add(tweedeTextBlock);
 
                     var manager = new GroenteManager();
@@ -726,9 +836,13 @@ namespace WPFTuinkalenderMetTabbladen
                                 {
                                     var textblockPerGroente = new TextBlock();
                                     textblockPerGroente.FontSize = 14;
-                                    var marginTextBlockPerGroente = textblockPerGroente.Margin;
-                                    marginTextBlockPerGroente.Left = 30;
-                                    textblockPerGroente.Margin = marginTextBlockPerGroente;
+                                    textblockPerGroente.Foreground = (Brush)new BrushConverter().ConvertFromString("#265C00");
+                                    var paddingTextBlockPerGroente = textblockPerGroente.Padding;
+                                    paddingTextBlockPerGroente.Left = 30;
+                                    textblockPerGroente.Padding = paddingTextBlockPerGroente;
+                                    textblockPerGroente.Width = 610;
+                                    textblockPerGroente.AddHandler(TextBlock.MouseEnterEvent, new RoutedEventHandler(textBlock_MouseEnter));
+                                    textblockPerGroente.AddHandler(TextBlock.MouseLeaveEvent, new RoutedEventHandler(textBlock_MouseLeave));
 
                                     teSchrijvenTekst = klus.Groente.NederlandseNaam + ":\n";
                                     if (klus.LangeOmschrijving == "aanvullen")      //voorlopig
@@ -779,6 +893,32 @@ namespace WPFTuinkalenderMetTabbladen
             }
         }
 
+        //als mouseover listboxitem = true
+        private void textBlock_MouseEnter(object sender, RoutedEventArgs e)
+        {
+            var textBlock = (TextBlock)sender;
+            if (textBlock.IsMouseOver == true)
+            {
+                textBlock.Foreground = (Brush)new BrushConverter().ConvertFromString("#9E6D34");
+            }
+        }
+
+        //als mouseover listboxitem = false
+        private void textBlock_MouseLeave(object sender, RoutedEventArgs e)
+        {
+            var textBlock = (TextBlock)sender;
+            if (textBlock.IsMouseOver == false)
+            {
+                textBlock.Foreground = (Brush)new BrushConverter().ConvertFromString("#265C00");
+            }
+        }
+
+        private void listBoxOmschrijvingKlussenPerMaand_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //om ervoor te zorgen dat er geen item kan geselecteerd worden
+            listBoxOmschrijvingKlussenPerMaand.SelectedIndex = -1;
+        }
+
         private void listBoxAlleGroenten_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Groente geselecteerdeGroente = (Groente)(listBoxAlleGroenten.SelectedItem);
@@ -808,11 +948,7 @@ namespace WPFTuinkalenderMetTabbladen
                 {
 
                     var beginmaand = "";
-                    var eindmaand = "";
-                    var nieuweTextBlock = new TextBlock();
-                    nieuweTextBlock.TextWrapping = TextWrapping.Wrap;
-                    nieuweTextBlock.Width = 365;
-                    nieuweTextBlock.FontSize = 14;
+                    var eindmaand = ""; var nieuweString = "";
 
                     if (klus.Duur > 1)
                     {
@@ -832,16 +968,50 @@ namespace WPFTuinkalenderMetTabbladen
                             eindmaand = arrMaanden[(klus.Begintijdstip) + (klus.Duur - 2)];
                         }
 
-                        nieuweTextBlock.Text = klus.KorteOmschrijving + ": van " + beginmaand + " tot en met " +
-                            eindmaand + "\n" + klus.LangeOmschrijving + "\n";
+                        //tekst afsplitsen als deze te lang is
+                        var arrWoordenLangeOmschrijving = klus.LangeOmschrijving.Split(' ');
+                        nieuweString = klus.KorteOmschrijving + ": van " + beginmaand + " tot en met " + eindmaand + "\n  ";
+                        var lengteEersteRegel = nieuweString.Length;
+                        var tellerRegel = 1;
+                        foreach (var woord in arrWoordenLangeOmschrijving)
+                        {
+                            if (((nieuweString + woord).Length - lengteEersteRegel) > (tellerRegel * 55))
+                            {
+                                tellerRegel++;
+                                nieuweString += "\n  " + woord;
+                            }
+                            else
+                            {
+                                nieuweString += woord;
+                            }
+                            nieuweString += " ";
+                        }
+                        nieuweString += "\n";
                     }
                     else
                     {
                         beginmaand = arrMaanden[klus.Begintijdstip - 1];
-
-                        nieuweTextBlock.Text = klus.KorteOmschrijving + ": in " + beginmaand + "\n" + klus.LangeOmschrijving + "\n";
+                        //tekst afsplitsen als deze te lang is
+                        var arrWoordenLangeOmschrijving = klus.LangeOmschrijving.Split(' ');
+                        nieuweString = klus.KorteOmschrijving + ": in " + beginmaand + "\n  ";
+                        var lengteEersteRegel = nieuweString.Length;
+                        var tellerRegel = 1;
+                        foreach (var woord in arrWoordenLangeOmschrijving)
+                        {
+                            if (((nieuweString + woord)).Length - lengteEersteRegel > (tellerRegel * 55))
+                            {
+                                tellerRegel++;
+                                nieuweString += "\n  " + woord;
+                            }
+                            else
+                            {
+                                nieuweString += woord;
+                            }
+                            nieuweString += " ";
+                        }
+                        nieuweString += "\n";
                     }
-                    listBoxOmschrijvingKlussenPerGroente.Items.Add(nieuweTextBlock);
+                    listBoxOmschrijvingKlussenPerGroente.Items.Add(nieuweString);
 
                     //lijst vullen met op te vullen canvas en welke kleur deze moet hebben
                     var begin = klus.Begintijdstip;
@@ -1188,6 +1358,12 @@ namespace WPFTuinkalenderMetTabbladen
                 selectieMoestuinen.Add((Moestuin)(comboBoxEenMoestuin.SelectedItem));
                 VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
             }
+        }
+
+        private void listBoxOmschrijvingKlussenPerGroente_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //om ervoor te zorgen dat er geen item in de lijst kan worden geselecteerd
+            listBoxOmschrijvingKlussenPerGroente.SelectedIndex = -1;
         }
 
     }
