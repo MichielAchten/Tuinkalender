@@ -137,14 +137,22 @@ namespace TuinkalenderDA
             return groentenUitMoestuin;
         }
 
-        //public Moestuin GetMoestuinVolgensId(int id)
-        //{
-        //    using (var context = new KalenderContext())
-        //    {
-        //        var moestuin = context.Moestuinen.Find(id);
-        //        return moestuin;
-        //    }
-        //}
+        public Moestuin GetMoestuinVolgensNaam(string naam)
+        {
+            using (var context = new KalenderContext())
+            {
+                Moestuin moestuin = null;
+                foreach (var eenMoestuin in context.Moestuinen)
+                {
+                    if (eenMoestuin.NaamTuin == naam)
+                    {
+                        moestuin = eenMoestuin;
+                        break;
+                    }
+                }
+                return moestuin;
+            }
+        }
 
     }
 }

@@ -50,50 +50,36 @@ namespace WPFTuinkalenderMetTabbladen
             var aantal = MoestuinOb.Count;
             if (MoestuinOb.Count > 0)
             {
-                listBoxMoestuinen.SelectedIndex = 0;
-                listBoxMoestuinen.Focus();
                 //huidige maand wordt geselecteerd in tabKlussenPerMaand en geselecteerde moestuin uit listBoxMoestuinen
-                if (GroentenInMoestuin.Count != 0)
+                tabKlussenPerMaand.Focus();
+                var huidigeMaand = DateTime.Now.Month;
+                var teller = 0;
+                foreach (var button in stackPanelMetToggleButtonsMaanden.Children)
                 {
-                    tabKlussenPerMaand.Focus();
-                    var huidigeMaand = DateTime.Now.Month;
-                    var teller = 0;
-                    foreach (var button in stackPanelMetToggleButtonsMaanden.Children)
+                    var toggleButton = (ToggleButton)button;
+                    if (teller == huidigeMaand)
                     {
-                        var toggleButton = (ToggleButton)button;
-                        if (teller == huidigeMaand)
-                        {
-                            toggleButton.IsChecked = true;
-                            selectieMaanden.Add(teller - 1);
-                            break;
-                        }
-                        teller++;
+                        toggleButton.IsChecked = true;
+                        break;
                     }
-
-                    //comboBoxEenMoestuin visible
-                    var marginComboBoxEenMoestuin = comboBoxEenMoestuin.Margin;
-                    marginComboBoxEenMoestuin.Left = 10;
-                    comboBoxEenMoestuin.Margin = marginComboBoxEenMoestuin;
-                    comboBoxEenMoestuin.Visibility = Visibility.Visible;
-                    comboBoxEenMoestuin.Width = 150;
-
-                    var index = 0;
-                    toggleButtonEenMoestuin.IsChecked = true;
-
-                    foreach (var moestuin in comboBoxEenMoestuin.Items)
-                    {
-                        if (moestuin == ((Moestuin)(listBoxMoestuinen.SelectedItem)))
-                        {
-                            comboBoxEenMoestuin.SelectedIndex = index;
-                            break;
-                        }
-                        index++;
-                    }
+                    teller++;
                 }
-                else
+
+                //listbox moestuinen met checkboxen vullen
+                foreach (var moestuin in MoestuinOb)
                 {
-                    tabMoestuinGegevens.Focus();
+                    var nieuweCheckBox = new CheckBox();
+                    nieuweCheckBox.Width = 154;
+                    nieuweCheckBox.Content = moestuin.NaamTuin;
+                    nieuweCheckBox.AddHandler(CheckBox.ClickEvent, new RoutedEventHandler(CheckBoxMeerdereMoestuinen_Checked));
+                    listBoxMoestuinenCheckBox.Items.Add(nieuweCheckBox);
                 }
+                toggleButtonEenMoestuin.IsChecked = true;
+                MaakDeJuisteListBoxMoestuinenZichtbaar();
+                listBoxMoestuinen.SelectedIndex = -1;
+                listBoxMoestuinen.SelectedIndex = 0;
+
+                BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
             }
             else
             {
@@ -106,6 +92,47 @@ namespace WPFTuinkalenderMetTabbladen
                 listBoxAlleGroenten.Items.Add(groente);
             }
             listBoxAlleGroenten.SelectedIndex = -1;
+        }
+
+        private void MaakDeJuisteListBoxMoestuinenZichtbaar()
+        {
+            if (toggleButtonEenMoestuin.IsChecked == true)
+            {
+                listBoxMoestuinen.Height = 405;
+                listBoxMoestuinenCheckBox.Height = 0;
+                labelMeldingKeuzeMoestuin.Content = "Kies een moestuin uit de lijst.";
+            }
+            else if (toggleButtonMeerdereMoestuinen.IsChecked == true)
+            {
+                listBoxMoestuinenCheckBox.Height = 405;
+                listBoxMoestuinen.Height = 0;
+                labelMeldingKeuzeMoestuin.Content = "Kies moestuinen uit de lijst.";
+                var teller = 1;
+                foreach (var listboxItem in listBoxMoestuinenCheckBox.Items)
+                {
+                    var checkBox = (CheckBox)listboxItem;
+                    if (teller == 1)
+                    {
+                        checkBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        checkBox.IsChecked = false;
+                    }
+                    teller++;
+                }
+            }
+            else
+            {
+                listBoxMoestuinenCheckBox.Height = 405;
+                listBoxMoestuinen.Height = 0;
+                labelMeldingKeuzeMoestuin.Content = "";
+                foreach (var listboxItem in listBoxMoestuinenCheckBox.Items)
+                {
+                    var checkBox = (CheckBox)listboxItem;
+                    checkBox.IsChecked = true;
+                }
+            }
         }
 
         private void GeenMoestuin()
@@ -167,9 +194,6 @@ namespace WPFTuinkalenderMetTabbladen
             var manager = new GroenteManager();
             GroentenInMoestuin = manager.GetAlleGroentenUitMoestuin(geselecteerdeMoestuin.Id);
             groenteViewSource.Source = GroentenInMoestuin;
-
-            VulComboBoxMeerdereMoestuinen();
-            VulComboBoxEenMoestuin();
         }
 
         private void buttonMoestuinToevoegen_Click(object sender, RoutedEventArgs e)
@@ -204,7 +228,7 @@ namespace WPFTuinkalenderMetTabbladen
             }
         }
 
-        private void listboxMoestuinen_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void listBoxMoestuinen_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (listBoxMoestuinen.SelectedItem != null)
             {
@@ -230,6 +254,8 @@ namespace WPFTuinkalenderMetTabbladen
                 VulLijstMetBeschikbareGroenten();
 
                 statusGeselecteerdeMoestuin.Content = moestuin.NaamTuin;
+
+                BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
             }
             else
             {
@@ -392,8 +418,7 @@ namespace WPFTuinkalenderMetTabbladen
             tabKlussenPerMaand.Focus();
             AndereToggleButtonsMaandenUnChecked(toggleButtonJanuari);
             toggleButtonJanuari.IsChecked = true;
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void buttonBalkFebruari_Click(object sender, RoutedEventArgs e)
@@ -401,8 +426,7 @@ namespace WPFTuinkalenderMetTabbladen
             tabKlussenPerMaand.Focus();
             AndereToggleButtonsMaandenUnChecked(toggleButtonFebruari);
             toggleButtonFebruari.IsChecked = true;
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void buttonBalkMaart_Click(object sender, RoutedEventArgs e)
@@ -410,8 +434,7 @@ namespace WPFTuinkalenderMetTabbladen
             tabKlussenPerMaand.Focus();
             AndereToggleButtonsMaandenUnChecked(toggleButtonMaart);
             toggleButtonMaart.IsChecked = true;
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void buttonBalkApril_Click(object sender, RoutedEventArgs e)
@@ -419,8 +442,7 @@ namespace WPFTuinkalenderMetTabbladen
             tabKlussenPerMaand.Focus();
             AndereToggleButtonsMaandenUnChecked(toggleButtonApril);
             toggleButtonApril.IsChecked = true;
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void buttonBalkMei_Click(object sender, RoutedEventArgs e)
@@ -428,8 +450,7 @@ namespace WPFTuinkalenderMetTabbladen
             tabKlussenPerMaand.Focus();
             AndereToggleButtonsMaandenUnChecked(toggleButtonMei);
             toggleButtonMei.IsChecked = true;
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void buttonBalkJuni_Click(object sender, RoutedEventArgs e)
@@ -437,8 +458,7 @@ namespace WPFTuinkalenderMetTabbladen
             tabKlussenPerMaand.Focus();
             AndereToggleButtonsMaandenUnChecked(toggleButtonJuni);
             toggleButtonJuni.IsChecked = true;
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void buttonBalkJuli_Click(object sender, RoutedEventArgs e)
@@ -446,8 +466,7 @@ namespace WPFTuinkalenderMetTabbladen
             tabKlussenPerMaand.Focus();
             AndereToggleButtonsMaandenUnChecked(toggleButtonJuli);
             toggleButtonJuli.IsChecked = true;
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void buttonBalkAugustus_Click(object sender, RoutedEventArgs e)
@@ -455,8 +474,7 @@ namespace WPFTuinkalenderMetTabbladen
             tabKlussenPerMaand.Focus();
             AndereToggleButtonsMaandenUnChecked(toggleButtonAugustus);
             toggleButtonAugustus.IsChecked = true;
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void buttonBalkSeptember_Click(object sender, RoutedEventArgs e)
@@ -464,8 +482,7 @@ namespace WPFTuinkalenderMetTabbladen
             tabKlussenPerMaand.Focus();
             AndereToggleButtonsMaandenUnChecked(toggleButtonSeptember);
             toggleButtonSeptember.IsChecked = true;
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void buttonBalkOktober_Click(object sender, RoutedEventArgs e)
@@ -473,8 +490,7 @@ namespace WPFTuinkalenderMetTabbladen
             tabKlussenPerMaand.Focus();
             AndereToggleButtonsMaandenUnChecked(toggleButtonOktober);
             toggleButtonOktober.IsChecked = true;
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void buttonBalkNovember_Click(object sender, RoutedEventArgs e)
@@ -482,8 +498,7 @@ namespace WPFTuinkalenderMetTabbladen
             tabKlussenPerMaand.Focus();
             AndereToggleButtonsMaandenUnChecked(toggleButtonNovember);
             toggleButtonNovember.IsChecked = true;
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void buttonBalkDecember_Click(object sender, RoutedEventArgs e)
@@ -491,8 +506,7 @@ namespace WPFTuinkalenderMetTabbladen
             tabKlussenPerMaand.Focus();
             AndereToggleButtonsMaandenUnChecked(toggleButtonDecember);
             toggleButtonDecember.IsChecked = true;
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         //andere togglebutton in balk unchecken
@@ -504,7 +518,6 @@ namespace WPFTuinkalenderMetTabbladen
                 if ((toggleButton.IsChecked == true) && (toggleButton != button))
                 {
                     toggleButton.IsChecked = false;
-                    listBoxOmschrijvingKlussenPerMaand.Items.Clear();
                 }
             }
         }
@@ -513,151 +526,91 @@ namespace WPFTuinkalenderMetTabbladen
         {
             var button = (ToggleButton)sender;
             AndereToggleButtonsMaandenUnChecked(button);
-            listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonJanuari_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             toggleButtonAlleMaanden.IsChecked = false;
-            listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonFebruari_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             toggleButtonAlleMaanden.IsChecked = false;
-            listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonMaart_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             toggleButtonAlleMaanden.IsChecked = false;
-            listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonApril_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             toggleButtonAlleMaanden.IsChecked = false;
-            listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonMei_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             toggleButtonAlleMaanden.IsChecked = false;
-            listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonJuni_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             toggleButtonAlleMaanden.IsChecked = false;
-            listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonJuli_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             toggleButtonAlleMaanden.IsChecked = false;
-            listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonAugustus_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             toggleButtonAlleMaanden.IsChecked = false;
-            listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonSeptember_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             toggleButtonAlleMaanden.IsChecked = false;
-            listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonOktober_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             toggleButtonAlleMaanden.IsChecked = false;
-            listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonNovember_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             toggleButtonAlleMaanden.IsChecked = false;
-            listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonDecember_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             toggleButtonAlleMaanden.IsChecked = false;
-            listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-            BepaalSelectieMaanden();
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
-        }
-
-        private void BepaalSelectieMaanden()
-        {
-            selectieMaanden.Clear();
-            if (toggleButtonAlleMaanden.IsChecked == false)
-            {
-                foreach (var tb in stackPanelMetToggleButtonsMaanden.Children)
-                {
-                    var toggleButton = (ToggleButton)tb;
-                    var naamMaand = (toggleButton.Name.ToString()).Substring(12);
-                    var nrMaand = 0;
-
-                    if (toggleButton.IsChecked == true)
-                    {
-                        for (int i = 0; i < 12; i++)
-                        {
-                            if (arrMaanden[i] == naamMaand.ToLower())
-                            {
-                                nrMaand = i;
-                                break;
-                            }
-                        }
-                        selectieMaanden.Add(nrMaand);
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < 12; i++)
-                {
-                    selectieMaanden.Add(i);
-                }
-            }
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         /*listbox omschrijving klussen per maand vullen met tekst ipv textblocken*/
@@ -763,6 +716,7 @@ namespace WPFTuinkalenderMetTabbladen
         private void VulLijstMetKlussenPerMaand(List<int> maandNummers, List<Moestuin> lijstMoestuinen)
         {
             //proberen deze method sneller te maken
+            var tekstGeselecteerdeMoestuin = "";
 
             listBoxOmschrijvingKlussenPerMaand.Items.Clear();
             foreach (var moestuin in lijstMoestuinen)
@@ -777,30 +731,30 @@ namespace WPFTuinkalenderMetTabbladen
                 eersteTextBlock.AddHandler(TextBlock.MouseLeaveEvent, new RoutedEventHandler(textBlock_MouseLeave));
 
                 listBoxOmschrijvingKlussenPerMaand.Items.Add(eersteTextBlock);
-                foreach (var maandNr in maandNummers)
+
+                var manager = new GroenteManager();
+                var groentenInHuidigeTuin = manager.GetAlleGroentenUitMoestuin(moestuin.Id);
+                if (groentenInHuidigeTuin.Count != 0)
                 {
-                    var tweedeTextBlock = new TextBlock();
-                    tweedeTextBlock.Text = ((arrMaanden[maandNr].ToUpper())[0]) + (arrMaanden[maandNr].Substring(1)) + ":";
-                    tweedeTextBlock.FontSize = 14;
-                    tweedeTextBlock.FontWeight = FontWeights.Bold;
-                    tweedeTextBlock.Foreground = (Brush)new BrushConverter().ConvertFromString("#265C00");
-                    tweedeTextBlock.Width = 610;
-                    var paddingTweedeTextBlock = tweedeTextBlock.Padding;
-                    paddingTweedeTextBlock.Left = 15;
-                    tweedeTextBlock.Padding = paddingTweedeTextBlock;
-                    tweedeTextBlock.AddHandler(TextBlock.MouseEnterEvent, new RoutedEventHandler(textBlock_MouseEnter));
-                    tweedeTextBlock.AddHandler(TextBlock.MouseLeaveEvent, new RoutedEventHandler(textBlock_MouseLeave));
-
-                    listBoxOmschrijvingKlussenPerMaand.Items.Add(tweedeTextBlock);
-
-                    var manager = new GroenteManager();
-                    var lijstGroenten = manager.GetAlleGroentenUitMoestuin(moestuin.Id);
-
-                    if (lijstGroenten.Count != 0)
+                    foreach (var maandNr in maandNummers)
                     {
+                        var tweedeTextBlock = new TextBlock();
+                        tweedeTextBlock.Text = ((arrMaanden[maandNr].ToUpper())[0]) + (arrMaanden[maandNr].Substring(1)) + ":";
+                        tweedeTextBlock.FontSize = 14;
+                        tweedeTextBlock.FontWeight = FontWeights.Bold;
+                        tweedeTextBlock.Foreground = (Brush)new BrushConverter().ConvertFromString("#265C00");
+                        tweedeTextBlock.Width = 610;
+                        var paddingTweedeTextBlock = tweedeTextBlock.Padding;
+                        paddingTweedeTextBlock.Left = 15;
+                        tweedeTextBlock.Padding = paddingTweedeTextBlock;
+                        tweedeTextBlock.AddHandler(TextBlock.MouseEnterEvent, new RoutedEventHandler(textBlock_MouseEnter));
+                        tweedeTextBlock.AddHandler(TextBlock.MouseLeaveEvent, new RoutedEventHandler(textBlock_MouseLeave));
+
+                        listBoxOmschrijvingKlussenPerMaand.Items.Add(tweedeTextBlock);
+
                         var klussenInDeMaand = new List<Klus>();
                         var teSchrijvenTekst = "";
-                        foreach (var groente in lijstGroenten)
+                        foreach (var groente in groentenInHuidigeTuin)
                         {
                             var klussenVanGroente = manager.GetKlussenVanEenGroente(groente.GroenteId);
                             foreach (var klus in klussenVanGroente)
@@ -883,14 +837,25 @@ namespace WPFTuinkalenderMetTabbladen
                             listBoxOmschrijvingKlussenPerMaand.Items.Add(textblockGeenGroente);
                         }
                     }
-                    else
-                    {
-                        var textBlockGeenGroenten = new TextBlock();
-                        textBlockGeenGroenten.Text = "Er zijn nog geen groenten gekozen voor deze moestuin.";
-                        listBoxOmschrijvingKlussenPerMaand.Items.Add(textBlockGeenGroenten);
-                    }
                 }
+                else
+                {
+                    var textBlockGeenGroenten = new TextBlock();
+                    textBlockGeenGroenten.Text = "Er zijn nog geen groenten gekozen voor deze moestuin.";
+                    listBoxOmschrijvingKlussenPerMaand.Items.Add(textBlockGeenGroenten);
+                }
+
+                tekstGeselecteerdeMoestuin += moestuin.NaamTuin + "/";
             }
+            if (tekstGeselecteerdeMoestuin.Length > 0)
+            {
+                tekstGeselecteerdeMoestuin = tekstGeselecteerdeMoestuin.Substring(0, tekstGeselecteerdeMoestuin.Length - 1);
+                statusGeselecteerdeMoestuin.Content = tekstGeselecteerdeMoestuin;
+            }
+
+            //listBoxOmschrijvingKlussenPerMaand.SelectedIndex = 0;
+            //listBoxOmschrijvingKlussenPerMaand.ScrollIntoView(listBoxOmschrijvingKlussenPerMaand.SelectedItem);
+
         }
 
         //als mouseover listboxitem = true
@@ -913,11 +878,13 @@ namespace WPFTuinkalenderMetTabbladen
             }
         }
 
-        private void listBoxOmschrijvingKlussenPerMaand_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        //private void listBoxOmschrijvingKlussenPerMaand_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
             //om ervoor te zorgen dat er geen item kan geselecteerd worden
-            listBoxOmschrijvingKlussenPerMaand.SelectedIndex = -1;
-        }
+   //weg    //listBoxOmschrijvingKlussenPerMaand.SelectedIndex = 0;
+            //listBoxOmschrijvingKlussenPerMaand.ScrollIntoView(listBoxOmschrijvingKlussenPerMaand.SelectedItem);
+            //listBoxOmschrijvingKlussenPerMaand.SelectedIndex = -1;
+        //}
 
         private void listBoxAlleGroenten_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1171,73 +1138,28 @@ namespace WPFTuinkalenderMetTabbladen
         {
             var button = (ToggleButton)sender;
             AndereToggleButtonsMoestuinenUnChecked(button);
+            MaakDeJuisteListBoxMoestuinenZichtbaar();
 
-            //comboBoxEenMoestuin hidden
-            var marginComboBoxEenMoestuin = comboBoxEenMoestuin.Margin;
-            marginComboBoxEenMoestuin.Left = 0;
-            comboBoxEenMoestuin.Margin = marginComboBoxEenMoestuin;
-            comboBoxEenMoestuin.Visibility = Visibility.Hidden;
-            comboBoxEenMoestuin.Width = 0;
-
-            //comboBoxMeerdereMoestuinen hidden
-            var marginComboBoxMeerdereMoestuinen = comboBoxMeerdereMoestuinen.Margin;
-            marginComboBoxMeerdereMoestuinen.Left = 0;
-            comboBoxMeerdereMoestuinen.Margin = marginComboBoxMeerdereMoestuinen;
-            comboBoxMeerdereMoestuinen.Visibility = Visibility.Hidden;
-            comboBoxMeerdereMoestuinen.Width = 0;
-
-            selectieMoestuinen.Clear();
-            foreach (var moestuin in MoestuinOb)
-            {
-                BepaalSelectieMaanden();
-                var manager = new GroenteManager();
-                var groenten = manager.GetAlleGroentenUitMoestuin(moestuin.Id);
-                if (groenten.Count != 0)
-                {
-                    selectieMoestuinen.Add(moestuin);
-                }
-            }
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonMeerdereMoestuinen_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             AndereToggleButtonsMoestuinenUnChecked(button);
+            MaakDeJuisteListBoxMoestuinenZichtbaar();
 
-            //comboBoxEenMoestuin hidden
-            var marginComboBoxEenMoestuin = comboBoxEenMoestuin.Margin;
-            marginComboBoxEenMoestuin.Left = 0;
-            comboBoxEenMoestuin.Margin = marginComboBoxEenMoestuin;
-            comboBoxEenMoestuin.Visibility = Visibility.Hidden;
-            comboBoxEenMoestuin.Width = 0;
-
-            //comboBoxMeerdereMoestuinen visible
-            var marginComboBoxMeerdereMoestuinen = comboBoxMeerdereMoestuinen.Margin;
-            marginComboBoxMeerdereMoestuinen.Left = 10;
-            comboBoxMeerdereMoestuinen.Margin = marginComboBoxMeerdereMoestuinen;
-            comboBoxMeerdereMoestuinen.Visibility = Visibility.Visible;
-            comboBoxMeerdereMoestuinen.Width = 150;
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void toggleButtonEenMoestuin_Click(object sender, RoutedEventArgs e)
         {
             var button = (ToggleButton)sender;
             AndereToggleButtonsMoestuinenUnChecked(button);
+            MaakDeJuisteListBoxMoestuinenZichtbaar();
+            listBoxMoestuinen.SelectedIndex = 0;
 
-            //comboBoxMeerdereMoestuinen hidden
-            var marginComboBoxMeerdereMoestuinen = comboBoxMeerdereMoestuinen.Margin;
-            marginComboBoxMeerdereMoestuinen.Left = 0;
-            comboBoxMeerdereMoestuinen.Margin = marginComboBoxMeerdereMoestuinen;
-            comboBoxMeerdereMoestuinen.Visibility = Visibility.Hidden;
-            comboBoxMeerdereMoestuinen.Width = 0;
-
-            //comboBoxEenMoestuin visible
-            var marginComboBoxEenMoestuin = comboBoxEenMoestuin.Margin;
-            marginComboBoxEenMoestuin.Left = 10;
-            comboBoxEenMoestuin.Margin = marginComboBoxEenMoestuin;
-            comboBoxEenMoestuin.Visibility = Visibility.Visible;
-            comboBoxEenMoestuin.Width = 150;
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
 
         private void AndereToggleButtonsMoestuinenUnChecked(ToggleButton button)
@@ -1252,119 +1174,99 @@ namespace WPFTuinkalenderMetTabbladen
                 if ((toggleButton.IsChecked == true) && (toggleButton != button))
                 {
                     toggleButton.IsChecked = false;
-                    listBoxOmschrijvingKlussenPerMaand.Items.Clear();
-                    selectieMoestuinen.Clear();
-
-                    for (int i = 1; i < comboBoxMeerdereMoestuinen.Items.Count; i++)
-                    {
-                        var checkBox = (CheckBox)(comboBoxMeerdereMoestuinen.Items.GetItemAt(i));
-                        checkBox.IsChecked = false;
-                    }
-                    comboBoxEenMoestuin.SelectedIndex = -1;
-                    comboBoxEenMoestuin.SelectedIndex = 0;
                 }
             }
         }
 
-        private void VulComboBoxMeerdereMoestuinen()
-        {
-            comboBoxMeerdereMoestuinen.Items.Clear();
-            foreach (var moestuin in MoestuinOb)
-            {
-                var checkBox = new CheckBox();
-                var manager = new GroenteManager();
-                var groentenInMoestuin = manager.GetAlleGroentenUitMoestuin(moestuin.Id);
-                if (groentenInMoestuin.Count != 0)
-                {
-                    checkBox.Content = moestuin.NaamTuin;
-                    checkBox.AddHandler(CheckBox.ClickEvent, new RoutedEventHandler(CheckBox_Click));
-                    comboBoxMeerdereMoestuinen.Items.Add(checkBox);
-                }
-            }
-        }
 
-        private void CheckBox_Click(object sender, RoutedEventArgs e)
+        private void tabcontrolGroententuin_selectionChanged(object sender, EventArgs e)
         {
-            var checkBox = (CheckBox)sender;
-            var naamMoestuin = checkBox.Content.ToString();
-            Moestuin geselecteerdeMoestuin = null;
-            var voorlopigeLijst = new List<Moestuin>();
-            //moestuinen die eerder geselecteerd waren in voorlopige lijst bijhouden
-            foreach (var moestuin in selectieMoestuinen)
+            if (tabKlussenPerMaand.IsSelected == false)
             {
-                voorlopigeLijst.Add(moestuin);
-            }
-            //aangevinkte moestuin bepalen
-            foreach (var moestuin in MoestuinOb)
-            {
-                if (naamMoestuin == moestuin.NaamTuin)
-                {
-                    geselecteerdeMoestuin = moestuin;
-                    break;
-                }
-            }
-            //aan lijst toevoegen of uit lijst verwijderen
-            if (checkBox.IsChecked == true)
-            {
-                voorlopigeLijst.Add(geselecteerdeMoestuin);
+                toggleButtonEenMoestuin.IsChecked = true;
+                AndereToggleButtonsMoestuinenUnChecked(toggleButtonEenMoestuin);
+                MaakDeJuisteListBoxMoestuinenZichtbaar();
             }
             else
             {
-                foreach (var moestuin in voorlopigeLijst)
-                {
-                    if (naamMoestuin == moestuin.NaamTuin)
-                    {
-                        voorlopigeLijst.Remove(moestuin);
-                        break;
-                    }
-                }
+                toggleButtonJanuari.IsChecked = true;
+                AndereToggleButtonsMaandenUnChecked(toggleButtonJanuari);
+                BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
             }
-            //lijst met geselecteerde moestuinen opnieuw opvullen en in juiste volgorde
-            selectieMoestuinen.Clear();
-            foreach (var moestuin in MoestuinOb)
-            {
-                foreach (var eenGeselecteerdeMoestuin in voorlopigeLijst)
-                {
-                    if (eenGeselecteerdeMoestuin.NaamTuin == moestuin.NaamTuin)
-                    {
-                        selectieMoestuinen.Add(eenGeselecteerdeMoestuin);
-                        break;
-                    }
-                }
-            }
-            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
         }
 
-        private void VulComboBoxEenMoestuin()
+        private void CheckBoxMeerdereMoestuinen_Checked(object sender, RoutedEventArgs e)
         {
-            comboBoxEenMoestuin.Items.Clear();
-            foreach (var moestuin in MoestuinOb)
+            var checkBox = (CheckBox)sender;
+            var naamMoestuin = checkBox.Content.ToString();
+            
+            BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
+        }
+
+
+
+        private void BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen()
+        {
+            //selectieMaanden bepalen
+            selectieMaanden.Clear();
+            if (toggleButtonAlleMaanden.IsChecked == false)
+            {
+                foreach (var tb in stackPanelMetToggleButtonsMaanden.Children)
+                {
+                    var toggleButton = (ToggleButton)tb;
+                    var naamMaand = (toggleButton.Name.ToString()).Substring(12);
+                    var nrMaand = 0;
+
+                    if (toggleButton.IsChecked == true)
+                    {
+                        for (int i = 0; i < 12; i++)
+                        {
+                            if (arrMaanden[i] == naamMaand.ToLower())
+                            {
+                                nrMaand = i;
+                                break;
+                            }
+                        }
+                        selectieMaanden.Add(nrMaand);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 12; i++)
+                {
+                    selectieMaanden.Add(i);
+                }
+            }
+
+            //selectieMoestuinen bepalen
+            selectieMoestuinen.Clear();
+            if (toggleButtonAlleMoestuinen.IsChecked == true)
+            {
+                foreach (var moestuin in MoestuinOb)
+                {
+                    selectieMoestuinen.Add(moestuin);
+                }
+            }
+            else if (toggleButtonMeerdereMoestuinen.IsChecked == true)
             {
                 var manager = new GroenteManager();
-                var groentenInMoestuin = manager.GetAlleGroentenUitMoestuin(moestuin.Id);
-                if (groentenInMoestuin.Count != 0)
+                foreach (var listBoxItem in listBoxMoestuinenCheckBox.Items)
                 {
-                    comboBoxEenMoestuin.Items.Add(moestuin);
+                    var checkBox = (CheckBox)listBoxItem;
+                    if (checkBox.IsChecked == true)
+                    {
+                        selectieMoestuinen.Add(manager.GetMoestuinVolgensNaam(checkBox.Content.ToString()));
+                    }
                 }
             }
-        }
-
-        private void comboBoxEenMoestuin_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (toggleButtonEenMoestuin.IsChecked == true && comboBoxEenMoestuin.SelectedIndex != -1)
+            else if (toggleButtonEenMoestuin.IsChecked == true)
             {
-                selectieMoestuinen.Clear();
-                BepaalSelectieMaanden();
-                selectieMoestuinen.Add((Moestuin)(comboBoxEenMoestuin.SelectedItem));
-                VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
+                selectieMoestuinen.Add((Moestuin)listBoxMoestuinen.SelectedItem);
             }
-        }
 
-        private void listBoxOmschrijvingKlussenPerGroente_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //om ervoor te zorgen dat er geen item in de lijst kan worden geselecteerd
-            listBoxOmschrijvingKlussenPerGroente.SelectedIndex = -1;
+            //lijst vullen
+            VulLijstMetKlussenPerMaand(selectieMaanden, selectieMoestuinen);
         }
-
     }
 }

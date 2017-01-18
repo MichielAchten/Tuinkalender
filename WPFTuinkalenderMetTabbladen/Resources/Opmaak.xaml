@@ -353,6 +353,11 @@
         <Setter Property="Foreground" Value="#E6F7D1"></Setter>
     </Style>
     
+    <!--opmaak checkbox-->
+    <Style TargetType="{x:Type CheckBox}">
+        
+    </Style>
+    
     <!--opmaak comboboxen-->
     <!--<Style TargetType="{x:Type ComboBox}">
         <Setter Property="Padding" Value="6 2 25 2"></Setter>

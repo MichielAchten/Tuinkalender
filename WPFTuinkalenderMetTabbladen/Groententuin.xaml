@@ -26,12 +26,14 @@
                         <Button Name="buttonMoestuinToevoegen" Margin="25 2 25 15" Height="24" Click="buttonMoestuinToevoegen_Click" >Nieuwe moestuin</Button>
                         <Button Name="buttonMoestuinAanpassen" Margin="25 9 25 15" Height="24" Click="buttonMoestuinAanpassen_Click">Pas moestuin aan</Button>
                         <Button Name="buttonMoestuinVerwijderen" Margin="25 9 25 15" Height="24" Click="buttonMoestuinVerwijderen_Click">Verwijder moestuin</Button>
-                        <ListBox Name="listBoxMoestuinen" Margin="25 7 25 10" Height="405" ItemsSource="{Binding}" SelectedValuePath="Moestuin"
-                            DisplayMemberPath="NaamTuin" SelectionChanged="listboxMoestuinen_SelectionChanged"
+                        <ListBox Name="listBoxMoestuinen" Margin="25 7 25 0" Height="0" ItemsSource="{Binding}" SelectedValuePath="Moestuin"
+                            DisplayMemberPath="NaamTuin" SelectionChanged="listBoxMoestuinen_SelectionChanged"
+                                 ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}" AlternationCount="2"></ListBox>
+                        <ListBox Name="listBoxMoestuinenCheckBox" Margin="25 0 25 10" Height="0"
                                  ItemContainerStyle="{StaticResource AlternatingListBoxItemStyle}" AlternationCount="2"></ListBox>
                     </StackPanel>
                     <StackPanel>
-                        <TabControl Name="tabcontrolGroententuin">
+                        <TabControl Name="tabcontrolGroententuin" SelectionChanged="tabcontrolGroententuin_selectionChanged">
                             <TabItem Name="tabKlussenPerMaand" Width="150" Height="26">
                                 <TabItem.Header>Klussen per maand</TabItem.Header>
                                 <StackPanel Orientation="Vertical" Height="521" Width="650">
@@ -72,12 +74,12 @@
                                             <ToggleButton Name="toggleButtonEenMoestuin" BorderThickness="1 1 1 1" Width="105" Margin="0 0 10 0"
                                                       Click="toggleButtonEenMoestuin_Click">Een moestuin</ToggleButton>
                                         </StackPanel>
-                                        <!--<ComboBox Name="comboBoxMaandenPerMoestuinenOfMoestuinenPerMaand" Margin="10 0 0 0"></ComboBox>-->
-                                        <ComboBox Name="comboBoxMeerdereMoestuinen" Width="0" Visibility="Hidden" Margin="10 0 0 0"></ComboBox>
+                                        <Label Name="labelMeldingKeuzeMoestuin"></Label>
+                                        <!--<ComboBox Name="comboBoxMeerdereMoestuinen" Width="0" Visibility="Hidden" Margin="10 0 0 0"></ComboBox>
                                         <ComboBox Name="comboBoxEenMoestuin" Width="0" Visibility="Hidden" Margin="10 0 0 0" VerticalContentAlignment="Center"
-                                                  DisplayMemberPath="NaamTuin" SelectionChanged="comboBoxEenMoestuin_SelectionChanged"></ComboBox>
+                                                  DisplayMemberPath="NaamTuin" SelectionChanged="comboBoxEenMoestuin_SelectionChanged"></ComboBox>-->
                                     </StackPanel>
-                                    <ListBox Name="listBoxOmschrijvingKlussenPerMaand" Margin="15 15 15 10" Height="400" AlternationCount="2" SelectionChanged="listBoxOmschrijvingKlussenPerMaand_SelectionChanged">
+                                    <ListBox Name="listBoxOmschrijvingKlussenPerMaand" Margin="15 15 15 10" Height="400" AlternationCount="2">
                                         <ListBox.ItemContainerStyle>
                                             <Style TargetType="{x:Type ListBoxItem}">
                                                 <Setter Property="Background" Value="White"></Setter>
@@ -97,10 +99,10 @@
                                                                     <Setter Property="Background" Value="#FDFFFF"></Setter>
                                                                     <Setter Property="Foreground" Value="#265C00"></Setter>
                                                                 </Trigger>
-                                                                <Trigger Property="IsSelected" Value="True">
+                                                                <!--<Trigger Property="IsSelected" Value="True">
                                                                     <Setter Property="Background" Value="#68A225"></Setter>
                                                                     <Setter Property="Foreground" Value="#E6F7D1"></Setter>
-                                                                </Trigger>
+                                                                </Trigger>-->
                                                                 <Trigger Property="IsMouseOver" Value="True">
                                                                     <Setter Property="Background" Value="#E6C9A7"></Setter>
                                                                     <Setter Property="Foreground" Value="#9E6D34"></Setter>
@@ -280,7 +282,7 @@
                                                 <StackPanel Margin="10 0 10 0" Height="280">
                                                     <!--<StackPanel Name="stackPanelBovenOmschijvingKlussen" Height="10"></StackPanel>
                                                     <TextBlock Name="textBoxOmschrijvingKlus" FontSize="12" TextWrapping="Wrap" FontWeight="Normal"></TextBlock>-->
-                                                    <ListBox Name="listBoxOmschrijvingKlussenPerGroente" Height="270" AlternationCount="2" SelectionChanged="listBoxOmschrijvingKlussenPerGroente_SelectionChanged">
+                                                    <ListBox Name="listBoxOmschrijvingKlussenPerGroente" Height="270" AlternationCount="2">
                                                         <ListBox.ItemContainerStyle>
                                                             <Style TargetType="{x:Type ListBoxItem}">
                                                                 <Setter Property="Background" Value="White"></Setter>
