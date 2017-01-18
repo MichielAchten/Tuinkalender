@@ -76,8 +76,6 @@ namespace WPFTuinkalenderMetTabbladen
                 }
                 toggleButtonEenMoestuin.IsChecked = true;
                 MaakDeJuisteListBoxMoestuinenZichtbaar();
-                listBoxMoestuinen.SelectedIndex = -1;
-                listBoxMoestuinen.SelectedIndex = 0;
 
                 BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
             }
@@ -878,14 +876,6 @@ namespace WPFTuinkalenderMetTabbladen
             }
         }
 
-        //private void listBoxOmschrijvingKlussenPerMaand_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-            //om ervoor te zorgen dat er geen item kan geselecteerd worden
-   //weg    //listBoxOmschrijvingKlussenPerMaand.SelectedIndex = 0;
-            //listBoxOmschrijvingKlussenPerMaand.ScrollIntoView(listBoxOmschrijvingKlussenPerMaand.SelectedItem);
-            //listBoxOmschrijvingKlussenPerMaand.SelectedIndex = -1;
-        //}
-
         private void listBoxAlleGroenten_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Groente geselecteerdeGroente = (Groente)(listBoxAlleGroenten.SelectedItem);
@@ -1157,7 +1147,6 @@ namespace WPFTuinkalenderMetTabbladen
             var button = (ToggleButton)sender;
             AndereToggleButtonsMoestuinenUnChecked(button);
             MaakDeJuisteListBoxMoestuinenZichtbaar();
-            listBoxMoestuinen.SelectedIndex = 0;
 
             BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
         }
@@ -1189,9 +1178,10 @@ namespace WPFTuinkalenderMetTabbladen
             }
             else
             {
-                toggleButtonJanuari.IsChecked = true;
-                AndereToggleButtonsMaandenUnChecked(toggleButtonJanuari);
-                BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
+  //aanpassen
+                //toggleButtonJanuari.IsChecked = true;
+                //AndereToggleButtonsMaandenUnChecked(toggleButtonJanuari);
+                //BepaalSelectieMaandenEnMoestuinenEnVulLijstKlussen();
             }
         }
 
